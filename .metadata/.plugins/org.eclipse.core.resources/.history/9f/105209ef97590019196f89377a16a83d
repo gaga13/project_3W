@@ -1,0 +1,7 @@
+create table location(
+email			varchar2(100),	
+startlocaion	varchar2(1000),	
+endlocation		varchar2(1000),	
+route			varchar2(1000),	
+locationdate	date	
+);

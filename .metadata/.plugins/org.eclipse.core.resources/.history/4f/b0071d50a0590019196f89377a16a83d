@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 하루 일정  SQL -->
+<mapper namespace="global.sesoc.www.dao.ScheduleMapper">
+<select id="getScheduleList" parameterType="hashmap" resultType="ScheduleVO">
+select 
+		snum, to_char(startdate, 'PM hh12:mi'), to_char(endtdate, 'PM hh12:mi'),
+from 	
+		schedule 
+where 	
+		email like #{email} and to_char(startdate, 'yy/mm/dd') = '19/04/05'
+
+</select>
+</mapper>
