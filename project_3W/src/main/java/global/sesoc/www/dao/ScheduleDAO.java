@@ -30,4 +30,17 @@ public class ScheduleDAO {
 		return sList;
 	}
 
+	public int setSchedule(ScheduleVO vo){
+		int result = 0;
+		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
+		try{
+			result =mapper.setSchedule(vo);
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result; 
+	}
+	
 }

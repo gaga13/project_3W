@@ -14,10 +14,13 @@
 
 <script>
 $(document).ready(function(){
+	
 	pickTime();
 	
 	//시작시간에 따른 종료시간 제한
-	$('#insertModal #starttime').on('changeTime',stch);
+	$('#insertModal #starttime').on('changeTime',sted);
+	$('#insertModal #btin').on('click', insert);
+	
 });
 
 //시간 선택 기능
@@ -29,13 +32,14 @@ function pickTime(){
 	});
 	$('#insertModal #starttime', parent.document).timepicker({
 		  'disableTextInput': true,
+		  'maxTime': '오후 10:30',
 	  	  'timeFormat': 'a h:i'  
 	}); 
 }
 
 
 //시간 제한
-function stch(){
+function sted(){
 	var stt = $('#insertModal #starttime');
 	var edt = $('#insertModal #endtime');
 	
@@ -53,8 +57,6 @@ function stch(){
 		}
 	}
 	var newTime = sta[0]+hours+":"+getTime[1];
-
-	console.log(newTime);
 	
 	$('#insertModal #endtime').timepicker('remove');
 	$('#insertModal #endtime').val(newTime);
@@ -65,6 +67,22 @@ function stch(){
 		  'timeFormat': 'a h:i'
 		});
 }
+
+//일정 등록용
+function insert(){
+	
+	$.ajax({
+		url:'setSchedule',
+		type:'post',
+		data:$('#insertModal #insert').serialize(),
+		success:function(){
+			alert('일정 입력 성공!');
+		},
+		error:function(){
+			alert('일정 입력 실패!');
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -73,7 +91,7 @@ function stch(){
 </h1>
 <!-- iframe박스 -->
 <iframe width="560" height="315" src="" name = "box1"></iframe><br>
-<iframe width="560" height="315" src="getMcalendar" name = "box2"></iframe>
+<iframe width="560" height="315" src="getScheduleList" name = "box2"></iframe>
 
 
 	<!-- 모달창을 정의해놓은 공간  -->
@@ -91,7 +109,7 @@ function stch(){
         <form id="insert">
         <input type="hidden" name="email" value="${sessionScope.loginId}">
         <label for="schedulecontent" class="col-form-label">제목</label>
-        <input type="text" class="form-control" name = "schedulecontent" id="schedulecontent"><br>
+        <input type="text" class="form-control" name = "scontent" id="schedulecontent"><br>
         
             <label for="startdate" class="col-form-label">시작일</label><br>
             <input type="text" class="form-control" name = "startdate" id="startdate" style="width:100px; float:left;">
@@ -103,7 +121,7 @@ function stch(){
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnin">일정 등록</button>
+        <button type="button" class="btn btn-primary" id="btin">일정 등록</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>
     </div>

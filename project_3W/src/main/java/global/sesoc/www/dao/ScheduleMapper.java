@@ -10,4 +10,6 @@ public interface ScheduleMapper {
 	//하루 일정 목록 가져오기
 	public ArrayList<ScheduleVO> getScheduleList(HashMap<String, String> hmap);
 
+	//일정 입력
+	public int setSchedule(ScheduleVO vo);
 }

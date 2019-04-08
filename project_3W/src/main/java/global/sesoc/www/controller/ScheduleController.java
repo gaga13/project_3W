@@ -57,10 +57,20 @@ public class ScheduleController {
 		return sList;
 	}
 	
+	//캘린더 폼
 	@RequestMapping(value = "getMcalendar", method = RequestMethod.GET)
 	public String getMcalendar(){
 		
 		return "Mcalendar";
+	}
+	
+	//일정 입력
+	@ResponseBody
+	@RequestMapping(value="setSchedule", method=RequestMethod.POST)
+	public void insertSchedule(ScheduleVO vo){
+		logger.debug("입력용:{}", vo);
+		int result = dao.setSchedule(vo);
+		
 	}
 	
 }

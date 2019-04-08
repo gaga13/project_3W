@@ -42,7 +42,7 @@ $(document).ready(function(){
 	});
 	
 	//홈에서 모달 호출 버튼
-	$('#insertbt').on('click', insert_md);
+	$('#insertmd').on('click', insert_md);
 });  
 
 //모달 호출 메소드
@@ -71,7 +71,7 @@ function insert_md(){
 		</tr>
 	</c:forEach>
 	<tr>
-	<td colspan="4" align="center"><button id="insertbt">일정 등록</button></td>
+	<td colspan="4" align="center"><button id="insertmd">일정 등록</button></td>
 	</tr>
 </table>
 
