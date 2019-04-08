@@ -57,4 +57,10 @@ public class ScheduleController {
 		return sList;
 	}
 	
+	@RequestMapping(value = "getMcalendar", method = RequestMethod.GET)
+	public String getMcalendar(){
+		
+		return "Mcalendar";
+	}
+	
 }
