@@ -51,7 +51,7 @@ function calendar() {
 							ed= edd.getFullYear()+"-"+(edd.getMonth()+1)+"-"+edd.getDate();
  
 							$.ajax({
-										url : 'output',
+										url : 'getMonth',
 										type : 'get',
 										data:{st:st, ed:ed},
 										dataType : 'json',

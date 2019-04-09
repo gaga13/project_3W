@@ -74,8 +74,34 @@ public class ScheduleController {
 	@RequestMapping(value="setSchedule", method=RequestMethod.POST)
 	public void insertSchedule(ScheduleVO vo){
 		logger.debug("입력용:{}", vo);
+		
+		String[] st = vo.getStartdate().split(",");
+		String[] ed = vo.getEnddate().split(",");
+		vo.setStartdate(st[0]+" "+st[1]);
+		vo.setEnddate(ed[0]+" "+ed[1]);
+		
 		int result = dao.setSchedule(vo);
 		
+		if(result == 0){
+			logger.debug("일정 입력 실패 원인을 찾으세요.");
+		}else{
+			logger.debug("일정 입력은 성공입니다.");
+		}
+	}
+	
+	//한달 일정을 캘린더에 출력
+	@ResponseBody
+	@RequestMapping(value="getMonth", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	public ArrayList<ScheduleVO> Month(HttpSession session, String st, String ed){
+		String id =(String) session.getAttribute("loginId");
+		
+		logger.debug("입력된 아이디:{}", id);
+		ScheduleVO vo = new ScheduleVO(id,st,ed);
+		
+		ArrayList<ScheduleVO> mlist = dao.getMonth(vo);
+
+		logger.debug("출력용:{}", mlist);
+		return mlist;
 	}
 	
 }

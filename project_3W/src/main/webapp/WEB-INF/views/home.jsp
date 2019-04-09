@@ -5,12 +5,14 @@
 <html>
 <head>
 	<title>Home</title>
+<link href="<c:url value='resources/css/jquery-ui.css'/>" rel="stylesheet" type="text/css">
 <link href="<c:url value='resources/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css">
 <link href="<c:url value='resources/css/jquery.timepicker.min.css'/>" rel="stylesheet" type="text/css">
 <script src="<c:url value='resources/jquery/jquery-3.3.1.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery-ui.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery.timepicker.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/bootstrap.min.js'/>"></script>
+<script src="<c:url value='resources/jquery/datepicker-ko-KR.js'/>"></script>
 
 <script>
 $(document).ready(function(){
@@ -23,18 +25,30 @@ $(document).ready(function(){
 	
 });
 
-//시간 선택 기능
+//날짜 및 시간
 function pickTime(){
 
-	$('#insertModal #endtime', parent.document).timepicker({
+	$('#insertModal #endtime').timepicker({
 		  'disableTextInput': true,
 	 	  'timeFormat': 'a h:i'  
 	});
-	$('#insertModal #starttime', parent.document).timepicker({
+	$('#insertModal #starttime').timepicker({
 		  'disableTextInput': true,
 		  'maxTime': '오후 10:30',
 	  	  'timeFormat': 'a h:i'  
 	}); 
+	
+	  $('#insertModal #startdate').attr('readonly',true);
+	  $('#insertModal #startdate').datepicker({
+	    	dateFormat: "yy-mm-dd",	
+	    	 firstDay: 0 
+	    });
+	  
+	  $('#insertModal #enddate').attr('readonly',true);
+	  $('#insertModal #enddate').datepicker({
+		  dateFormat: "yy-mm-dd",
+	    	firstDay: 0 
+	    });
 }
 
 
@@ -98,7 +112,7 @@ function insert(){
 
 <!-- iframe박스 -->
 <iframe width="560" height="315" src="" name = "box1"></iframe><br>
-<iframe width="560" height="315" src="getNews" name = "box2"></iframe>
+<iframe width="560" height="315" src="getScheduleList" name = "box2"></iframe>
 
 
 	<!-- 모달창을 정의해놓은 공간  -->
@@ -116,18 +130,18 @@ function insert(){
         <form id="insert">
         <input type="hidden" name="email" value="${sessionScope.loginId}">
         <label for="schedulecontent" class="col-form-label">제목</label>
-        <input type="text" class="form-control" name = "scontent" id="schedulecontent">
+        <input type="text" class="form-control" name = "scontent" id="scontent">
         <br>
         
             <label for="startdate" class="col-form-label">시작일</label>
             <br>
-            <input type="text" class="form-control" name = "startdate" id="startdate" style="width:100px; float:left;">
-            <input type="text" class="form-control" name = "startdate" id="starttime" style="width:100px;">
+            <input type="text" name = "startdate" id="startdate" style="width:100px; float:left;">
+            <input type="text" name = "startdate" id="starttime" style="width:100px;">
            <h4>~</h4>
             <label for="enddate" class="col-form-label">종료일</label>
             <br>
-            <input type="text" class="form-control" name = "enddate" id="enddate" style="width:100px; float:left;">
-            <input type="text" class="form-control" name = "enddate" id="endtime" style="width:100px;">
+            <input type="text" name = "enddate" id="enddate" style="width:100px; float:left;">
+            <input type="text" name = "enddate" id="endtime" style="width:100px;">
             <br>
             <label for="slocation" class="col-form-label">위치</label><br>
             <input type="text" class="form-control" name = "slocation" id="slocation">

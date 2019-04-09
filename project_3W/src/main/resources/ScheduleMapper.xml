@@ -5,7 +5,7 @@
 
 <!-- 하루 일정  SQL -->
 <mapper namespace="global.sesoc.www.dao.ScheduleMapper">
-
+<!-- 일정 등록 -->
 <insert id="setSchedule" parameterType="ScheduleVO">
 	insert into schedule(
 		email
@@ -25,6 +25,7 @@
 	)
 </insert>
 
+<!-- 하루 일정 -->
 <select id="getScheduleList" parameterType="hashmap" resultType="ScheduleVO">
 select 
 		 snum
@@ -40,7 +41,8 @@ order by
 
 </select>
 
-<select id="getSchedule" parameterType="ScheduleVO" resultType="ScheduleVO" >
+<!-- 한달 일정 -->
+<select id="getMonth" parameterType="ScheduleVO" resultType="ScheduleVO" >
 select 
 		schedulenum
 		, email
