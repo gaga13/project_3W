@@ -31,14 +31,17 @@ function logCheck(){
 		url:'loginCheck',
 		type: 'get',
 		data: {email: email, password: pw},
-		dataType: 'text',
+		dataType: 'json',
 		success: function(check){
-			if(check){
+			if(check == "true"){
+				//아이디랑 비밀번호 일치하는 경우 form의 아이디 값이 logForm인 것을 submit시킨다.
 				$('#logForm').submit();	
-				alert('s');
 			}
 			else{
 				alert('등록된 이메일 주소와 비밀번호가 일치하지 않습니다.');
+				$('#email').val('');
+				$('#password').val('');
+				$('#email').focus();
 			}
 		},
 		error: function(e){
@@ -46,11 +49,7 @@ function logCheck(){
 		}
 	});
 	
-	
-	
-	
-	
-					//form의 아이디 값이 logForm인 것을 submit시킨다.
+					
 }
 
 
