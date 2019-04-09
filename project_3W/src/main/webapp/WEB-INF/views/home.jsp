@@ -7,10 +7,12 @@
 	<title>Home</title>
 <link href="<c:url value='resources/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css">
 <link href="<c:url value='resources/css/jquery.timepicker.min.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='resources/css/jquery-ui.css'/>" rel="stylesheet" type="text/css">
 <script src="<c:url value='resources/jquery/jquery-3.3.1.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery-ui.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery.timepicker.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/bootstrap.min.js'/>"></script>
+<script src="<c:url value='resources/jquery/datepicker-ko-KR.js'/>"></script>
 
 <script>
 $(document).ready(function(){
@@ -19,22 +21,36 @@ $(document).ready(function(){
 	
 	//시작시간에 따른 종료시간 제한
 	$('#insertModal #starttime').on('changeTime',sted);
+	//입력버튼
 	$('#insertModal #btin').on('click', insert);
 	
+ 
 });
 
 //시간 선택 기능
 function pickTime(){
 
-	$('#insertModal #endtime', parent.document).timepicker({
+	$('#insertModal #endtime').timepicker({
 		  'disableTextInput': true,
 	 	  'timeFormat': 'a h:i'  
 	});
-	$('#insertModal #starttime', parent.document).timepicker({
+	$('#insertModal #starttime').timepicker({
 		  'disableTextInput': true,
 		  'maxTime': '오후 10:30',
 	  	  'timeFormat': 'a h:i'  
 	}); 
+
+	$('#insertModal #startdate').attr('readonly',true);
+    $('#insertModal #startdate').datepicker({
+    	dateFormat: "yy-mm-dd",
+    	firstDay: 0 
+    });
+    
+	$('#insertModal #enddate').attr('readonly',true);
+    $('#insertModal #enddate').datepicker({
+    	dateFormat: "yy-mm-dd",
+    	firstDay: 0 
+    })
 }
 
 
@@ -83,6 +99,7 @@ function insert(){
 		}
 	});
 }
+
 </script>
 </head>
 <body>
@@ -98,7 +115,7 @@ function insert(){
 
 <!-- iframe박스 -->
 <iframe width="560" height="315" src="" name = "box1"></iframe><br>
-<iframe width="560" height="315" src="getNews" name = "box2"></iframe>
+<iframe width="560" height="315" src="getScheduleList" name = "box2"></iframe>
 
 
 	<!-- 모달창을 정의해놓은 공간  -->
@@ -121,13 +138,13 @@ function insert(){
         
             <label for="startdate" class="col-form-label">시작일</label>
             <br>
-            <input type="text" class="form-control" name = "startdate" id="startdate" style="width:100px; float:left;">
-            <input type="text" class="form-control" name = "startdate" id="starttime" style="width:100px;">
+            <input type="text" name = "startdate" id="startdate" style="width:100px; float:left;">
+            <input type="text" name = "startdate" id="starttime" style="width:100px;">
            <h4>~</h4>
             <label for="enddate" class="col-form-label">종료일</label>
             <br>
-            <input type="text" class="form-control" name = "enddate" id="enddate" style="width:100px; float:left;">
-            <input type="text" class="form-control" name = "enddate" id="endtime" style="width:100px;">
+            <input type="text" name = "enddate" id="enddate" style="width:100px; float:left;">
+            <input type="text" name = "enddate" id="endtime" style="width:100px;">
             <br>
             <label for="slocation" class="col-form-label">위치</label><br>
             <input type="text" class="form-control" name = "slocation" id="slocation">

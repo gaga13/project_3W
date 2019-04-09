@@ -12,4 +12,7 @@ public interface ScheduleMapper {
 
 	//일정 입력
 	public int setSchedule(ScheduleVO vo);
+
+	//달력에 일정 넣기
+	public ArrayList<ScheduleVO> getSchedule(ScheduleVO vo);
 }

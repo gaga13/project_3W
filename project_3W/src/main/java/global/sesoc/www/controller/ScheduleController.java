@@ -73,4 +73,17 @@ public class ScheduleController {
 		
 	}
 	
+	//스케줄 불러오기
+	@ResponseBody
+	@RequestMapping(value="output", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	public ArrayList<ScheduleVO> output(HttpSession session, String st, String ed){
+		String id =(String) session.getAttribute("loginId");
+		
+		ScheduleVO vo = new ScheduleVO(id,st,ed);
+		
+		ArrayList<ScheduleVO> list = dao.getSchedule(vo);
+
+		return list;
+	}
+	
 }
