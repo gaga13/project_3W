@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import global.sesoc.www.dao.MemberDAO;
@@ -28,7 +29,7 @@ public class MemberController {
 	@RequestMapping(value="join", method=RequestMethod.GET)
 	public String joinForm(){
 		logger.debug("joinGET 들어옴");
-		return "joinForm";
+		return "login/joinForm";
 	}
 	
 	//회원가입처리
@@ -44,8 +45,29 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String loginForm(){
 		logger.debug("login GET");
-		return "loginForm";
+		return "login/loginForm";
 	}
+	
+	//로그인시 회원인지 체크
+	@ResponseBody
+	@RequestMapping(value="loginCheck", method=RequestMethod.GET)
+	public String loginCheck(String email, String password){
+		
+		logger.debug("checkemail:{}, pw:{}", email, password);
+		String check = "false";
+		MemberVO memberVO = dao.getMember(email);
+		if(memberVO == null){
+			logger.debug("memberVO == null");
+			return check;
+		}
+		else{
+			if(memberVO.getPassword().equals(password)){
+				check = "true";
+				logger.debug("true");
+			}
+		}
+		return check;
+	};
 	
 	//로그인 처리
 	@RequestMapping(value="login", method=RequestMethod.POST)

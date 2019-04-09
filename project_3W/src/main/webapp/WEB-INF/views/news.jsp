@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>뉴스</title>
-<script src="<c:url value='resources/js/jquery.min.js'/>"></script>
+<script src="<c:url value='resources/jquery/jquery-3.3.1.min.js'/>"></script>
 <script>
 $(document).ready(function (){
 	list();
