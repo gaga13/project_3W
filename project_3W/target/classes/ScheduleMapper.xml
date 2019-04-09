@@ -39,24 +39,4 @@ order by
 		 startdate asc
 
 </select>
-
-<select id="getSchedule" parameterType="ScheduleVO" resultType="ScheduleVO" >
-select 
-		schedulenum
-		, email
-		, schedulecontent
-		, to_char(startdate,'yyyy-mm-dd hh24:MI')startdate
-		, to_char(enddate,'yyyy-mm-dd hh24:MI')enddate 
-from 
-		schedule 
-where 
-		email = #{email} 
-	and 
-		startdate 
-	between 
-		to_date(#{startdate}, 'yyyy-mm-dd') 
-	and 
-		to_date(#{enddate}, 'yyyy-mm-dd')
-</select>
-
 </mapper>

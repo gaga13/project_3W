@@ -43,11 +43,4 @@ public class ScheduleDAO {
 		return result; 
 	}
 	
-	public ArrayList<ScheduleVO> getSchedule(ScheduleVO vo) {
-		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
-		ArrayList<ScheduleVO> list = null;
-		list = mapper.getSchedule(vo);
-		
-		return list;
-	}
 }
