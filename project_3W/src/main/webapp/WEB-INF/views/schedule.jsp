@@ -22,6 +22,7 @@ $(document).ready(function(){
 		dataType:'json',
 		success : function(sList){         
 			//반복문으로 sList안의 일정 읽기
+		
 			$.each(sList, function (index, item){
 				var scontent = item.scontent;
 				var startdate = item.startdate;

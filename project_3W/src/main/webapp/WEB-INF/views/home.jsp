@@ -87,7 +87,7 @@ function insert(){
 </head>
 <body>
 <h1>
-	Hello world!  
+	Hello world!  sysdate : ${sessionScope.sysdate}
 </h1>
 
 <!-- 클릭하면 iframe에 화면 띄움 -->
