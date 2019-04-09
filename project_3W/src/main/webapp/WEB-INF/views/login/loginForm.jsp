@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-<script src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="resources/jquery/jquery-3.3.1.min.js"></script>
 <script>
-$(function(){
+$(document).ready(function(){
 	$('#logBts').on('click',logCheck);
-})
+});
 
 function logCheck(){
 	var email = $('#email').val();
@@ -20,12 +20,39 @@ function logCheck(){
 		alert('Email 입력하시오.');				//alert 창 띄우기
 		return;								//함수 종료
 	}
-	if(pw.length < 3 || pw.length > 10){	//var pw의 길이 값을 확인
-		alert('비밀번호 입력하시오.');				//alert 창 띄우기
+	
+	if(pw.length < 3 ){	//var pw의 길이 값을 확인
+		alert('비밀번호는 3글자 이상입니다.');				//alert 창 띄우기
 		return;								//함수 종료
 	}
-	$('#logForm').submit();					//form의 아이디 값이 logForm인 것을 submit시킨다.
+	
+	//회원인지 아닌지 확인하기
+	$.ajax({
+		url:'loginCheck',
+		type: 'get',
+		data: {email: email, password: pw},
+		dataType: 'text',
+		success: function(check){
+			if(check){
+				$('#logForm').submit();	
+				alert('s');
+			}
+			else{
+				alert('등록된 이메일 주소와 비밀번호가 일치하지 않습니다.');
+			}
+		},
+		error: function(e){
+			alert(JSON.stringify(e));
+		}
+	});
+	
+	
+	
+	
+	
+					//form의 아이디 값이 logForm인 것을 submit시킨다.
 }
+
 
 </script>
 

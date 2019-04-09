@@ -34,7 +34,7 @@ select
 from 	
 		 schedule 
 where 	
-		 email like #{email} and to_char(startdate, 'yy/mm/dd') = '19/04/05'
+		 email like #{email} and to_char(startdate, 'yy/mm/dd') = #{startdate}
 order by 
 		 startdate asc
 

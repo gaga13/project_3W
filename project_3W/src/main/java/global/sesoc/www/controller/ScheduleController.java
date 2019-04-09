@@ -1,6 +1,8 @@
 package global.sesoc.www.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -38,9 +40,12 @@ public class ScheduleController {
 		
 		ArrayList<ScheduleVO> sList = null;
 		
-		//임시로 email, 날짜 지정
+		//날짜 지정하지 않을 경우 현재날짜, 날짜 지정시 지정한 날짜로 세션값 바뀜
+		String sysdate = (String) ses.getAttribute("sysdate");
+		
+		String startdate = sysdate.substring(0,4)+'/' + sysdate.substring(6,7)+'/' + sysdate.substring(9,10);
 		String email = "weer13@naver.com";
-		String startdate = "2019/04/05";
+		logger.debug("startdate:{}", startdate);
 		//session에 담긴 email값 읽기
 		
 		
