@@ -5,6 +5,26 @@
 
 <!-- 하루 일정  SQL -->
 <mapper namespace="global.sesoc.www.dao.ScheduleMapper">
+
+<insert id="setSchedule" parameterType="ScheduleVO">
+	insert into schedule(
+		email
+		, snum
+		, scontent
+		, slocation
+		, startdate
+		, enddate
+	) 
+	values(
+ 		 #{email}
+ 		, snum_seq.nextval
+ 		, #{scontent}
+ 		, #{slocation}
+ 		, to_date(#{startdate},'yyyy-mm-dd PM hh:MI')
+ 		, to_date(#{enddate},'yyyy-mm-dd PM hh:MI')
+	)
+</insert>
+
 <select id="getScheduleList" parameterType="hashmap" resultType="ScheduleVO">
 select 
 		 snum

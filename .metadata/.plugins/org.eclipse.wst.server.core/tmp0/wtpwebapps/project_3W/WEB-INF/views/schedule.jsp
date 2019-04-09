@@ -7,9 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src="resources/jquery/jquery-3.3.1.min.js"></script>
+<script src="resources/jquery/bootstrap.min.js"></script>
+<link href="resources/css/jquery.timepicker.min.css" rel="stylesheet" type="text/css">
+
 <script>
+
 $(document).ready(function(){
-	
+		
 	$.ajax({
 		url:'getScheduleList',
 		type: 'post',
@@ -36,7 +40,19 @@ $(document).ready(function(){
 			alert(JSON.stringify(er));
 		}
 	});
+	
+	//홈에서 모달 호출 버튼
+	$('#insertmd').on('click', insert_md);
 });  
+
+//모달 호출 메소드
+function insert_md(){
+	
+	$('#insertModal',parent.document).modal('show');
+    $('#insertModal',parent.document).on('shown.bs.modal', function(e){
+    	$('#insertModal #schedulecontent',parent.document).focus();
+    }); 
+}
 
 </script>
 <title>schedule</title>
@@ -54,9 +70,10 @@ $(document).ready(function(){
 		<tr id = "inputTR${i}">
 		</tr>
 	</c:forEach>
-	
+	<tr>
+	<td colspan="4" align="center"><button id="insertmd">일정 등록</button></td>
+	</tr>
 </table>
 
-</div>
 </body>
 </html>
