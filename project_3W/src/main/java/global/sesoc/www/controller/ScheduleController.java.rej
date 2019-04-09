@@ -1,0 +1,19 @@
+diff a/project_3W/src/main/java/global/sesoc/www/controller/ScheduleController.java b/project_3W/src/main/java/global/sesoc/www/controller/ScheduleController.java	(rejected hunks)
+@@ -73,4 +73,17 @@
+ 		
+ 	}
+ 	
++	//?ㅼ?以 遺?ъㅺ린
++	@ResponseBody
++	@RequestMapping(value="output", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
++	public ArrayList<ScheduleVO> output(HttpSession session, String st, String ed){
++		String id =(String) session.getAttribute("loginId");
++		
++		ScheduleVO vo = new ScheduleVO(id,st,ed);
++		
++		ArrayList<ScheduleVO> list = dao.getSchedule(vo);
++
++		return list;
++	}
++	
+ }
