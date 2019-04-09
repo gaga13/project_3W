@@ -18,12 +18,11 @@ function logCheck(){
 	
 	if(email.length < 3 || email.length > 25){	//var id의 길이 값을 확인
 		alert('Email 입력하시오.');				//alert 창 띄우기
-		return;								//함수 종료
+		return;									//함수 종료
 	}
-	
-	if(pw.length < 3 ){	//var pw의 길이 값을 확인
-		alert('비밀번호는 3글자 이상입니다.');				//alert 창 띄우기
-		return;								//함수 종료
+	if(pw.length < 3 ){							//var pw의 길이 값을 확인
+		alert('비밀번호는 3글자 이상입니다.');			//alert 창 띄우기
+		return;									//함수 종료
 	}
 	
 	//회원인지 아닌지 확인하기

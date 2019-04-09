@@ -29,7 +29,7 @@ public class MemberController {
 	@RequestMapping(value="join", method=RequestMethod.GET)
 	public String joinForm(){
 		logger.debug("joinGET 들어옴");
-		return "joinForm";
+		return "login/joinForm";
 	}
 	
 	//회원가입처리
@@ -66,7 +66,6 @@ public class MemberController {
 				logger.debug("true");
 			}
 		}
-		
 		return check;
 	};
 	
