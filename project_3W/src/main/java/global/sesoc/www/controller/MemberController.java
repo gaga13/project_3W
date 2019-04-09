@@ -29,7 +29,7 @@ public class MemberController {
 	@RequestMapping(value="join", method=RequestMethod.GET)
 	public String joinForm(){
 		logger.debug("joinGET 들어옴");
-		return "joinForm";
+		return "login/joinForm";
 	}
 	
 	//회원가입처리
@@ -51,10 +51,10 @@ public class MemberController {
 	//로그인시 회원인지 체크
 	@ResponseBody
 	@RequestMapping(value="loginCheck", method=RequestMethod.GET)
-	public boolean loginCheck(String email, String password){
+	public String loginCheck(String email, String password){
 		
-		logger.debug("email:{}, pw:{}", email, password);
-		Boolean check = false;
+		logger.debug("checkemail:{}, pw:{}", email, password);
+		String check = "false";
 		MemberVO memberVO = dao.getMember(email);
 		if(memberVO == null){
 			logger.debug("memberVO == null");
@@ -62,10 +62,10 @@ public class MemberController {
 		}
 		else{
 			if(memberVO.getPassword().equals(password)){
-				check = true;
+				check = "true";
+				logger.debug("true");
 			}
 		}
-		
 		return check;
 	};
 	

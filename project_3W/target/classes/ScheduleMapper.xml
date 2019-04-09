@@ -41,8 +41,12 @@ order by
 
 </select>
 
+<<<<<<< HEAD
 <!-- 한달 일정 -->
 <select id="getMonth" parameterType="ScheduleVO" resultType="ScheduleVO" >
+=======
+<select id="getSchedule" parameterType="ScheduleVO" resultType="ScheduleVO" >
+>>>>>>> 558d5b45eee5f003e891f62b6f9438f92e961b18
 select 
 		schedulenum
 		, email

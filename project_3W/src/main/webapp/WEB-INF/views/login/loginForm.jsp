@@ -18,12 +18,11 @@ function logCheck(){
 	
 	if(email.length < 3 || email.length > 25){	//var id의 길이 값을 확인
 		alert('Email 입력하시오.');				//alert 창 띄우기
-		return;								//함수 종료
+		return;									//함수 종료
 	}
-	
-	if(pw.length < 3 ){	//var pw의 길이 값을 확인
-		alert('비밀번호는 3글자 이상입니다.');				//alert 창 띄우기
-		return;								//함수 종료
+	if(pw.length < 3 ){							//var pw의 길이 값을 확인
+		alert('비밀번호는 3글자 이상입니다.');			//alert 창 띄우기
+		return;									//함수 종료
 	}
 	
 	//회원인지 아닌지 확인하기
@@ -31,14 +30,17 @@ function logCheck(){
 		url:'loginCheck',
 		type: 'get',
 		data: {email: email, password: pw},
-		dataType: 'text',
+		dataType: 'json',
 		success: function(check){
-			if(check){
+			if(check == "true"){
+				//아이디랑 비밀번호 일치하는 경우 form의 아이디 값이 logForm인 것을 submit시킨다.
 				$('#logForm').submit();	
-				alert('s');
 			}
 			else{
 				alert('등록된 이메일 주소와 비밀번호가 일치하지 않습니다.');
+				$('#email').val('');
+				$('#password').val('');
+				$('#email').focus();
 			}
 		},
 		error: function(e){
@@ -46,11 +48,7 @@ function logCheck(){
 		}
 	});
 	
-	
-	
-	
-	
-					//form의 아이디 값이 logForm인 것을 submit시킨다.
+					
 }
 
 
