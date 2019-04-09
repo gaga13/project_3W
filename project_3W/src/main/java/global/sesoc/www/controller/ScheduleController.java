@@ -93,14 +93,12 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping(value="getMonth", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	public ArrayList<ScheduleVO> Month(HttpSession session, String st, String ed){
+		
 		String id =(String) session.getAttribute("loginId");
 		
-		logger.debug("입력된 아이디:{}", id);
 		ScheduleVO vo = new ScheduleVO(id,st,ed);
-		
 		ArrayList<ScheduleVO> mlist = dao.getMonth(vo);
 
-		logger.debug("출력용:{}", mlist);
 		return mlist;
 	}
 	

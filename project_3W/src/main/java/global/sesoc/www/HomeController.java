@@ -34,7 +34,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		ses.setAttribute("sysdate", formattedDate);
-		
+		ses.getAttribute("loginId");
 		logger.debug(":{}",formattedDate);
 		return "home";
 	}

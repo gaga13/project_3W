@@ -35,7 +35,7 @@ select
 from 	
 		 schedule 
 where 	
-		 email like #{email} and to_char(startdate, 'yy/mm/dd') = #{startdate}
+		 email like #{email} and to_char(startdate, 'yyyy/mm/dd') = #{startdate}
 order by 
 		 startdate asc
 
@@ -44,9 +44,9 @@ order by
 <!-- 한달 일정 -->
 <select id="getMonth" parameterType="ScheduleVO" resultType="ScheduleVO" >
 select 
-		schedulenum
+		snum
 		, email
-		, schedulecontent
+		, scontent
 		, to_char(startdate,'yyyy-mm-dd hh24:MI')startdate
 		, to_char(enddate,'yyyy-mm-dd hh24:MI')enddate 
 from 

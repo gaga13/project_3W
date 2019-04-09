@@ -91,6 +91,7 @@ function insert(){
 		data:$('#insertModal #insert').serialize(),
 		success:function(){
 			alert('일정 입력 성공!');
+			location.reload();
 		},
 		error:function(){
 			alert('일정 입력 실패!');
@@ -101,7 +102,7 @@ function insert(){
 </head>
 <body>
 <h1>
-	Hello world!  sysdate : ${sessionScope.sysdate}
+	Hello world!  sysdate : ${sessionScope.sysdate} id :${sessionScope.loginId}
 </h1>
 
 <!-- 클릭하면 iframe에 화면 띄움 -->

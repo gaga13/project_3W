@@ -35,22 +35,18 @@ select
 from 	
 		 schedule 
 where 	
-		 email like #{email} and to_char(startdate, 'yy/mm/dd') = #{startdate}
+		 email like #{email} and to_char(startdate, 'yyyy/mm/dd') = #{startdate}
 order by 
 		 startdate asc
 
 </select>
 
-<<<<<<< HEAD
 <!-- 한달 일정 -->
 <select id="getMonth" parameterType="ScheduleVO" resultType="ScheduleVO" >
-=======
-<select id="getSchedule" parameterType="ScheduleVO" resultType="ScheduleVO" >
->>>>>>> 558d5b45eee5f003e891f62b6f9438f92e961b18
 select 
-		schedulenum
+		snum
 		, email
-		, schedulecontent
+		, scontent
 		, to_char(startdate,'yyyy-mm-dd hh24:MI')startdate
 		, to_char(enddate,'yyyy-mm-dd hh24:MI')enddate 
 from 
