@@ -89,9 +89,16 @@ function insert(){
 <h1>
 	Hello world!  
 </h1>
+
+<!-- 클릭하면 iframe에 화면 띄움 -->
+<a href="getScheduleList" target="box2">스케줄 리스트</a>
+<a href="getMcalendar" target="box2">달력</a>
+<a href="getNews" target="box2">뉴스</a>
+<br>
+
 <!-- iframe박스 -->
 <iframe width="560" height="315" src="" name = "box1"></iframe><br>
-<iframe width="560" height="315" src="getScheduleList" name = "box2"></iframe>
+<iframe width="560" height="315" src="getNews" name = "box2"></iframe>
 
 
 	<!-- 모달창을 정의해놓은 공간  -->
@@ -109,15 +116,22 @@ function insert(){
         <form id="insert">
         <input type="hidden" name="email" value="${sessionScope.loginId}">
         <label for="schedulecontent" class="col-form-label">제목</label>
-        <input type="text" class="form-control" name = "scontent" id="schedulecontent"><br>
+        <input type="text" class="form-control" name = "scontent" id="schedulecontent">
+        <br>
         
-            <label for="startdate" class="col-form-label">시작일</label><br>
+            <label for="startdate" class="col-form-label">시작일</label>
+            <br>
             <input type="text" class="form-control" name = "startdate" id="startdate" style="width:100px; float:left;">
             <input type="text" class="form-control" name = "startdate" id="starttime" style="width:100px;">
            <h4>~</h4>
-            <label for="enddate" class="col-form-label">종료일</label><br>
+            <label for="enddate" class="col-form-label">종료일</label>
+            <br>
             <input type="text" class="form-control" name = "enddate" id="enddate" style="width:100px; float:left;">
             <input type="text" class="form-control" name = "enddate" id="endtime" style="width:100px;">
+            <br>
+            <label for="slocation" class="col-form-label">위치</label><br>
+            <input type="text" class="form-control" name = "slocation" id="slocation">
+            
         </form>
       </div>
       <div class="modal-footer">

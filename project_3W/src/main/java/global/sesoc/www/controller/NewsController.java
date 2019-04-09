@@ -85,33 +85,29 @@ public class NewsController {
 		NewsVO[] news = gson.fromJson(items,NewsVO[].class);
 		ArrayList<NewsVO> list = new ArrayList<NewsVO>(Arrays.asList(news));
 		
+		//중복된 기사 삭제
+		for(n=0; n<list.size();n++){
+			for(int a = 1; a<list.size();a++){
+				if( n!=a && list.get(n).getTitle().compareTo(list.get(a).getTitle()) == 0|| list.get(a).getTitle().length()<10){
+					list.remove(a);
+				}
+			}
+		}
 		//\로 나오는 부분 변경& 키워드를 통한 정렬 
 		for(n = list.size()-1 ; n>0 ;n--){
 			for(int m = 0 ; m<keywr.length-1;m++){
 				if(list.get(n).getTitle().contains(keywr[m])){
 					NewsVO vo = list.get(n);
-					for(NewsVO ne : list){
-						list.set(n+1, ne);
-					}
 					list.remove(n);
-					list.set(0, vo);
+					list.add(0, vo);
 				}
-			}
-			if(list.get(n).getTitle().contains("\\")){
+				if(list.get(n).getTitle().contains("\\")){
 				list.get(n).setTitle(list.get(n).getTitle().replace("\\", ""));	
+				}
 			}
 		}
 				
 		
-		//중복된 기사 삭제
-		for(n=0; n<list.size();n++){
-			for(int a = 1; a<list.size();a++){
-				if( n!=a && list.get(n).getTitle().compareTo(list.get(a).getTitle()) == 0){
-					list.remove(a);
-				}
-			}
-			
-		}
 		//Date포맷
 		for(int i = 0 ; i<list.size();i++){
 			try{
@@ -123,6 +119,7 @@ public class NewsController {
 			}//catch       
 		}//반복문
 
+		
 		return list;
 	}
 }
