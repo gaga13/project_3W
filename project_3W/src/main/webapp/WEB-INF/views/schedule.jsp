@@ -17,8 +17,10 @@ $(document).ready(function(){
 	$('#insertmd').on('click', insert_md);
 	
     $('#insertModal', parent.document).on('hide.bs.modal', function(e){
-		$('#insertModal #scontent', parent.document).val("");
-		$('#insertModal #slocation', parent.document).val("");
+		$('#insertModal #inscontent', parent.document).val("");
+		$('#insertModal #inslocation', parent.document).val("");
+		$('#insertModal input[name=startdate]', parent.document).val("");
+		$('#insertModal input[name=enddate]', parent.document).val("");
     });  
 	//서버에서 하루스케쥴 목록 불러오기
 	$.ajax({

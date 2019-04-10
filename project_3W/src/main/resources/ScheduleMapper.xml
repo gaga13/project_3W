@@ -6,7 +6,7 @@
 <!-- 하루 일정  SQL -->
 <mapper namespace="global.sesoc.www.dao.ScheduleMapper">
 <!-- 일정 등록 -->
-<insert id="setSchedule" parameterType="ScheduleVO">
+<insert id="inSchedule" parameterType="ScheduleVO">
 	insert into schedule(
 		email
 		, snum
@@ -60,5 +60,29 @@ where
 	and 
 		to_date(#{enddate}, 'yyyy-mm-dd')
 </select>
+
+<!-- 일정 수정 -->
+<update id="setSchedule" parameterType="ScheduleVO">
+	update 
+		schedule 
+	set 
+		scontent=#{scontent}
+		, startdate=to_date(#{startdate},'yyyy-mm-dd am hh:MI ')
+		, enddate=to_date(#{enddate},'yyyy-mm-dd am hh:MI '),
+		slocation =#{slocation} 
+	where 
+		email=#{email} 
+	and 
+		snum=#{snum}
+</update>
+
+<delete id="deSchedule" parameterType="map">
+	delete 
+		schedule 
+	where 
+		email like #{email} 
+	and 
+		snum=#{num}
+</delete>
 
 </mapper>

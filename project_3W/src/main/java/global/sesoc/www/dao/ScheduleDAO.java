@@ -29,20 +29,8 @@ public class ScheduleDAO {
 		
 		return sList;
 	}
-
-	public int setSchedule(ScheduleVO vo){
-		int result = 0;
-		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
-		try{
-			result = mapper.setSchedule(vo);
-		
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return result; 
-	}
-
+	
+	//일정을 달력에 호출
 	public ArrayList<ScheduleVO> getMonth(ScheduleVO vo) {
 		
 		ArrayList<ScheduleVO> list = null;
@@ -60,5 +48,45 @@ public class ScheduleDAO {
 		return list;
 	}
 
+	//일정 입력
+	public int inSchedule(ScheduleVO vo){
+		int result = 0;
+		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
+		try{
+			result = mapper.inSchedule(vo);
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result; 
+	}
+
+	//일정 수정
+	public int setSchedule(ScheduleVO vo){
+		int result = 0;
+		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
+		try{
+			result = mapper.setSchedule(vo);
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result; 
+	}
 	
+	//일정 삭제
+	public int deSchedule(HashMap<String, Object> map){
+		int result = 0;
+		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
+		try{
+			result = mapper.deSchedule(map);
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result; 
+	}
 }

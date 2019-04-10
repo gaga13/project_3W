@@ -43,9 +43,7 @@ public class ScheduleController {
 		//날짜 지정하지 않을 경우 현재날짜, 날짜 지정시 지정한 날짜로 세션값 바뀜
 		String sysdate = (String) ses.getAttribute("sysdate");
 		
-		String startdate = sysdate.substring(0,4)+'/' + sysdate.substring(6,7)+'/' + sysdate.substring(9,10);
 		String email = "weer13@naver.com";
-		logger.debug("startdate:{}", startdate);
 		//session에 담긴 email값 읽기
 		
 		
@@ -69,11 +67,44 @@ public class ScheduleController {
 		return "Mcalendar";
 	}
 	
+	//한달 일정을 캘린더에 출력
+	@ResponseBody
+	@RequestMapping(value="getMonth", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	public ArrayList<ScheduleVO> Month(HttpSession session, String st, String ed){
+		
+		String id =(String) session.getAttribute("loginId");
+		
+		ScheduleVO vo = new ScheduleVO(id,st,ed);
+		ArrayList<ScheduleVO> mlist = dao.getMonth(vo);
+
+		return mlist;
+	}
+	
 	//일정 입력
 	@ResponseBody
-	@RequestMapping(value="setSchedule", method=RequestMethod.POST)
+	@RequestMapping(value="inSchedule", method=RequestMethod.POST)
 	public void insertSchedule(ScheduleVO vo){
 		logger.debug("입력용:{}", vo);
+		
+		String[] st = vo.getStartdate().split(",");
+		String[] ed = vo.getEnddate().split(",");
+		vo.setStartdate(st[0]+" "+st[1]);
+		vo.setEnddate(ed[0]+" "+ed[1]);
+		
+		int result = dao.inSchedule(vo);
+		
+		if(result == 0){
+			logger.debug("일정 입력 실패 원인을 찾으세요.");
+		}else{
+			logger.debug("일정 입력은 성공입니다.");
+		}
+	}
+	
+	//일정 수정
+	@ResponseBody
+	@RequestMapping(value="setSchedule", method=RequestMethod.POST)
+	public void setSchedule(ScheduleVO vo){
+		logger.debug("수정용:{}", vo);
 		
 		String[] st = vo.getStartdate().split(",");
 		String[] ed = vo.getEnddate().split(",");
@@ -89,17 +120,23 @@ public class ScheduleController {
 		}
 	}
 	
-	//한달 일정을 캘린더에 출력
 	@ResponseBody
-	@RequestMapping(value="getMonth", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
-	public ArrayList<ScheduleVO> Month(HttpSession session, String st, String ed){
+	@RequestMapping(value="deSchedule", method=RequestMethod.POST)
+	public void deSchedule(String email, int num){
 		
-		String id =(String) session.getAttribute("loginId");
+		logger.debug("아이디:{}, 번호:{}", email, num);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("email", email);
+		map.put("num", num);
+		 
+		int result =dao.deSchedule(map);
 		
-		ScheduleVO vo = new ScheduleVO(id,st,ed);
-		ArrayList<ScheduleVO> mlist = dao.getMonth(vo);
-
-		return mlist;
+		if(result == 0 ){
+			logger.debug("삭제에 실패했습니다.");
+		}else{
+			logger.debug("일정을 삭제했습니다.");
+		}
 	}
+	
 	
 }

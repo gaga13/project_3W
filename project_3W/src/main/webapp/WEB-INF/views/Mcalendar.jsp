@@ -38,13 +38,13 @@ function calendar() {
 							var std = info.start._i.split(" ");
 							var edd = info.end._i.split(" ");
 							
-							$('#updateModal #schedulecontent',parent.document).val(info.title);
-							$('#updateModal #num',parent.document).val(info.id);
-							$('#updateModal #startdate',parent.document).val(std[0]);
-							$('#updateModal #starttime',parent.document).val(std[1]);
-							$('#updateModal #enddate',parent.document).val(edd[0]);
-							$('#updateModal #endtime',parent.document).val(edd[1]);
-
+ 							$('#updateModal #setscontent',parent.document).val(info.title);
+							$('#updateModal #setnum',parent.document).val(info.id);
+							$('#updateModal #setstartdate',parent.document).val(std[0]);
+							$('#updateModal #setstarttime',parent.document).val(std[1]);
+							$('#updateModal #setenddate',parent.document).val(edd[0]);
+							$('#updateModal #setendtime',parent.document).val(edd[1]);
+ 
 							$('#updateModal',parent.document).modal('show');
 
 						  },
