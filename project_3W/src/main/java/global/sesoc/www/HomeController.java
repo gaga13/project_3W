@@ -1,6 +1,7 @@
 package global.sesoc.www;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -31,6 +32,8 @@ public class HomeController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		String formattedDate = dateFormat.format(date);
 		
 		ses.setAttribute("sysdate", formattedDate);

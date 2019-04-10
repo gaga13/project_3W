@@ -43,15 +43,15 @@ public class ScheduleController {
 		//날짜 지정하지 않을 경우 현재날짜, 날짜 지정시 지정한 날짜로 세션값 바뀜
 		String sysdate = (String) ses.getAttribute("sysdate");
 		
-		String startdate = sysdate.substring(0,4)+'/' + sysdate.substring(6,7)+'/' + sysdate.substring(9,10);
+		
 		String email = "weer13@naver.com";
-		logger.debug("startdate:{}", startdate);
+		logger.debug("startdate:{}", sysdate);
 		//session에 담긴 email값 읽기
 		
 		
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		hmap.put("email", email);
-		hmap.put("startdate", startdate);
+		hmap.put("startdate", sysdate);
 		
 		sList = dao.getScheduleList(hmap);
 		
