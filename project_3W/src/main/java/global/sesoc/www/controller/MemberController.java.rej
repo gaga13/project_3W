@@ -1,0 +1,39 @@
+diff a/project_3W/src/main/java/global/sesoc/www/controller/MemberController.java b/project_3W/src/main/java/global/sesoc/www/controller/MemberController.java	(rejected hunks)
+@@ -29,35 +29,15 @@
+ 	@RequestMapping(value="join", method=RequestMethod.GET)
+ 	public String joinForm(){
+ 		logger.debug("joinGET ?ㅼ댁?);
+-		return "login/joinForm";
++		return "joinForm";
+ 	}
+ 	
+ 	//??媛?泥由?@@ -45,30 +45,9 @@ public class MemberController {
+ 	@RequestMapping(value="login", method=RequestMethod.GET)
+ 	public String loginForm(){
+ 		logger.debug("login GET");
+-		return "login/loginForm";
++		return "loginForm";
+ 	}
+ 	
+-	//濡洹몄몄 ???몄? 泥댄?-	@ResponseBody
+-	@RequestMapping(value="loginCheck", method=RequestMethod.GET)
+-	public String loginCheck(String email, String password){
+-		
+-		logger.debug("checkemail:{}, pw:{}", email, password);
+-		String check = "false";
+-		MemberVO memberVO = dao.getMember(email);
+-		if(memberVO == null){
+-			logger.debug("memberVO == null");
+-			return check;
+-		}
+-		else{
+-			if(memberVO.getPassword().equals(password)){
+-				check = "true";
+-				logger.debug("true");
+-			}
+-		}
+-		return check;
+-	};
+-	
+ 	//濡洹몄?泥由? 	@RequestMapping(value="login", method=RequestMethod.POST)
+ 	public String login(String email, String password, Model model, HttpSession session){
