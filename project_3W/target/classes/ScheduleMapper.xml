@@ -26,7 +26,7 @@
 </insert>
 
 <!-- 하루 일정 -->
-<select id="getScheduleList" parameterType="hashmap" resultType="ScheduleVO">
+<select id="getScheduleList" parameterType="map" resultType="ScheduleVO">
 select 
 		 snum
 		 , to_char(startdate, 'PM hh12:mi') as startdate

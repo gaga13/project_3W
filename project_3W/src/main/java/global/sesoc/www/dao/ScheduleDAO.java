@@ -18,18 +18,19 @@ public class ScheduleDAO {
 	public ArrayList<ScheduleVO> getScheduleList(HashMap<String, String> hmap) {
 		
 		ArrayList<ScheduleVO> sList = null;
-		
+	
 		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
 		try {
 			sList = mapper.getScheduleList(hmap);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
-		}
+		}	
 		
 		return sList;
 	}
 
+	//일정 등록
 	public int setSchedule(ScheduleVO vo){
 		int result = 0;
 		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
@@ -43,6 +44,7 @@ public class ScheduleDAO {
 		return result; 
 	}
 
+	//달력에 일정 넣기
 	public ArrayList<ScheduleVO> getMonth(ScheduleVO vo) {
 		
 		ArrayList<ScheduleVO> list = null;
