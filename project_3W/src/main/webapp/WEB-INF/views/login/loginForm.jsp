@@ -32,7 +32,7 @@ function logCheck(){
 		data: {email: email, password: pw},
 		dataType: 'json',
 		success: function(check){
-			if(check == "true"){
+			if(check){
 				//아이디랑 비밀번호 일치하는 경우 form의 아이디 값이 logForm인 것을 submit시킨다.
 				$('#logForm').submit();	
 			}

@@ -12,6 +12,13 @@ public class ScheduleVO {
 		super();
 	}
 
+	public ScheduleVO(String email, String startdate, String enddate) {
+		super();
+		this.email = email;
+		this.startdate = startdate;
+		this.enddate = enddate;
+	}
+
 	public ScheduleVO(String email, int snum, String scontent, String startdate, String enddate, String slocation) {
 		super();
 		this.email = email;

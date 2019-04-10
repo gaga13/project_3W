@@ -79,6 +79,7 @@ public class MemberController {
 		logger.debug("{}",result);
 		if(result != null && result.getPassword().equals(password)){
 			session.setAttribute("loginId", email);
+			logger.debug("세션 아이디:{}", session.getAttribute("loginId"));
 			return "redirect:/";
 		}
 		return "redirect:login";

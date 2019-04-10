@@ -15,6 +15,11 @@
 $(document).ready(function(){
 	//홈에서 모달 호출 버튼
 	$('#insertmd').on('click', insert_md);
+	
+    $('#insertModal', parent.document).on('hide.bs.modal', function(e){
+		$('#insertModal #scontent', parent.document).val("");
+		$('#insertModal #slocation', parent.document).val("");
+    });  
 	//서버에서 하루스케쥴 목록 불러오기
 	$.ajax({
 		url:'getScheduleList',
@@ -22,7 +27,6 @@ $(document).ready(function(){
 		dataType:'json',
 		success : function(sList){         
 			//반복문으로 sList안의 일정 읽기
-		
 			$.each(sList, function (index, item){
 				var scontent = item.scontent;
 				var startdate = item.startdate;
@@ -54,7 +58,8 @@ function insert_md(){
 	$('#insertModal',parent.document).modal('show');
     $('#insertModal',parent.document).on('shown.bs.modal', function(e){
     	$('#insertModal #schedulecontent',parent.document).focus();
-    }); 
+    });
+    
 }
 
 </script>
