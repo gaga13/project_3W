@@ -51,7 +51,7 @@ public class ScheduleController {
 		
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		hmap.put("email", email);
-		hmap.put("startdate", startdate);
+		hmap.put("startdate", sysdate);
 		
 		sList = dao.getScheduleList(hmap);
 		

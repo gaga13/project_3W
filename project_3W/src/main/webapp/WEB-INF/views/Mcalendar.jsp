@@ -32,7 +32,22 @@ function calendar() {
 						},
 						eventClick : function(info) {},
 						defaultView : 'month',
-						locale : initialLocaleCode,
+						locale : initialLocaleCode,							
+						eventClick : function(info) {
+							console.log(info);
+							var std = info.start._i.split(" ");
+							var edd = info.end._i.split(" ");
+							
+							$('#updateModal #schedulecontent',parent.document).val(info.title);
+							$('#updateModal #num',parent.document).val(info.id);
+							$('#updateModal #startdate',parent.document).val(std[0]);
+							$('#updateModal #starttime',parent.document).val(std[1]);
+							$('#updateModal #enddate',parent.document).val(edd[0]);
+							$('#updateModal #endtime',parent.document).val(edd[1]);
+
+							$('#updateModal',parent.document).modal('show');
+
+						  },
 						dayClick:function (date, jsEvent, view){
 							if(view.name == 'month' || view.name == 'basicWeek'){
 								$('#calendar').fullCalendar('changeView', 'agendaDay');

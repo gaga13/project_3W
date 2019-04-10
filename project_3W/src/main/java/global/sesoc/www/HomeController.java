@@ -31,8 +31,8 @@ public class HomeController {
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		String formattedDate = format.format(date);
 		
 		ses.setAttribute("sysdate", formattedDate);
 		ses.getAttribute("loginId");

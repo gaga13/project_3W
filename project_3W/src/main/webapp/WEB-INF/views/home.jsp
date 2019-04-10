@@ -28,6 +28,7 @@ $(document).ready(function(){
 //날짜 및 시간
 function pickTime(){
 
+	//입력
 	$('#insertModal #endtime').timepicker({
 		  'disableTextInput': true,
 	 	  'timeFormat': 'a h:i'  
@@ -49,6 +50,30 @@ function pickTime(){
 		  dateFormat: "yy-mm-dd",
 	    	firstDay: 0 
 	    });
+	  
+	  //업데이트
+		$('#updateModal #endtime').timepicker({
+			  'disableTextInput': true,
+		 	  'timeFormat': 'a h:i'  
+		});
+		$('#updateModal #starttime').timepicker({
+			  'disableTextInput': true,
+			  'maxTime': '오후 10:30',
+		  	  'timeFormat': 'a h:i'  
+		}); 
+		
+		  $('#updateModal #startdate').attr('readonly',true);
+		  $('#updateModal #startdate').datepicker({
+		    	dateFormat: "yy-mm-dd",	
+		    	 firstDay: 0 
+		    });
+		  
+		  $('#updateModal #enddate').attr('readonly',true);
+		  $('#updateModal #enddate').datepicker({
+			  dateFormat: "yy-mm-dd",
+		    	firstDay: 0 
+		    });
+	  
 }
 
 
@@ -157,5 +182,41 @@ function insert(){
   </div>
 </div>
 
+ <!-- 수정 -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">일정 입력</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="update">
+        <input type="hidden" name="email" value="${sessionScope.loginId}">
+        <label for="schedulecontent" class="col-form-label">제목</label>
+        <input type="text" class="form-control" name = "schedulecontent" id="schedulecontent"><br>
+        
+            <label for="starttime">시작일</label><br>
+            <input type="text" name = "startdate" id="startdate" style="width:100px;">
+            <input type="text" name = "startdate" id="starttime" style="width:100px;">
+           <h4>~</h4>
+            <label for="enddate">종료일</label><br>
+            <input type="text" name = "enddate" id="enddate" style="width:100px;">
+            <input type="text" name = "enddate" id="endtime" style="width:100px;"><br>
+            <label for="local">위치</label>
+            <input type="text" class="form-control" name = "local" id="local">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnin">일정 등록</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
+	
