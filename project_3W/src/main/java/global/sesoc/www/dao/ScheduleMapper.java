@@ -12,4 +12,6 @@ public interface ScheduleMapper {
 
 	//일정 입력
 	public int setSchedule(ScheduleVO vo);
+
+	public ArrayList<ScheduleVO> getMonth(ScheduleVO vo);
 }

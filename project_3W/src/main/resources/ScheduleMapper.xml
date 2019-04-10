@@ -25,12 +25,11 @@
 	)
 </insert>
 
-<<<<<<< HEAD
 <!-- 하루 일정 -->
 <select id="getScheduleList" parameterType="map" resultType="ScheduleVO">
-=======
+</select>
 <select id="getScheduleList" parameterType="hashmap" resultType="ScheduleVO">
->>>>>>> a4330ce0d23dc3e5cb9e65ee3fc3593ba0bcf4a2
+
 select 
 		 snum
 		 , to_char(startdate, 'PM hh12:mi') as startdate
@@ -44,4 +43,5 @@ order by
 		 startdate asc
 
 </select>
+
 </mapper>
