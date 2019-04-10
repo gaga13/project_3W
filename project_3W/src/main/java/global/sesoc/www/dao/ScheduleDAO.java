@@ -35,7 +35,7 @@ public class ScheduleDAO {
 		int result = 0;
 		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
 		try{
-			result = mapper.setSchedule(vo);
+			result =mapper.setSchedule(vo);
 		
 		}catch(Exception e){
 			e.printStackTrace();
@@ -43,6 +43,7 @@ public class ScheduleDAO {
 		
 		return result; 
 	}
+<<<<<<< HEAD
 
 	//달력에 일정 넣기
 	public ArrayList<ScheduleVO> getMonth(ScheduleVO vo) {
@@ -62,5 +63,7 @@ public class ScheduleDAO {
 		return list;
 	}
 
+=======
+>>>>>>> a4330ce0d23dc3e5cb9e65ee3fc3593ba0bcf4a2
 	
 }

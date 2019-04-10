@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, HttpSession ses) {
+	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -34,9 +32,8 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale); 
 		String formattedDate = format.format(date);
 		
-		ses.setAttribute("sysdate", formattedDate);
-		ses.getAttribute("loginId");
-		logger.debug(":{}",formattedDate);
+		model.addAttribute("serverTime", formattedDate ); 
+		
 		return "home";
 	}
 	

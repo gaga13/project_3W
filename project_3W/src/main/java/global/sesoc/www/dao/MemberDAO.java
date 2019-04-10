@@ -17,32 +17,17 @@ public class MemberDAO {
 	
 	//회원가입처리
 	public int insertMember(MemberVO member){
-		
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		int result = 0;
-		
-		try {
-			MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-			result = mapper.insertMember(member);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
+		result = mapper.insertMember(member);
 		return result;
 	}
 	//ID로 회원검색
 	
 	public MemberVO getMember(String email) {
-		
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		MemberVO member = null;
-		MemberMapper mapper;
-		try {
-			mapper = sqlSession.getMapper(MemberMapper.class);
-			member = mapper.getMember(email);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-		
+		member = mapper.getMember(email);
 		return member;
 	}
 
