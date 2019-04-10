@@ -5,7 +5,7 @@
 
 <!-- 하루 일정  SQL -->
 <mapper namespace="global.sesoc.www.dao.ScheduleMapper">
-<!-- 일정 등록 -->
+
 <insert id="setSchedule" parameterType="ScheduleVO">
 	insert into schedule(
 		email
@@ -25,7 +25,6 @@
 	)
 </insert>
 
-<!-- 하루 일정 -->
 <select id="getScheduleList" parameterType="hashmap" resultType="ScheduleVO">
 select 
 		 snum
@@ -35,30 +34,9 @@ select
 from 	
 		 schedule 
 where 	
-		 email like #{email} and to_char(startdate, 'yyyy/mm/dd') = #{startdate}
+		 email like #{email} and to_char(startdate, 'yy/mm/dd') = '19/04/05'
 order by 
 		 startdate asc
 
 </select>
-
-<!-- 한달 일정 -->
-<select id="getMonth" parameterType="ScheduleVO" resultType="ScheduleVO" >
-select 
-		snum
-		, email
-		, scontent
-		, to_char(startdate,'yyyy-mm-dd hh24:MI')startdate
-		, to_char(enddate,'yyyy-mm-dd hh24:MI')enddate 
-from 
-		schedule 
-where 
-		email = #{email} 
-	and 
-		startdate 
-	between 
-		to_date(#{startdate}, 'yyyy-mm-dd') 
-	and 
-		to_date(#{enddate}, 'yyyy-mm-dd')
-</select>
-
 </mapper>

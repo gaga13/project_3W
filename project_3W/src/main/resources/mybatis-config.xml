@@ -5,11 +5,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="global.sesoc.www.vo.ScheduleVO" alias="ScheduleVO" />
-		<typeAlias type="global.sesoc.www.vo.MemberVO" alias="MemberVO" />
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="TwitterMapper.xml" />
 		<mapper resource="ScheduleMapper.xml" />
-		<mapper resource="memberMapper.xml" />
 	</mappers>
 </configuration>

@@ -44,15 +44,14 @@ function calendar() {
 						editable : false,
 						eventLimit : true,
 						events : function(startdate, enddate, timezone,callback) {
-							
-							var std = startdate._d;
+ 							var std = startdate._d;
 							var edd = enddate._d;
 							
 							st= std.getFullYear()+"-"+(std.getMonth()+1)+"-"+std.getDate();
 							ed= edd.getFullYear()+"-"+(edd.getMonth()+1)+"-"+edd.getDate();
- 							
+ 
 							$.ajax({
-										url : 'getMonth',
+										url : 'output',
 										type : 'get',
 										data:{st:st, ed:ed},
 										dataType : 'json',
@@ -61,8 +60,8 @@ function calendar() {
 											$.each(list,function(key,item) {
 											
 																events.push({
-																			id : item.snum,
-																			title : item.scontent,
+																			id : item.schedulenum,
+																			title : item.schedulecontent,
 																			start : item.startdate,
 																			end : item.enddate
 																		});

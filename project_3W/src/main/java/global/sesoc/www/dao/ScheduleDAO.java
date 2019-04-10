@@ -34,7 +34,7 @@ public class ScheduleDAO {
 		int result = 0;
 		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
 		try{
-			result = mapper.setSchedule(vo);
+			result =mapper.setSchedule(vo);
 		
 		}catch(Exception e){
 			e.printStackTrace();
@@ -42,23 +42,5 @@ public class ScheduleDAO {
 		
 		return result; 
 	}
-
-	public ArrayList<ScheduleVO> getMonth(ScheduleVO vo) {
-		
-		ArrayList<ScheduleVO> list = null;
-		
-		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
-
-		try{
-		
-			list = mapper.getMonth(vo);
-		
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-
 	
 }
