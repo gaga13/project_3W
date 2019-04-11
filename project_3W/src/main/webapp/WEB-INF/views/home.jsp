@@ -215,7 +215,7 @@ function delete_schedule(){
 <br>
 
 <!-- iframe박스 -->
-<iframe width="560" height="315" src="" name = "box1"></iframe><br>
+<iframe width="560" height="315" src="mapBasic" name = "box1"></iframe><br>
 <iframe width="560" height="315" src="getScheduleList" name = "box2"></iframe>
 
 
