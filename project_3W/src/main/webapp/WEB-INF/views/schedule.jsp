@@ -21,6 +21,7 @@ $(document).ready(function(){
 		$('#insertModal #inslocation', parent.document).val("");
 		$('#insertModal input[name=startdate]', parent.document).val("");
 		$('#insertModal input[name=enddate]', parent.document).val("");
+		$('#insertModal #inlocation', parent.document).hide();
     });  
 	//서버에서 하루스케쥴 목록 불러오기
 	$.ajax({

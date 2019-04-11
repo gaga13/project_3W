@@ -18,10 +18,9 @@
 $(document).ready(function(){
 	
 	pickTime();
-	
 	//시작시간에 따른 종료시간 제한
 	$('#insertModal #instarttime').on('changeTime',sted);
-	$('#updateModal #setstarttime').on('changeTime',upse);
+	$('#updateModal #setstarttime').on('changeTime',{ssd:$('#updateModal')},upse);
 	
 	//일정 입력
 	$('#insertModal #btin').on('click', insert_schedule);
@@ -29,6 +28,8 @@ $(document).ready(function(){
 	$('#updateModal #btup').on('click', update_schedule);
 	//일정 삭제
 	$('#updateModal #btde').on('click', delete_schedule);
+	$('#insertModal #inlocation').hide();
+	$('#insertModal #inmap').on('click', function(){$('#insertModal #inlocation').show();});
 });
 
 //날짜 및 시간
@@ -84,15 +85,19 @@ function pickTime(){
 
 
 //시간 제한
-function sted(){
+function sted(ssd){
+	console.log(ssd);
+	
 	var stt = $('#insertModal #instarttime');
 	var edt = $('#insertModal #inendtime');
 	
 	var sta = stt.get(0).value.split(" ");
 	var eta = edt.get(0).value.split(" ");
 	
-	var getTime = sta[1].split(":");
-	var hours = parseInt(getTime[0])+1; 
+	var getSTime = sta[1].split(":");
+	
+	var hours = parseInt(getSTime[0])+1; 
+	
 	
 	if(sta[0]=='오전'){
 		if(hours == 13){
@@ -101,10 +106,48 @@ function sted(){
 			sta[0]='오후';
 		}
 	}
-	var newTime = sta[0]+hours+":"+getTime[1];
+	var newTime = sta[0]+hours+":"+getSTime[1];
+	if(eta[0]!=""){
+	var getETime = eta[1].split(":");
+	
+	if(sta[0]=='오전'){
+		if(sta[0] == eta[0]){
+			if(hours != 13){
+				if(getSTime[0]>=getETime[0]){
+					$('#insertModal #inendtime').val(newTime);
+				}
+			}
+		}
+		
+	}
+	
+	if(sta[0]=='오후'){
+		if(sta[0]==eta[0]){
+			if(hours != 13){
+				if(getSTime[0]>=getETime[0]){
+					$('#insertModal #inendtime').val(newTime);
+				}else if(getETime[0]== 12){
+					$('#insertModal #inendtime').val(newTime);
+			}
+			}
+		
+		}else{
+			$('#insertModal #inendtime').val(newTime);
+		 }
+	}
+	
+	if(sta[0]=='오전'){
+		if(hours == 13){
+			hours=1;
+		}else if(hours == 12){
+			$('#insertModal #inendtime').val(newTime);
+		}
+	}
+	}else{
+		$('#insertModal #inendtime').val(newTime);
+	}
 	
 	$('#insertModal #inendtime').timepicker('remove');
-	$('#insertModal #inendtime').val(newTime);
 	$('#insertModal #inendtime').timepicker({
 		'minTime': newTime,
 		'maxTime': '오후 11:30', 
@@ -113,7 +156,8 @@ function sted(){
 		});
 }
 //시간제한 update
-function upse(){
+function upse(ssd){
+	console.log(ssd);
 	var stt = $('#updateModal #setstarttime');
 	var edt = $('#updateModal #setendtime');
 	
@@ -145,7 +189,21 @@ function upse(){
 
 //일정 등록용
 function insert_schedule(){
+	var title = $('#insertModal #inscontent').val();
+	var isd = $('#insertModal #instartdate').val();
+	var ied = $('#insertModal #inenddate').val();
 	
+	if(title ==""){
+		alert("제목을 입력해 주세요.");
+		$('#insertModal  #inscontent').focus();
+		$('#insertModal  #inscontent').select();
+		return false;
+	}
+	
+	if(isd>ied){
+		alert('종료일을 시작일보다 늦은 날짜로 입력해주세요.');
+		return false;
+	}
 	if(confirm('일정을 등록하시겠습니까?')){
 		$.ajax({
 			url:'inSchedule',
@@ -164,7 +222,21 @@ function insert_schedule(){
 
 //일정 수정용
 function update_schedule(){
+	var title = $('#updateModal #setscontent').val();
+	var isd = $('#updateModal #setstartdate').val();
+	var ied = $('#updateModal #setenddate').val();
 	
+	if(title ==""){
+		alert("제목을 입력해 주세요.");
+		$('#updateModal  #setscontent').focus();
+		$('#updateModal  #setscontent').select();
+		return false;
+	}
+	
+	if(isd>ied){
+		alert('종료일을 시작일보다 늦은 날짜로 입력해주세요.');
+		return false;
+	}
 	if(confirm('일정을 수정하시겠습니까?')){
 		$.ajax({
 			url:'setSchedule',
@@ -247,9 +319,9 @@ function delete_schedule(){
             <input type="text" name = "enddate" id="inenddate" style="width:100px; float:left;">
             <input type="text" name = "enddate" id="inendtime" style="width:100px;">
             <br>
-            <label for="slocation" class="col-form-label">위치</label><br>
+            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap">여기에 버튼 삽입 가능</button></label><br>
             <input type="text" class="form-control" name = "slocation" id="inslocation">
-            
+             <div id = "inlocation">디브를 띄우는 것에 성공하였다. 정말 기쁘구나</div>
         </form>
       </div>
       <div class="modal-footer">
@@ -290,7 +362,7 @@ function delete_schedule(){
         </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary" id="btde">삭제하기</button>
+   	    <button type="button" class="btn btn-primary" id="btde">삭제하기</button>
         <button type="button" class="btn btn-primary" id="btup">수정하기</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>

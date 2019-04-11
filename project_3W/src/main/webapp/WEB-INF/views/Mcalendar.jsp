@@ -15,6 +15,8 @@
 <script src="<c:url value='resources/jquery/fullcalendar.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/locale-all.js'/>"></script>
 <script src="<c:url value='resources/jquery/bootstrap.min.js'/>"></script>
+<script src="<c:url value='resources/jquery/jquery.timepicker.min.js'/>"></script>
+
 <script>
 $(function (){
 	calendar();
@@ -34,19 +36,36 @@ function calendar() {
 						defaultView : 'month',
 						locale : initialLocaleCode,							
 						eventClick : function(info) {
-							console.log(info);
+							
 							var std = info.start._i.split(" ");
 							var edd = info.end._i.split(" ");
+							console.log(std);
+							console.log(edd);
+							var startTimeSet;
+							var EndTimeSet;
 							
+							var sp = std[1].split(":");
+							var ep = edd[1].split(":");
+							if(sp[1]<12){
+								startTimeSet = '오전 '+sp-12;
+							}else{
+								startTimeSet = '오후 '+std[1];
+							}
+							
+							if(ep<12){
+								EndTimeSet = '오전 '+ep[0]-12+":"+ep[0];
+							}else{
+								EndTimeSet = '오후 '+edd[1];
+							}
  							$('#updateModal #setscontent',parent.document).val(info.title);
 							$('#updateModal #setnum',parent.document).val(info.id);
 							$('#updateModal #setstartdate',parent.document).val(std[0]);
-							$('#updateModal #setstarttime',parent.document).val(std[1]);
+							$('#updateModal #setstarttime',parent.document).val(startTimeSet);
 							$('#updateModal #setenddate',parent.document).val(edd[0]);
-							$('#updateModal #setendtime',parent.document).val(edd[1]);
+							$('#updateModal #setendtime',parent.document).val(EndTimeSet);
  
 							$('#updateModal',parent.document).modal('show');
-
+							
 						  },
 						dayClick:function (date, jsEvent, view){
 							if(view.name == 'month' || view.name == 'basicWeek'){
