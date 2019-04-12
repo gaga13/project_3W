@@ -21,8 +21,9 @@ public class PageController {
 	//날씨 페이지로 이동
 	@RequestMapping(value="weather", method=RequestMethod.GET)
 	public String weather(){
-		return "weather";
+		return "weatherData/weatherTest2";
 	}
+
 	
 	//뉴스 페이지로 이동
 	@RequestMapping(value="news", method=RequestMethod.GET)
@@ -40,9 +41,5 @@ public class PageController {
 	public String home(){
 		return "home";
 	}
-	//캐릭터 시범페이지
-	@RequestMapping(value="cha", method=RequestMethod.GET)
-	public String cha(){
-		return "charac";
-	}
+	
 }
