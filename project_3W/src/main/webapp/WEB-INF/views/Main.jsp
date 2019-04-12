@@ -6,7 +6,146 @@
 
 <!DOCTYPE html>
 <html>
-    
+<script src="resources/jquery/jquery-3.3.1.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('#loginBts').on('click',logCheck);
+	$('#joinBts').on('click',joinCheck);
+});
+//로그인 시 회원체크
+function logCheck(){
+	var email = $('#email').val();
+	var pw = $('#password').val();
+	
+	if(email.length < 3 || email.length > 25){	//var id의 길이 값을 확인
+		alert('Email 입력하시오.');				//alert 창 띄우기
+		return;									//함수 종료
+	}
+	if(pw.length < 3 ){							//var pw의 길이 값을 확인
+		alert('비밀번호는 3글자 이상입니다.');			//alert 창 띄우기
+		return;									//함수 종료
+	}
+	
+	//로그인시 - 회원인지 아닌지 확인하기
+	$.ajax({
+		url:'loginCheck',
+		type: 'get',
+		data: {email: email, password: pw},
+		dataType: 'text',
+		success: function(check){
+			if(check == 'true'){
+				//아이디랑 비밀번호 일치하는 경우 home화면으로 이동
+				window.location.replace('home');
+			}
+			else{
+				alert(check);
+				alert('등록된 이메일 주소와 비밀번호가 일치하지 않습니다.');
+				$('#email').val('');
+				$('#password').val('');
+				$('#email').focus();
+			}
+		},
+		error: function(e){
+			alert(JSON.stringify(e));
+		}
+	});			
+}
+//회원가입 버튼 눌렀을 때, 회원정보 확인
+function joinCheck(){
+	var email = $('#email').val();
+	var pw = $('#password').val();
+	
+	if(email.length < 3 || email.length > 25){	//var id의 길이 값을 확인
+		alert('Email 입력하시오.');				//alert 창 띄우기
+		return;									//함수 종료
+	}
+	if(pw.length < 3 ){							//var pw의 길이 값을 확인
+		alert('비밀번호는 3글자 이상입니다.');			//alert 창 띄우기
+		return;									//함수 종료
+	}
+	
+	//회원가입시 - 회원인지 아닌지 확인하기
+	$.ajax({
+		url:'joinCheck',
+		type: 'get',
+		data: {email: email, password: pw},
+		dataType: 'text',
+		success: function(emailCheck){
+			//email이 중복되지 않아회원가입 가능
+			if(emailCheck == 'no'){
+			
+				//회원가입 성공 후  '본인인증' 창 띄우기
+				alert('해당 이메일로 메일을 전송하였습니다. 본인 인증해주세요');
+			}
+			//입력한 email이 이미 존재함
+			else{
+				alert('이미 등록된 이메일 입니다.');
+				$('#email').val('');
+				$('#password').val('');
+				$('#email').focus();
+			}
+		},
+		error: function(e){
+			alert(JSON.stringify(e));
+		}
+	});			
+	
+}
+//아이디 기억하기
+$(document).ready(function(){
+ 
+    // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+    var key = getCookie("key");
+    $('#email').val(key); 
+     
+    if($('#email').val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+        $('#customControlInline').attr('checked', true); // ID 저장하기를 체크 상태로 두기.
+    }
+     
+    $('#customControlInline').change(function(){ // 체크박스에 변화가 있다면,
+        if($('#customControlInline').is(':checked')){ // ID 저장하기 체크했을 때,
+            setCookie('key', $('#email').val(), 7); // 7일 동안 쿠키 보관
+        }else{ // ID 저장하기 체크 해제 시,
+            deleteCookie('key');
+        }
+    });
+     
+    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+    $('#email').keyup(function(){ 				// ID 입력 칸에 ID를 입력할 때,
+        if($('#customControlInline').is(':checked')){ // ID 저장하기를 체크한 상태라면,
+            setCookie('key', $('#email').val(), 7); // 7일 동안 쿠키 보관
+        }
+    });
+});
+ 
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+ 
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+ 
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cookieName);
+    var cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return unescape(cookieValue);
+}
+</script> 
+      
 <head>
 	<title>Login Page</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -56,13 +195,13 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="" class="form-control input_user" value="" placeholder="email@domain.com">
+							<input type="text" name="email" id="email" class="form-control input_user" value="" placeholder="email@domain.com">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
+							<input type="password" name="password" id="password" class="form-control input_pass" value="" placeholder="password">
 						</div>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
@@ -73,10 +212,10 @@
 					</form>
 				</div>
 				<div class="d-flex justify-content-center mt-3 login_container">
-					<button type="button" name="button" class="btn login_btn">Login</button>
+					<button type="button" name="button" id="loginBts" class="btn login_btn">Login</button>
 				</div>
 				<div class="d-flex justify-content-center mt-3 login_container">
-					<button type="button" name="button" class="btn login_btn">Sign Up</button>
+					<button type="button" name="button" id="joinBts" class="btn login_btn">Sign Up</button>
 				</div>
 				<div class="mt-4">
 				</div>

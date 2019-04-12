@@ -37,7 +37,7 @@ public class HomeController {
 		ses.setAttribute("sysdate", formattedDate);
 		ses.getAttribute("loginId");
 		logger.debug(":{}",formattedDate);
-		return "home";
+		return "Main";
 	}
 	
 }
