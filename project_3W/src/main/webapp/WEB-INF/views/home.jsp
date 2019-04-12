@@ -18,9 +18,10 @@
 $(document).ready(function(){
 	
 	pickTime();
+	
 	//시작시간에 따른 종료시간 제한
-	$('#insertModal #instarttime').on('changeTime',sted);
-	$('#updateModal #setstarttime').on('changeTime',{ssd:$('#updateModal')},upse);
+	$('#insertModal #instarttime').on('changeTime',{modal:$('#insertModal')},sted);
+	$('#updateModal #setstarttime').on('changeTime',{modal:$('#updateModal')},sted);	
 	
 	//일정 입력
 	$('#insertModal #btin').on('click', insert_schedule);
@@ -85,105 +86,87 @@ function pickTime(){
 
 
 //시간 제한
-function sted(ssd){
-	console.log(ssd);
+function sted(info){
+	var ModalId = "#"+info.data.modal[0].id;
 	
-	var stt = $('#insertModal #instarttime');
-	var edt = $('#insertModal #inendtime');
+	if(ModalId == "#insertModal"){
+		var stDate = $(ModalId+" #instartdate").val();
+		var edDate = $(ModalId+" #inenddate").val();
+		var stTime = $(ModalId+" #instarttime");
+		var edTime = $(ModalId+" #inendtime");
+	}else if(ModalId == "#updateModal"){
+		var stDate = $(ModalId+" #setstartdate").val();
+		var edDate = $(ModalId+" #setenddate").val();
+		var stTime = $(ModalId+" #setstarttime");
+		var edTime = $(ModalId+" #setendtime");		
+	}
 	
-	var sta = stt.get(0).value.split(" ");
-	var eta = edt.get(0).value.split(" ");
+	// 같은 날짜인지 확인
+	if(stDate == edDate){
+
+	var sta = stTime.get(0).value.split(" ");
+	var eta = edTime.get(0).value.split(" ");
 	
 	var getSTime = sta[1].split(":");
 	
 	var hours = parseInt(getSTime[0])+1; 
-	
-	
+
 	if(sta[0]=='오전'){
 		if(hours == 13){
 			hours=1;
 		}else if(hours == 12){
-			sta[0]='오후';
+			sta[0]='오후'
 		}
 	}
-	var newTime = sta[0]+hours+":"+getSTime[1];
-	if(eta[0]!=""){
-	var getETime = eta[1].split(":");
 	
-	if(sta[0]=='오전'){
-		if(sta[0] == eta[0]){
-			if(hours != 13){
-				if(getSTime[0]>=getETime[0]){
-					$('#insertModal #inendtime').val(newTime);
+	var newTime = sta[0]+hours+":"+getSTime[1]; //시간 1시간 세팅
+	
+	if(eta[0]!=""){ //종료시간이 있을시
+		var getETime = eta[1].split(":");
+	
+			if(sta[0]=='오전'){
+				if(sta[0] == eta[0]){
+					if(hours != 1){
+						if(getSTime[0]>=getETime[0]){
+							$(edTime).val(newTime);
+						}
+					}
 				}
-			}
-		}
 		
+			}
+	
+		if(sta[0]=='오후'){
+			if(sta[0]==eta[0]){
+				if(hours != 1){
+					if(getSTime[0]>=getETime[0]){
+						$(edTime).val(newTime);
+					}else if(getETime[0]== 12){
+						$(edTime).val(newTime);
+					}
+				}
+		
+			}else{
+				$(edTime).val(newTime);
+		 	}
+		}
+
 	}
 	
-	if(sta[0]=='오후'){
-		if(sta[0]==eta[0]){
-			if(hours != 13){
-				if(getSTime[0]>=getETime[0]){
-					$('#insertModal #inendtime').val(newTime);
-				}else if(getETime[0]== 12){
-					$('#insertModal #inendtime').val(newTime);
-			}
-			}
-		
-		}else{
-			$('#insertModal #inendtime').val(newTime);
-		 }
-	}
-	
-	if(sta[0]=='오전'){
-		if(hours == 13){
-			hours=1;
-		}else if(hours == 12){
-			$('#insertModal #inendtime').val(newTime);
-		}
-	}
+	$(edTime).timepicker('remove');
+	$(edTime).timepicker({
+		'minTime': newTime,
+		'maxTime': '오후 11:30', 
+		'disableTextInput': true,
+		  'timeFormat': 'a h:i'
+		});
 	}else{
-		$('#insertModal #inendtime').val(newTime);
-	}
-	
-	$('#insertModal #inendtime').timepicker('remove');
-	$('#insertModal #inendtime').timepicker({
-		'minTime': newTime,
-		'maxTime': '오후 11:30', 
-		'disableTextInput': true,
-		  'timeFormat': 'a h:i'
+		$(edTime).timepicker('remove');
+		 
+		$(edTime).timepicker({
+			  'disableTextInput': true,
+		 	  'timeFormat': 'a h:i'  
 		});
-}
-//시간제한 update
-function upse(ssd){
-	console.log(ssd);
-	var stt = $('#updateModal #setstarttime');
-	var edt = $('#updateModal #setendtime');
-	
-	var sta = stt.get(0).value.split(" ");
-	var eta = edt.get(0).value.split(" ");
-	
-	var getTime = sta[1].split(":");
-	var hours = parseInt(getTime[0])+1; 
-	
-	if(sta[0]=='오전'){
-		if(hours == 13){
-			hours=1;
-		}else if(hours == 12){
-			sta[0]='오후';
-		}
 	}
-	var newTime = sta[0]+hours+":"+getTime[1];
-	
-	$('#updateModal #setendtime').timepicker('remove');
-	$('#updateModal #setendtime').val(newTime);
-	$('#updateModal #setendtime').timepicker({
-		'minTime': newTime,
-		'maxTime': '오후 11:30', 
-		'disableTextInput': true,
-		  'timeFormat': 'a h:i'
-		});
 }
 
 
@@ -273,6 +256,7 @@ function delete_schedule(){
 		});
 	}
 }
+
 </script>
 </head>
 <body>

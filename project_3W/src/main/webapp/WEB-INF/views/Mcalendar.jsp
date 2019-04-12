@@ -39,24 +39,25 @@ function calendar() {
 							
 							var std = info.start._i.split(" ");
 							var edd = info.end._i.split(" ");
-							console.log(std);
-							console.log(edd);
+
 							var startTimeSet;
 							var EndTimeSet;
 							
 							var sp = std[1].split(":");
 							var ep = edd[1].split(":");
-							if(sp[1]<12){
-								startTimeSet = '오전 '+sp-12;
+							
+							if(parseInt(sp[0])<12){
+								startTimeSet = "오전 "+std[1];
 							}else{
-								startTimeSet = '오후 '+std[1];
+								startTimeSet = "오후 "+(sp[0]-12)+":"+sp[1];
 							}
 							
-							if(ep<12){
-								EndTimeSet = '오전 '+ep[0]-12+":"+ep[0];
+							if(parseInt(ep[0])<12){
+								EndTimeSet = "오전 "+edd[1];
 							}else{
-								EndTimeSet = '오후 '+edd[1];
+								EndTimeSet = "오후 "+(ep[0]-12)+":"+ep[1];
 							}
+
  							$('#updateModal #setscontent',parent.document).val(info.title);
 							$('#updateModal #setnum',parent.document).val(info.id);
 							$('#updateModal #setstartdate',parent.document).val(std[0]);
