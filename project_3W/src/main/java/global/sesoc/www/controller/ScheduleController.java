@@ -3,6 +3,7 @@ package global.sesoc.www.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -32,8 +33,14 @@ public class ScheduleController {
 		return "schedule";
 	}
 	
+	//달력에서 날짜 입력 받기
+	@ResponseBody
+	@RequestMapping(value="getDaily", method = RequestMethod.POST)
+	public void getDaily(HttpSession session, Date daily){
+		logger.debug("daily:{}", daily);
+		session.setAttribute("sysdate", daily);
+	}
 	//하루 스케쥴 목록 가져오기
-
 	@ResponseBody
 	@RequestMapping(value = "getScheduleList", method = RequestMethod.POST)
 	public ArrayList<ScheduleVO> getScheduleList(HttpSession ses){
@@ -41,15 +48,17 @@ public class ScheduleController {
 		ArrayList<ScheduleVO> sList = null;
 		
 		//날짜 지정하지 않을 경우 현재날짜, 날짜 지정시 지정한 날짜로 세션값 바뀜
-		String sysdate = (String) ses.getAttribute("sysdate");
+		Date sysdate = (Date) ses.getAttribute("sysdate");
 		
 		String email = (String) ses.getAttribute("loginId");
 		//session에 담긴 email값 읽기
 		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		String formattedDate = format.format(sysdate);
 		
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		hmap.put("email", email);
-		hmap.put("startdate", sysdate);
+		hmap.put("startdate", formattedDate);
 		
 		sList = dao.getScheduleList(hmap);
 		
@@ -120,6 +129,7 @@ public class ScheduleController {
 		}
 	}
 	
+	//일정 삭제
 	@ResponseBody
 	@RequestMapping(value="deSchedule", method=RequestMethod.POST)
 	public void deSchedule(String email, int num){

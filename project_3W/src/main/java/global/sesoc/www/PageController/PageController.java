@@ -1,11 +1,16 @@
 package global.sesoc.www.PageController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PageController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
+	
 	
 	//한달 캘린더 페이지로 이동
 	@RequestMapping(value="calendar", method=RequestMethod.GET)
@@ -16,8 +21,9 @@ public class PageController {
 	//날씨 페이지로 이동
 	@RequestMapping(value="weather", method=RequestMethod.GET)
 	public String weather(){
-		return "weather";
+		return "weatherData/weatherTest2";
 	}
+
 	
 	//뉴스 페이지로 이동
 	@RequestMapping(value="news", method=RequestMethod.GET)
@@ -35,9 +41,5 @@ public class PageController {
 	public String home(){
 		return "home";
 	}
-	//캐릭터 시범페이지
-	@RequestMapping(value="cha", method=RequestMethod.GET)
-	public String cha(){
-		return "charac";
-	}
+	
 }

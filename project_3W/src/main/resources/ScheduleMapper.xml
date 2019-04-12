@@ -38,7 +38,6 @@ where
 		 email like #{email} and to_char(startdate, 'yyyy/mm/dd') = #{startdate}
 order by 
 		 startdate asc
-
 </select>
 
 <!-- 한달 일정 -->
