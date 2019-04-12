@@ -21,7 +21,13 @@ $(document).ready(function(){
 	
 	//시작시간에 따른 종료시간 제한
 	$('#insertModal #instarttime').on('changeTime',{modal:$('#insertModal')},sted);
-	$('#updateModal #setstarttime').on('changeTime',{modal:$('#updateModal')},sted);	
+	$('#updateModal #setstarttime').on('changeTime',{modal:$('#updateModal')},sted);
+	
+	//날짜 변화에 따른 시간제한, 같은 날짜일시 종료시간을 변경
+	$('#insertModal #instartdate').on('change',{modal:$('#insertModal')},sted);
+	$('#insertModal #inenddate').on('change',{modal:$('#insertModal')},sted);
+	$('#updateModal #setstartdate').on('change',{modal:$('#updateModal')},sted);
+	$('#updateModal #setenddate').on('change',{modal:$('#updateModal')},sted);
 	
 	//일정 입력
 	$('#insertModal #btin').on('click', insert_schedule);
@@ -107,10 +113,11 @@ function sted(info){
 	var sta = stTime.get(0).value.split(" ");
 	var eta = edTime.get(0).value.split(" ");
 	
+	if(sta[0]!=""){
 	var getSTime = sta[1].split(":");
 	
 	var hours = parseInt(getSTime[0])+1; 
-
+	
 	if(sta[0]=='오전'){
 		if(hours == 13){
 			hours=1;
@@ -120,7 +127,7 @@ function sted(info){
 	}
 	
 	var newTime = sta[0]+hours+":"+getSTime[1]; //시간 1시간 세팅
-	
+	}
 	if(eta[0]!=""){ //종료시간이 있을시
 		var getETime = eta[1].split(":");
 	
@@ -150,6 +157,11 @@ function sted(info){
 		 	}
 		}
 
+		if(eta[0]=='오전'){
+			if(eta[1].substring(0,2)=='12'){
+				$(edTime).val(newTime);
+			}
+		}
 	}
 	
 	$(edTime).timepicker('remove');
@@ -167,6 +179,7 @@ function sted(info){
 		 	  'timeFormat': 'a h:i'  
 		});
 	}
+	
 }
 
 

@@ -20,7 +20,6 @@
 <script>
 $(function (){
 	calendar();
-	$('.fc-center').on('click',function (){location.reload()});
 });
 
 //달력호출
@@ -69,10 +68,18 @@ function calendar() {
 							
 						  },
 						dayClick:function (date, jsEvent, view){
-							if(view.name == 'month' || view.name == 'basicWeek'){
-								$('#calendar').fullCalendar('changeView', 'agendaDay');
-								$('#calendar').fullCalendar('gotoDate',date);
-							}
+							console.log(date._d.getFullYear()+"/"+(date._d.getMonth()+1)+"/"+date._d.getDate());
+							$.ajax({
+								url: 'getDaily',
+								type:'post',
+								data:{daily:date._d},
+								success:function(){
+									parent.document.location.reload();	
+								},
+								error: function(e){
+								}
+							});
+							
 						},
 						buttonIcons : true,
 						navLinks : false,
