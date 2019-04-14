@@ -1,16 +1,7 @@
-<<<<<<< HEAD
-INDEX VERSION 1.3+C:\Project2\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-=======
-INDEX VERSION 1.3+C:\project_3W\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-188909452.index
-1295941313.index
-1242247227.index
-2579884244.index
-3985647935.index
->>>>>>> f31b9eaa1dda8c322b2577b9b72b7e4f171d126d
+INDEX VERSION 1.3+C:\project\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3597642266.index
+1970854103.index
 322985261.index
-950628673.index
-920139762.index
-2414181071.index
-1231981122.index
-652495066.index
+861015294.index
+1156914558.index
+112592990.index

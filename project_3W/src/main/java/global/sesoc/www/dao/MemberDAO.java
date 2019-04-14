@@ -46,6 +46,14 @@ public class MemberDAO {
 		return member;
 	}
 
+	//회원정보 업데이트
+	public int update(MemberVO member) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		int result = 0;
+		result = mapper.update(member);
+		return result;
+	}
+	
 	//이메일
 	
 

@@ -11,15 +11,25 @@
 <link href="resources/css/jquery.timepicker.min.css" rel="stylesheet" type="text/css">
 
 <script>
-
+//페이지 실행하자마자 실행
 $(document).ready(function(){
-		
+	//홈에서 모달 호출 버튼
+	$('#insertmd').on('click', insert_md);
+	
+    $('#insertModal', parent.document).on('hide.bs.modal', function(e){
+		$('#insertModal #inscontent', parent.document).val("");
+		$('#insertModal #inslocation', parent.document).val("");
+		$('#insertModal input[name=startdate]', parent.document).val("");
+		$('#insertModal input[name=enddate]', parent.document).val("");
+		$('#insertModal #inlocation', parent.document).hide();
+    });  
+	//서버에서 하루스케쥴 목록 불러오기
 	$.ajax({
 		url:'getScheduleList',
 		type: 'post',
 		dataType:'json',
 		success : function(sList){         
-			//each함수 객체.속성
+			//반복문으로 sList안의 일정 읽기
 			$.each(sList, function (index, item){
 				var scontent = item.scontent;
 				var startdate = item.startdate;
@@ -32,6 +42,7 @@ $(document).ready(function(){
 					startdate = startdate.substring(0,5) + '시 ' 
 					+startdate.substring(6) + '분';
 				}
+				//html에 일정 넣기
 				$('#inputTR'+ index).html('<td>'+(index +1)+'</td>'+'<td>'+startdate+''
 						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ '' + '</td>');	
 			});
@@ -41,8 +52,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	//홈에서 모달 호출 버튼
-	$('#insertmd').on('click', insert_md);
+	
 });  
 
 //모달 호출 메소드
@@ -51,14 +61,17 @@ function insert_md(){
 	$('#insertModal',parent.document).modal('show');
     $('#insertModal',parent.document).on('shown.bs.modal', function(e){
     	$('#insertModal #schedulecontent',parent.document).focus();
-    }); 
+    });
+    
 }
 
 </script>
 <title>schedule</title>
 </head>
 <body>
-<h1>일정 보여주기</h1>
+
+<h1>일정 목록</h1>
+
 <table>
 		<tr>
 			<th>번호</th>

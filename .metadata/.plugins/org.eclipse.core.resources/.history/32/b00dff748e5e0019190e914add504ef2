@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="global.sesoc.www.dao.MemberMapper">
+
+	<!-- 회원 정보 저장 -->
+	<insert id="insertMember" parameterType="MemberVO">
+	<!-- MemberMapper.java에 있는 insertMember method / 받아오는 것은 MemberVO 타입-->
+	insert into
+		user_info (email, password)
+		values(
+			#{email}
+			, #{password}
+	)
+	<!-- blog_member table에 받아온 MemberVO의 id, password, name, photo값을 저장한다. -->
+	</insert>
+	
+<select id="getMember" parameterType="string" resultType="MemberVO">
+select * from user_info where email=#{email}
+</select>
+</mapper>
