@@ -36,10 +36,17 @@ public class PageController {
 	public String user(){
 		return "Uprofil";
 	}
+	
+	//회원정보 수정 페이지로 이동
+		@RequestMapping(value="scheduleplus", method=RequestMethod.GET)
+		public String schedule_plus(){
+			return "schedule";
+		}
 
 	@RequestMapping(value="home", method=RequestMethod.GET)
 	public String home(){
 		return "home";
 	}
+
 	
 }

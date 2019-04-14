@@ -389,7 +389,7 @@ function delete_schedule(){
 		<!-- 화면 이중분할 -->
 		<div class="divide">
 		<iframe width="100%" height="400px" src="mapBasic" name = "box1"></iframe><br> <!-- 위에가 바뀜 -->
-		<iframe width="100%" height="350px" src="news" name = "box2"></iframe> <!-- 아래가 바뀜 -->
+		<iframe width="100%" height="350px" src="scheduleplus" name = "box2"></iframe> <!-- 아래가 바뀜 -->
 		</div>
 
 	<!-- 입력용 모달-->
@@ -472,18 +472,18 @@ function delete_schedule(){
 </div>
 			
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/vendor/jquery/jquery.min.js"></script>
+  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for this template -->
-  <script src="js/resume.min.js"></script>
+  <script src="resources/js/resume.min.js"></script>
    
   <!-- 하단 이미지 -->
    <div class="footer">
-    <p class="copyright"><img src="resources/img/underbanner2.png" width="100%" height="5%"></p>
+    <p class="copyright"><img src="resources/img/underbanner2.png" width="100%" height="20%"></p>
   	</div>
 </body>
 </html>
