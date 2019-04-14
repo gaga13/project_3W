@@ -1,0 +1,5 @@
+package global.sesoc.www.util;
+
+public class FileService {
+
+}

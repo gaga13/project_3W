@@ -31,12 +31,11 @@ public class HomeController {
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		String formattedDate = format.format(date);
+		logger.debug("날짜:{}",date);
 		
-		ses.setAttribute("sysdate", formattedDate);
+		ses.setAttribute("sysdate", date);
 		ses.getAttribute("loginId");
-		logger.debug(":{}",formattedDate);
+		
 		return "Main";
 	}
 	

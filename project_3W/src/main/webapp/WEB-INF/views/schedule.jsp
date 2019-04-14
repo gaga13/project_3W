@@ -69,7 +69,9 @@ function insert_md(){
 <title>schedule</title>
 </head>
 <body>
+
 <h1>일정 목록</h1>
+
 <table>
 		<tr>
 			<th>번호</th>

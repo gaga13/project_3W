@@ -14,13 +14,38 @@
 <script src="<c:url value='resources/jquery/bootstrap.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/datepicker-ko-KR.js'/>"></script>
 
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>WWW에 오신것을 환영합니다</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="resources/css/resume.min.css" rel="stylesheet">
+
 <script>
 $(document).ready(function(){
 	
 	pickTime();
+	
 	//시작시간에 따른 종료시간 제한
-	$('#insertModal #instarttime').on('changeTime',sted);
-	$('#updateModal #setstarttime').on('changeTime',{ssd:$('#updateModal')},upse);
+	$('#insertModal #instarttime').on('changeTime',{modal:$('#insertModal')},sted);
+	$('#updateModal #setstarttime').on('changeTime',{modal:$('#updateModal')},sted);
+	
+	//날짜 변화에 따른 시간제한, 같은 날짜일시 종료시간을 변경
+	$('#insertModal #instartdate').on('change',{modal:$('#insertModal')},sted);
+	$('#insertModal #inenddate').on('change',{modal:$('#insertModal')},sted);
+	$('#updateModal #setstartdate').on('change',{modal:$('#updateModal')},sted);
+	$('#updateModal #setenddate').on('change',{modal:$('#updateModal')},sted);
 	
 	//일정 입력
 	$('#insertModal #btin').on('click', insert_schedule);
@@ -85,105 +110,94 @@ function pickTime(){
 
 
 //시간 제한
-function sted(ssd){
-	console.log(ssd);
+function sted(info){
+	var ModalId = "#"+info.data.modal[0].id;
 	
-	var stt = $('#insertModal #instarttime');
-	var edt = $('#insertModal #inendtime');
+	if(ModalId == "#insertModal"){
+		var stDate = $(ModalId+" #instartdate").val();
+		var edDate = $(ModalId+" #inenddate").val();
+		var stTime = $(ModalId+" #instarttime");
+		var edTime = $(ModalId+" #inendtime");
+	}else if(ModalId == "#updateModal"){
+		var stDate = $(ModalId+" #setstartdate").val();
+		var edDate = $(ModalId+" #setenddate").val();
+		var stTime = $(ModalId+" #setstarttime");
+		var edTime = $(ModalId+" #setendtime");		
+	}
 	
-	var sta = stt.get(0).value.split(" ");
-	var eta = edt.get(0).value.split(" ");
+	// 같은 날짜인지 확인
+	if(stDate == edDate){
+
+	var sta = stTime.get(0).value.split(" ");
+	var eta = edTime.get(0).value.split(" ");
 	
+	if(sta[0]!=""){
 	var getSTime = sta[1].split(":");
 	
 	var hours = parseInt(getSTime[0])+1; 
 	
-	
 	if(sta[0]=='오전'){
 		if(hours == 13){
 			hours=1;
 		}else if(hours == 12){
-			sta[0]='오후';
+			sta[0]='오후'
 		}
 	}
-	var newTime = sta[0]+hours+":"+getSTime[1];
-	if(eta[0]!=""){
-	var getETime = eta[1].split(":");
 	
-	if(sta[0]=='오전'){
-		if(sta[0] == eta[0]){
-			if(hours != 13){
-				if(getSTime[0]>=getETime[0]){
-					$('#insertModal #inendtime').val(newTime);
+	var newTime = sta[0]+hours+":"+getSTime[1]; //시간 1시간 세팅
+	}
+	if(eta[0]!=""){ //종료시간이 있을시
+		var getETime = eta[1].split(":");
+	
+			if(sta[0]=='오전'){
+				if(sta[0] == eta[0]){
+					if(hours != 1){
+						if(getSTime[0]>=getETime[0]){
+							$(edTime).val(newTime);
+						}
+					}
 				}
+		
+			}
+	
+		if(sta[0]=='오후'){
+			if(sta[0]==eta[0]){
+				if(hours != 1){
+					if(getSTime[0]>=getETime[0]){
+						$(edTime).val(newTime);
+					}else if(getETime[0]== 12){
+						$(edTime).val(newTime);
+					}
+				}
+		
+			}else{
+				$(edTime).val(newTime);
+		 	}
+		}
+
+		if(eta[0]=='오전'){
+			if(eta[1].substring(0,2)=='12'){
+				$(edTime).val(newTime);
 			}
 		}
-		
 	}
 	
-	if(sta[0]=='오후'){
-		if(sta[0]==eta[0]){
-			if(hours != 13){
-				if(getSTime[0]>=getETime[0]){
-					$('#insertModal #inendtime').val(newTime);
-				}else if(getETime[0]== 12){
-					$('#insertModal #inendtime').val(newTime);
-			}
-			}
-		
-		}else{
-			$('#insertModal #inendtime').val(newTime);
-		 }
-	}
-	
-	if(sta[0]=='오전'){
-		if(hours == 13){
-			hours=1;
-		}else if(hours == 12){
-			$('#insertModal #inendtime').val(newTime);
-		}
-	}
+	$(edTime).timepicker('remove');
+	$(edTime).timepicker({
+		'minTime': newTime,
+		'maxTime': '오후 11:30', 
+		'disableTextInput': true,
+		  'timeFormat': 'a h:i'
+		});
 	}else{
-		$('#insertModal #inendtime').val(newTime);
+		$(edTime).timepicker('remove');
+		 
+		$(edTime).timepicker({
+			  'disableTextInput': true,
+		 	  'timeFormat': 'a h:i'  
+		});
 	}
 	
-	$('#insertModal #inendtime').timepicker('remove');
-	$('#insertModal #inendtime').timepicker({
-		'minTime': newTime,
-		'maxTime': '오후 11:30', 
-		'disableTextInput': true,
-		  'timeFormat': 'a h:i'
-		});
-}
-//시간제한 update
-function upse(ssd){
-	console.log(ssd);
-	var stt = $('#updateModal #setstarttime');
-	var edt = $('#updateModal #setendtime');
-	
-	var sta = stt.get(0).value.split(" ");
-	var eta = edt.get(0).value.split(" ");
-	
-	var getTime = sta[1].split(":");
-	var hours = parseInt(getTime[0])+1; 
-	
-	if(sta[0]=='오전'){
-		if(hours == 13){
-			hours=1;
-		}else if(hours == 12){
-			sta[0]='오후';
-		}
-	}
-	var newTime = sta[0]+hours+":"+getTime[1];
-	
-	$('#updateModal #setendtime').timepicker('remove');
-	$('#updateModal #setendtime').val(newTime);
-	$('#updateModal #setendtime').timepicker({
-		'minTime': newTime,
-		'maxTime': '오후 11:30', 
-		'disableTextInput': true,
-		  'timeFormat': 'a h:i'
-		});
 }
 
 
@@ -273,23 +287,110 @@ function delete_schedule(){
 		});
 	}
 }
+
 </script>
 </head>
-<body>
-<h1>
-	Hello world!  sysdate : ${sessionScope.sysdate} id :${sessionScope.loginId}
-</h1>
 
-<!-- 클릭하면 iframe에 화면 띄움 -->
-<a href="getScheduleList" target="box2">스케줄 리스트</a>
-<a href="getMcalendar" target="box2">달력</a>
-<a href="getNews" target="box2">뉴스</a>
-<br>
+<body id="page-top">
 
-<!-- iframe박스 -->
-<iframe width="560" height="315" src="mapBasic" name = "box1"></iframe><br>
-<iframe width="560" height="315" src="getScheduleList" name = "box2"></iframe>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <span class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span>
+      <span class="d-none d-lg-block">
+      
+      <!-- 프로필 이미지 들어가는 공간 -->
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
+      
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   
+     <ul class="navbar-nav">
+        <li class="nav-item">
+       
+        
+	      <table>
+		     <!-- 로그아웃 버튼 -->
+		     <li class="nav-item">    
+	          <a class="nav-link js-scroll-trigger" href="" >
+	            <img src="resources/img/logout.png" width=120 height=50></a>
+	        </li>
+	        
+		        <div class="social-icons">
+			        <!-- 날씨 -->
+			        <li class="nav-item">
+			          <a class="nav-link js-scroll-trigger" href="weather" target="box2">
+			         <img src="resources/img/sun.png" width=80 height=80 ></a>
+			        </li>
+			      
+			        <!-- 달력 -->
+			        <li class="nav-item">
+			          <a class="nav-link js-scroll-trigger" href="calendar" target="box2">
+			           <img src="resources/img/cal.png" width=80 height=80 ></a>
+			        </li>
+			       
+			        <!-- 뉴스 -->
+			        <li class="nav-item">
+			          <a class="nav-link js-scroll-trigger" href="news" target="box2">
+			          <img src="resources/img/newsp.png" width=80 height=80></a>
+			        </li>
+	
+				</div>
+		  
+		  </table>
+		        
+				
+        </li>
+        </ul>
+        </div>
+        
 
+  </nav>
+<!-- Mainpage -->
+  <!-- div <class="container-fluid p-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
+      <div class="w-100">
+        <h1 class="mb-0">Welcome
+          <span class="text-primary">WWW</span>
+        </h1>
+        <div class="subheading mb-5">당신 주위에서 일어나는 일들을 경험하세요!
+          <a href="mailto:name@email.com">www@gmail.com</a>
+        </div>
+        <p class="lead mb-5"></p>
+        
+         <a>로그인 폼</a>
+        
+      </div> -->
+    </section>
+			<!--화면 2분할 코드 들어가는 구간 -->
+	<!-- 	<tr>
+		<th><a href="jsp/js1" target="box1"></a></th>
+		</tr>
+		target으로 name을 지정해주면 해당 name화면으로 화면이 바뀜
+		
+		<tr>
+		<th><a href="jquery3" target="box2"></a></th>
+		</tr>
+		
+		<tr>
+		<th><a href="ajax1" target="box2"></a></th>
+		</tr>
+		
+		<tr>
+		<th><a href="ajax2" target="box2"></a></th>
+		</tr> -->
+		
+		</table>
+		
+		<!-- 화면 이중분할 -->
+		<div class="divide">
+		<iframe width="100%" height="400px" src="mapBasic" name = "box1"></iframe><br> <!-- 위에가 바뀜 -->
+		<iframe width="100%" height="350px" src="scheduleplus" name = "box2"></iframe> <!-- 아래가 바뀜 -->
+		</div>
 
 	<!-- 입력용 모달-->
 	<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -369,6 +470,21 @@ function delete_schedule(){
     </div>
   </div>
 </div>
+			
+  <!-- Bootstrap core JavaScript -->
+  <script src="resources/vendor/jquery/jquery.min.js"></script>
+  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="resources/js/resume.min.js"></script>
+   
+  <!-- 하단 이미지 -->
+   <div class="footer">
+    <p class="copyright"><img src="resources/img/underbanner2.png" width="100%" height="20%"></p>
+  	</div>
 </body>
 </html>
 	

@@ -12,19 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import global.sesoc.www.controller.MemberController;
 import global.sesoc.www.dao.MemberDAO;
+import global.sesoc.www.util.FileService;
 import global.sesoc.www.vo.MemberVO;
 
 //회원가입, 로그인, 로그아웃 기능
 @Controller
 public class LoginController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	MemberDAO dao;				//회원관련 데이터 처리객체
+	
+	final String uploadPath="/boardfile";
 	
 	//회원가입시 이메일 중복 확인 -> 중복 아니면 회원가입
 	@ResponseBody
@@ -76,7 +80,7 @@ public class LoginController {
 		}
 		logger.debug(check);
 		return check;
-	};
+	}
 	
 	
 	//로그아웃
@@ -86,4 +90,52 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	//회원 정보 수정폼으로 이동
+	@RequestMapping(value="update", method=RequestMethod.GET)
+	public String updateForm(Model model, HttpSession session){
+		logger.info("수정폼 지나감");
+		String email = (String) session.getAttribute("loginId");
+		MemberVO member = dao.getMember(email);
+		model.addAttribute("member", member);
+		logger.debug("update");
+		return "updateForm";
+	}
+	
+	//수정처리
+	
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String update(MemberVO member, HttpSession session, MultipartFile Savedfile){
+		logger.info("수정처리 지나감");
+		String email = (String) session.getAttribute("loginId");
+		logger.debug("vo:{}", member);
+		logger.debug("아이디:{}", email );
+		
+		String birth = member.getUserbirthdate();
+		logger.info("birth: {}",birth);
+		String birth2 = birth.substring(0, 4) + "/" + birth.substring(5,7) + "/" + birth.substring(8, 10);
+		logger.info("birth2: {}",birth2);
+		member.setUserbirthdate(birth2);
+		
+		logger.info("{}", Savedfile);
+		
+		logger.debug("파일 첨부 지나감 : {}", Savedfile);
+		  //첨부파일이 있는경우 저장된 경로에 저장하고, 원폰 파일명과 저장된 파일명을  member객체에 세팅
+		  if (Savedfile != null && !Savedfile.isEmpty())
+		  {
+			  String savedfile = FileService.saveFile(Savedfile, uploadPath);
+			  member.setOriginalfile(Savedfile.getOriginalFilename());
+			  member.setSavedfile(savedfile);
+		  }
+		 
+		logger.info("updatePOST : {}", member);
+/*		String photo = member.getProfile_photo();
+		logger.debug("photo : {}", photo);
+		member.setProfile_photo(photo);*/
+		
+		member.setEmail(email);
+		int result = dao.update(member);
+		return "redirect:/";
+	}
+
 }
