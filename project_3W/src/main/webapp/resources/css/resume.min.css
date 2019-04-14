@@ -44,10 +44,10 @@
 		 margin:0.3rem;
 		}
  
- <!--네비 좌측 로그인 버튼 위치-->
- .nav-item{ position: relative;
- 			top: 50px;
- 			left: -2px;}
+ .nav-item{position: relative;
+ 			top:50px;
+ 			left:-2px;}
+ 
  
  .social-icons a:last-child{margin-right:0}
  
