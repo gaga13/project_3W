@@ -6,7 +6,20 @@
 <!-- 회원정보 처리 SQL -->
 <mapper namespace="global.sesoc.www.dao.TwitterMapper">
 
-	
+<!-- DB에 AccessToken 저장 -->
+<!-- <insert id="insertAccessToken" parameterType="hashmap">
+insert into acc (email, acc) values('n', #{accessToken})
+</insert>  -->
+
+<!-- resultMap 타입 지정 -->
+<resultMap id="responseMap" type="hashmap">
+      <result property="blobData" javaType="_byte[]" column="acc" jdbcType="BLOB"/>
+</resultMap>
+
+<!--DB에서 AccessToken 가져오기  -->
+<select id="getAccessToken" parameterType="string" resultMap="responseMap">
+select acc from acc where email = #{email} 
+</select>	
 	
 
 	

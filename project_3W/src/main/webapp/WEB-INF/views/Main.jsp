@@ -38,7 +38,7 @@ function logCheck(){
 				window.location.replace('home');
 			}
 			else{
-				alert(check);
+				
 				alert('등록된 이메일 주소와 비밀번호가 일치하지 않습니다.');
 				$('#email').val('');
 				$('#password').val('');
