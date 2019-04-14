@@ -297,8 +297,10 @@ function delete_schedule(){
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span>
       <span class="d-none d-lg-block">
+      
       <!-- 프로필 이미지 들어가는 공간 -->
         <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
+      
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

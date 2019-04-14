@@ -31,10 +31,10 @@
 /*좌측 네이게이터 바 메뉴그림 배경*/
  .social-icons a{
  		position:relative;
- 		left:40px;
- 		top:0px;
-		 height:9.5rem;
-		 width:9.5rem;
+ 		left:-7px;
+ 		top:5px;
+		 height:13rem;
+		 width:13rem;
 		 background-color:#85ccbb;
 		 color:#fff!important;
 		 border-radius:100%;
@@ -44,6 +44,11 @@
 		 margin:0.3rem;
 		}
  
+ <!--네비 좌측 로그인 버튼 위치-->
+ .nav-item{ position: relative;
+ 			top: 50px;
+ 			left: -2px;}
+ 
  .social-icons a:last-child{margin-right:0}
  
  .social-icons a:hover{background-color:#eba190}
@@ -52,7 +57,8 @@
  
  .dev-icons .list-inline-item i:hover{color:#a9d7cc}
  
- #sideNav .navbar-nav .nav-item .nav-link{font-weight:800;
+ #sideNav .navbar-nav .nav-item .nav-link{
+ 		font-weight:800;
  		letter-spacing:.05rem;
  		text-transform:uppercase}
  
@@ -60,7 +66,7 @@
  
  @media (min-width:992px){#sideNav{text-align:center;
 									 position:fixed;
-									 top:0;
+									 top:0px;
 									 left:0;
 									 display:-webkit-box;
 									 display:-ms-flexbox;
@@ -78,9 +84,14 @@
 						 margin:auto auto 0;
 						 padding:.5rem}
  
- #sideNav .navbar-brand .img-profile{max-width:10rem;
-									 max-height:10rem;
-									 border:.5rem solid rgba(255,255,255,.2)}
+ <!--이미지 프로필-->
+ #sideNav .navbar-brand .img-profile{
+ 									position: fixed;
+ 									bottom: 50px;
+									right: 0;
+ 									max-width:10rem;
+									max-height:10rem;
+									border:.5rem solid rgba(255,255,255,.2)}
  
  #sideNav .navbar-collapse{display:-webkit-box;
 							 display:-ms-flexbox;
