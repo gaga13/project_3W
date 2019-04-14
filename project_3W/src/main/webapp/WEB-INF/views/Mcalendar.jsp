@@ -6,6 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 스크로 바 없애기 -->
+<style>
+.scrollblind{position:relative; left:100px; width: 1200px; height:400px; overflow-y:scroll; }
+.view{  width:1200px; height:400px; overflow:hidden; }
+</style>
 
 <link href="<c:url value='resources/css/fullcalendar.min.css'/>" rel="stylesheet" type="text/css">
 <link href="<c:url value='resources/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css">
@@ -121,6 +126,12 @@ function calendar() {
 </script>
 </head>
 <body>
-<div id="calendar"></div>
+	<div class="S_unvisible">
+		<div class="scrollblind">
+			<div id="calendar"></div>
+	</div>
+</div>
+
 </body>
+
 </html>
