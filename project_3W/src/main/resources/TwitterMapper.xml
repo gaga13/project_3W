@@ -8,7 +8,7 @@
 
 <!-- DB에 AccessToken 저장 -->
 <insert id="insertAccessToken" parameterType="hashmap">
-insert into acc (email, acc) values(#{loginEmail}, #{accessToken})
+insert into user_twitter (email, accToken) values(#{loginEmail}, #{accessToken})
 </insert> 
 
 <!-- resultMap 타입 지정 -->
@@ -18,9 +18,22 @@ insert into acc (email, acc) values(#{loginEmail}, #{accessToken})
 
 <!--DB에서 AccessToken 가져오기  -->
 <select id="getAccessToken" parameterType="string" resultMap="responseMap">
-select acc from acc where email = #{email} 
+select accToken from user_twitter where email = #{email} 
 </select>	
-	
 
-	
+<!--DB에서 user_info 테이블의 twitterId 값 'Y'로 변경  -->	
+<update id="updateTwitterId" parameterType="string">
+update user_info set twitterId = 'Y' where email like #{email}
+</update>
+
+<!--DB에서 user_info 테이블의 twitterId 값 'N'로 변경  -->	
+<update id="twitterDisconnect" parameterType="string" >
+update user_info set twitterId = 'N' where email like #{email}
+</update>	
+
+<!--DB에서 accessToken 지우기 -->
+<delete id="deleteTwitterAT" parameterType="string">
+delete from user_twitter where email like #{email}
+</delete>
+
 </mapper>

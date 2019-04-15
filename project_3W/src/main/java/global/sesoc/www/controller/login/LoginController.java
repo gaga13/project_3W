@@ -99,7 +99,8 @@ public class LoginController {
 		MemberVO member = dao.getMember(email);
 		model.addAttribute("member", member);
 		logger.debug("update");
-		return "updateForm";
+		logger.debug("member:{}", member);
+		return "login/updateForm";
 	}
 	
 	//수정처리

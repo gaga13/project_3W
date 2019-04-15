@@ -25,7 +25,7 @@ function twittBtn(){
 		success: function(check){
 			//인증됨
 			if(check){
-			  window.open('twitterWrite',  '', 'width=500,height=300'); 
+			  
 			  
 			}
 			//인증안됨

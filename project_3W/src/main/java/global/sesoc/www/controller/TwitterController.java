@@ -39,6 +39,12 @@ public class TwitterController {
 	@Autowired
 	TwitterDAO dao;
 	
+	//트위터 인증 후 보여줄 페이지
+	@RequestMapping(value = "endpage", method = RequestMethod.GET)
+	public String endpage(){
+		return "endpage";
+	}
+	
 	//연습용 pp.jsp 경로
 	@RequestMapping(value = "pp", method = RequestMethod.GET)
 	public String pp(HttpSession ses){
@@ -173,8 +179,11 @@ public class TwitterController {
         catch(Exception e){
         	e.printStackTrace();
         }
-								
-		return "redirect:pp";
+					
+        //db의 user_info 테이블의 트위터 인증 칼럼 값 업데이트
+        int result2 = dao.updateTwitterId(email);
+        logger.debug("result2:{}", result2);
+		return "redirect:endpage";
 	}
 
 	//트윗하는 페이지 jsp 경로
@@ -212,90 +221,20 @@ public class TwitterController {
 		return "Main";
 	}
 	
-	/*//accessToken db에 저장하기
-	@RequestMapping(value = "InsertAcc", method=RequestMethod.GET)
-	public String serial(HttpSession ses){
+	//트위터 계정 연결 해제
+	@ResponseBody
+	@RequestMapping(value = "twitterDisconnect", method = RequestMethod.GET)
+	public void twitterDisconnect(HttpSession ses){
 		
-		
-		String id = "nghyun13@gmail.com";
-		AccessToken accessToken = (AccessToken) ses.getAttribute("accessToken");
-		byte[] serializedAccessToken;
-		
-		
-	        HashMap<String, Object> hmap = new HashMap<String, Object>();
-	        //accessToken 을 binary data로 바꿔서 byte[]에 넣기, byte[]를 mapper에 넣어 저장
-	        
-	        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-	            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
-	                oos.writeObject(accessToken);
-	             // serializedMember -> 직렬화된 accessToken 객체 
-	                serializedAccessToken = baos.toByteArray();
-	            }
-	            
-	            hmap.put("accessToken", serializedAccessToken);
-	            dao.insertAccessToken(hmap);
-	        }
-	        catch(Exception e){
-	        	e.printStackTrace();
-	        }
-	      
-		return "home";
-	}
-	
-	//DB에서 token 불러오기
-	@RequestMapping(value = "getAcc", method=RequestMethod.GET)
-	public String getAcc(HttpSession ses){
-		
-		String id = "a";
-		byte[] serializedAccessToken;
-		HashMap<String, Object> hmap = new HashMap<>();
-		hmap = dao.selectAccessToken(id);
-		
-		serializedAccessToken = (byte[]) hmap.get("blobData");
-		
-		logger.debug("hmap:{}", hmap);
-		logger.debug("serial:{}", serializedAccessToken);
-		
-		
-	   
-	    try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedAccessToken)) {
-	        try (ObjectInputStream ois = new ObjectInputStream(bais)) {
-	            // 역직렬화된 accessToken 객체를 읽어온다.
-	            Object objectAccToken = ois.readObject();
-	            AccessToken accessToken =  (AccessToken) objectAccToken;
-	            logger.debug("accToken:{}", accessToken);
-	            
-	            Twitter twitter = new TwitterFactory().getInstance();
-	        	
-	    		twitter.setOAuthConsumer(APIkey, APIsecretKey);
-	    		twitter.setOAuthAccessToken(accessToken);
-	    		   
-	    		try{
-	    			
-	    			Status status = twitter.updateStatus("먀먀");//괄호안의 내용 포스팅함
-	    			logger.debug("twitter update success");
-	    			
-	    		} catch(TwitterException te){
-	    			if(401 == te.getStatusCode()){
-	    				//unable to get the access token
-	    			} else{
-	    				te.printStackTrace();
-	    			}
-	    		}
-	    		
-	            
-	        } 
-	        catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-	    } 
-	    catch (IOException e1) {
-			e1.printStackTrace();
+		int result = 0;
+		int result2 = 0;
+		String email = (String) ses.getAttribute("loginId");
+		result = dao.twitterDisconnect(email);
+		result2 = dao.deleteTwitterAT(email);
+		if(result == 1 && result2 == 1){
+			logger.debug("트위터 계정 연결 해제 ");
 		}
-		
-		return "home";
 	}
 	
-*/
 }
 	

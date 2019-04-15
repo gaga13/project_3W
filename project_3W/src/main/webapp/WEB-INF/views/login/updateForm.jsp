@@ -3,46 +3,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원정보 수정</title>
 
-<script type="text/javascript" src="resources/js/jquery-3.3.1.min.js" charset="utf-8"></script>
+<script src="resources/jquery/jquery-3.3.1.min.js"></script>
 <script>
 
 	var sel_file;
 	
-	$(document).ready(function(){
+$(document).ready(function(){
 		$("#input_img").on("change",handleImgFileSelect);
-	});
-	
-	function handleImgFileSelect(e){
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
+		$('#updateBts').on('click', updateCheck);
+		//트위터 계정 연결 버튼
+		$('#twitterConnectBtn').on('click', twitterConnect);
+		$('#twitterDisconnectBtn').on('click', twitterDisconnect);
 		
-		filesArr.forEach(function(f){
-			if(!f.type.match("image.*")){
-				alert("이미지 파일만 올려주세요.");
-				return;
-			}
-			
-			sel_file = f;
-			
-			var reader = new FileReader();
-			reader.onload = function(e){
-				$("#img").attr("src", e.target.result);
-			}
-			reader.readAsDataURL(f);
-		});
-	}
+});
+	
+function handleImgFileSelect(e){
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+	
+	filesArr.forEach(function(f){
+		if(!f.type.match("image.*")){
+			alert("이미지 파일만 올려주세요.");
+			return;
+		}
+		
+		sel_file = f;
+		
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$("#img").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
 /////////////////////////////////////////////////// 위는 사진 아래는 수정
 
-
-$(document).ready(function(){
-	$('#updateBts').on('click', updateCheck);
-});
 
 function updateCheck(){
 	var pw = $('#password').val();
@@ -76,6 +78,22 @@ if(pw != pw2){
 		   });
 }
 
+//트위터 계정 연결
+function twitterConnect(){
+	//트위터 
+	window.open('twitterConnect', '', 'width=700,height=500');
+	//시간지나면 꺼지게하기
+	
+}
+//트위터 계정 연결 해제
+function twitterDisconnect(){
+	$.ajax({
+		url: 'twitterDisconnect',
+		type: 'get',
+		success: function(){alert('해재됨');},
+		error: function(e){ alert(JSON.stringify(e)); }
+	});
+}
 
 </script>
 
@@ -154,7 +172,16 @@ if(pw != pw2){
 	<tr>
 		<td>SNS계정</td>
 		<td>
-			Instagram
+			<img src="./resources/img/twitterLogo2.PNG">twitter
+			<c:choose>
+				<c:when test="${member.twitterId eq 'N' }">
+					<input type="button" id="twitterConnectBtn" value="계정 연결">
+				</c:when>
+				<c:otherwise>
+					<input type="button" id="twitterDisconnectBtn" value="연결 해제">
+				</c:otherwise>
+			</c:choose>
+			
 		</td>
 	</tr>
 	

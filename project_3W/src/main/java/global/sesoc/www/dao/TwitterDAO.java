@@ -46,5 +46,60 @@ public class TwitterDAO {
 		
 		return result;
 	}
+
+	//DB의 트위터 인증 여부 값 업데이트
+	public int updateTwitterId(String email) {
+		
+		int result = 0;
+				
+		TwitterMapper mapper = sqlSession.getMapper(TwitterMapper.class);
+		
+		try {
+			result = mapper.updateTwitterId(email);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+
+	public int twitterDisconnect(String email) {
+		
+		int result = 0;
+		
+		TwitterMapper mapper = sqlSession.getMapper(TwitterMapper.class);
+		
+		try {
+			result = mapper.twitterDisconnect(email);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+		
+	}
+
+	public int deleteTwitterAT(String email) {
+		
+		int result = 0;
+		
+		TwitterMapper mapper = sqlSession.getMapper(TwitterMapper.class);
+		
+		try {
+			result = mapper.deleteTwitterAT(email);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
 		
 }
