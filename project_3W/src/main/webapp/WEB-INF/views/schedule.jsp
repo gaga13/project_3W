@@ -5,14 +5,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<script src="resources/jquery/jquery-3.3.1.min.js"></script>
 <script src="resources/jquery/bootstrap.min.js"></script>
+<script src="resources/jquery/jquery-3.3.1.min.js"></script>
 <link href="resources/css/jquery.timepicker.min.css" rel="stylesheet" type="text/css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel="stylesheet" href="resources/css/table.css">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
 
 <script>
+
+$(document).ready(function(){
+	$('.button').on('click', btclick);
+});
+function btclick(){
+	 $(this).toggleClass("clicked");
+}
+
+
 //페이지 실행하자마자 실행
 $(document).ready(function(){
+	
+	
 	//홈에서 모달 호출 버튼
 	$('#insertmd').on('click', insert_md);
 	
@@ -70,23 +84,28 @@ function insert_md(){
 </head>
 <body>
 
-<h1>일정 목록</h1>
-
-<table>
-		<tr>
-			<th>번호</th>
-			<th>시간</th>
-			<th>제목</th>
-			<th>노선</th>
-		</tr>
+<div class="table-users">
+   <div class="header">Today's schedule</div>
+   
+   <table cellspacing="0">
+      <tr>
+         <th>NO.</th>
+         <th>Time</th>
+         <th width="230">Title</th>
+         <th>How to</th>
+      </tr>
 	<c:forEach var="i" begin="0" end="${sessionScope.sListSize}">
 		<tr id = "inputTR${i}">
 		</tr>
 	</c:forEach>
-	<tr>
-	<td colspan="4" align="center"><button id="insertmd">일정 등록</button></td>
+	<tr>  
+	<div class="button" id="insertmd">
+	</div>
 	</tr>
-</table>
+	</table>
+	
+</div>
+
 
 </body>
 </html>
