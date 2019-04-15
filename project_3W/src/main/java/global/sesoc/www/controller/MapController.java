@@ -23,8 +23,20 @@ public class MapController {
 	}
 	
 	//홈화면에서 편의시설 등 보여줄 맵(카카오맵)
-	@RequestMapping(value="/mapBasic", method=RequestMethod.GET)
+	@RequestMapping(value="/map_Basic", method=RequestMethod.GET)
 	public String mapBasic(){
 		return "map/map_basic";
+	}
+	
+	//맵에서 한 장소 검색하기
+	@RequestMapping(value="/map_Search", method=RequestMethod.GET)
+	public String mapSearch(){
+		return "map/map_Search";
+	}
+	
+	//검색해서 자동차 길찾기
+	@RequestMapping(value="/map_SearchRoute", method=RequestMethod.GET)
+	public String mapSearchRoute(){
+		return "map/map_SearchRoute";
 	}
 }
