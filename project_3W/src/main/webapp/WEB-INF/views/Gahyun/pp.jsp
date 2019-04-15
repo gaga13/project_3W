@@ -21,15 +21,16 @@ function twittBtn(){
 	$.ajax({
 		url:'twitterTokenCheck',
 		type:'get',
-		dateType: 'text',
+		dateType: 'json',
 		success: function(check){
 			//인증됨
 			if(check){
-			  alert(check);
+			  window.open('twitterWrite',  '', 'width=500,height=300'); 
+			  
 			}
 			//인증안됨
 			else{
-				window.open('http://localhost:8888/3w/twitterConnect'); //권한 승인 창 띄우기
+				window.open('twitterConnect', 'width=700,height=500'); //권한 승인 창 띄우기
 			}
 		},
 		error: function(e) {

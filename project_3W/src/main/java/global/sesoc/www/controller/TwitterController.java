@@ -63,33 +63,59 @@ public class TwitterController {
 		String email = (String) ses.getAttribute("loginId");
 		
 		//db에서 해당 email의 accessToken 가져오기
-		byte[] serializedAccessToken;
+		byte[] serializedAccessToken = null;
 		HashMap<String, Object> hmap = new HashMap<>();
 		hmap = dao.selectAccessToken(email);
+		logger.debug("hmap:{}", hmap);
 		try {
 			serializedAccessToken = (byte[]) hmap.get("blobData");
+			logger.debug("token가져오기 성공");
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(serializedAccessToken == null){
 			return check;
-			
+		}
+	
+		check = true;
+		try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedAccessToken)) {
+		    try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+	            // 역직렬화된 accessToken 객체를 읽어온다.
+	            Object objectAccToken = ois.readObject();
+	            AccessToken accessToken =  (AccessToken) objectAccToken;
+	            
+	            //session에 accessToken 저장
+	            ses.setAttribute("accessToken", accessToken);
+	            logger.debug("세션에 accessToken 저장");
+		    }
+		    catch(Exception e){
+		    	e.printStackTrace();
+		    }
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 		
-		check = true;
 		
 		return check;
 	}
 	
+	//트위터 계정 인증 페이지 오픈
 	@RequestMapping(value = "twitterConnect", method = RequestMethod.GET)
 	public void twitterConnect(HttpServletRequest request, HttpServletResponse response)
 	throws TwitterException, IOException{
+		
 		Twitter twitter = new TwitterFactory().getInstance();	
-		twitter.setOAuthConsumer(APIkey, APIsecretKey);				//트위터에게서 받은 API key, API secretKey
-	RequestToken requestToken = twitter.getOAuthRequestToken();		//내쪽에서 requestToken 생성
-	logger.debug("requestToken:{}",requestToken);
-	request.getSession().setAttribute("ReqToken", requestToken); 	//요청 토큰 정보 세션에 구움
-	response.sendRedirect(requestToken.getAuthorizationURL()); 		//인증 페이지로 이동시킴
+		twitter.setOAuthConsumer(APIkey, APIsecretKey);					//트위터에게서 받은 API key, API secretKey
+		RequestToken requestToken = twitter.getOAuthRequestToken();		//내쪽에서 requestToken 생성
+		
+		logger.debug("requestToken:{}",requestToken);
+		
+		request.getSession().setAttribute("ReqToken", requestToken); 	//요청 토큰 정보 세션에 구움
+		response.sendRedirect(requestToken.getAuthorizationURL()); 		//인증 페이지로 이동시킴
 	}
 	
-	
+	//트위터 계정 인증
 	@RequestMapping(value = "twitterAccess", method = RequestMethod.GET)
 	public String twitterAccess(HttpServletRequest request, HttpSession ses,
 			 HttpServletResponse response) 
@@ -97,8 +123,11 @@ public class TwitterController {
 		
 		logger.debug("트위터 인증");
 		int result = 0;
+		String email = (String) ses.getAttribute("loginId");
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(APIkey, APIsecretKey);
+		
+		AccessToken accessToken = null;
 		
 		//트위터에서 보내준 oauthToken, oauthVerifier 
 		String oauthToken = request.getParameter("oauth_token");		//요청 토큰 일치여부 확인을 위한 token key
@@ -109,7 +138,7 @@ public class TwitterController {
 		//트위터 인증 시도
 		if(reqToken.getToken().equals(oauthToken)){
 			try{
-				AccessToken accessToken = twitter.getOAuthAccessToken(reqToken, oauthVerifier);//검증
+				accessToken = twitter.getOAuthAccessToken(reqToken, oauthVerifier);//검증
 				twitter.setOAuthAccessToken(accessToken); //인증정보 저장
 
 				logger.debug("1accToken:{}", accessToken);
@@ -122,30 +151,51 @@ public class TwitterController {
 				//트위터 인증 실패
 			}
 		}
-				
-		return "redirect:twitterWrite";
+		
+		//DB에 accessToken저장하기
+		byte[] serializedAccessToken;
+	
+        HashMap<String, Object> hmap = new HashMap<String, Object>();
+        
+        //accessToken 을 binary data로 바꿔서 byte[]에 넣기, byte[]를 mapper에 넣어 저장
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+                oos.writeObject(accessToken);
+             // serializedMember -> 직렬화된 accessToken 객체 
+                serializedAccessToken = baos.toByteArray();
+            }
+            
+            hmap.put("accessToken", serializedAccessToken);
+            hmap.put("loginEmail", email);
+            result = dao.insertAccessToken(hmap);
+            if(result == 1){ logger.debug("db에 토큰 저장 성공");}
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        }
+								
+		return "redirect:pp";
 	}
 
 	//트윗하는 페이지 jsp 경로
 	@RequestMapping(value="twitterWrite", method=RequestMethod.GET)
 	public String twitterWriteOpen(){
-		return "twitterPractice";
+		return "Gahyun/twitterPractice";
 	}
 		
 	//트윗하는 기능		//twitt : 트윗 할 내용이 담김
 	@RequestMapping(value="twitterWrite" , method = RequestMethod.POST)
-	public void twitterWrite( HttpSession ses, 
+	public String twitterWrite( HttpSession ses, 
 			String twitt, HttpServletRequest request) throws TwitterException{
+		
 		
 		logger.debug("twitt:{}", twitt );
 		Twitter twitter = new TwitterFactory().getInstance();
 		
 		AccessToken accessToken = (AccessToken) ses.getAttribute("accessToken");
-	
 		
 		twitter.setOAuthConsumer(APIkey, APIsecretKey);
 		twitter.setOAuthAccessToken(accessToken);
-		 
 		   
 		try{
 			
@@ -159,7 +209,7 @@ public class TwitterController {
 				te.printStackTrace();
 			}
 		}
-		
+		return "Main";
 	}
 	
 	/*//accessToken db에 저장하기

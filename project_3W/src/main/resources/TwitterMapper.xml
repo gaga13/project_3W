@@ -7,9 +7,9 @@
 <mapper namespace="global.sesoc.www.dao.TwitterMapper">
 
 <!-- DB에 AccessToken 저장 -->
-<!-- <insert id="insertAccessToken" parameterType="hashmap">
-insert into acc (email, acc) values('n', #{accessToken})
-</insert>  -->
+<insert id="insertAccessToken" parameterType="hashmap">
+insert into acc (email, acc) values(#{loginEmail}, #{accessToken})
+</insert> 
 
 <!-- resultMap 타입 지정 -->
 <resultMap id="responseMap" type="hashmap">

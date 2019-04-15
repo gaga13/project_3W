@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import global.sesoc.www.controller.MemberController;
+
 import global.sesoc.www.dao.MemberDAO;
 import global.sesoc.www.util.FileService;
 import global.sesoc.www.vo.MemberVO;
