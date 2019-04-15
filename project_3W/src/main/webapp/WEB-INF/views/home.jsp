@@ -388,7 +388,7 @@ function delete_schedule(){
 		
 		<!-- 화면 이중분할 -->
 		<div class="divide">
-		<iframe width="100%" height="400px" src="mapBasic" name = "box1"></iframe><br> <!-- 위에가 바뀜 -->
+		<iframe width="100%" height="400px" src="map_Basic" name = "box1"></iframe><br> <!-- 위에가 바뀜 -->
 		<iframe width="100%" height="350px" src="scheduleplus" name = "box2"></iframe> <!-- 아래가 바뀜 -->
 		</div>
 
