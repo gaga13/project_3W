@@ -18,17 +18,13 @@
 $(document).ready(function(){
 	$('.button').on('click', btclick);
 });
-function btclick(){
-	 $(this).toggleClass("clicked");
-}
-
 
 //페이지 실행하자마자 실행
 $(document).ready(function(){
 	
 	
 	//홈에서 모달 호출 버튼
-	$('#insertmd').on('click', insert_md);
+	$('.button').on('click', insert_md);
 	
     $('#insertModal', parent.document).on('hide.bs.modal', function(e){
 		$('#insertModal #inscontent', parent.document).val("");
@@ -37,6 +33,7 @@ $(document).ready(function(){
 		$('#insertModal input[name=enddate]', parent.document).val("");
 		$('#insertModal #inlocation', parent.document).hide();
     });  
+    
 	//서버에서 하루스케쥴 목록 불러오기
 	$.ajax({
 		url:'getScheduleList',
@@ -72,6 +69,7 @@ $(document).ready(function(){
 //모달 호출 메소드
 function insert_md(){
 	
+	$(this).toggleClass("clicked");
 	$('#insertModal',parent.document).modal('show');
     $('#insertModal',parent.document).on('shown.bs.modal', function(e){
     	$('#insertModal #schedulecontent',parent.document).focus();
@@ -99,6 +97,7 @@ function insert_md(){
 		</tr>
 	</c:forEach>
 	<tr>  
+	<!-- 이 버튼을 눌러서 모달을 호출 -->
 	<div class="button" id="insertmd">
 	</div>
 	</tr>
