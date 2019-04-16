@@ -13,15 +13,9 @@ $(document).ready(function (){
 });
 
 function list(){
-	var local= "광주광역시 북구";
-	var lat = $('#lat').html();
-	
-	var lon = $('#lng').html();
-	alert(lat);
 	$.ajax({
 		url:'news',
 		type:'post',
-		data:{local:local},
 		dataType:'json',
 		success: outnews,
 		error:function(e){

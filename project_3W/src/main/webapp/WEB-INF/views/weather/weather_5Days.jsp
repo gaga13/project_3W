@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="resources/js/jquery-3.3.1.js"></script>
 <script>
 $(document).ready(function(){			
  	
-	var lat = document.getElementById("lat").value;
-	var lon = document.getElementById("lng").value;
+	var lat = "<%=session.getAttribute("lat")%>";
+
+	var lon = "<%=session.getAttribute("lon")%>";
 	
 	var apiURI = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid="+"c1ae780151cf0ef8cdce02451a0dcc70";
 	
@@ -139,11 +140,6 @@ $(document).ready(function(){
 	평균 기온 : <div id="temp${i}"></div><br>
 	날씨 : <div id="weather${i}"></div><br>
 </c:forEach>
-
-
-
-<input type="hidden" id="lng" value="${sessionScope.loginLon}"/>
-<input type="hidden" id="lat" value="${sessionScope.loginLat}"/>
 
 </body>
 </html>

@@ -196,8 +196,7 @@ function reverseGeoCording(){
 
 function XMLParsing(xml){
 	var xmlDoc = xml.getElementsByTagName("formatted_address");	
-	loca = xmlDoc[0].childNodes[0].nodeValue;
-	
+	loca = xmlDoc[4].childNodes[0].nodeValue;
 	$.ajax({
 		url: 'reverseGeoCording',
 		type: 'post',
