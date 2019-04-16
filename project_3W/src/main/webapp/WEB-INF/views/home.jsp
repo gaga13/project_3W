@@ -299,8 +299,10 @@ function delete_schedule(){
       <span class="d-none d-lg-block">
       
       <!-- 프로필 이미지 들어가는 공간 -->
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
-      
+	<a href="profile">
+	<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
+	</a>
+
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -315,8 +317,10 @@ function delete_schedule(){
 	      <table>
 		     <!-- 로그아웃 버튼 -->
 		     <li class="nav-item">    
+		     <div class="logout">
 	          <a class="nav-link js-scroll-trigger" href="" >
 	            <img src="resources/img/logout.png" width=120 height=50></a>
+	            </div>
 	        </li>
 	        
 		        <div class="social-icons">

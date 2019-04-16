@@ -27,12 +27,19 @@
  	font-weight:500;
  	font-family:'Saira Extra Condensed',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
  	font-size:1.5rem}
+ 	
+ <!--로그아웃 밑으로 내림-->
+ .logout{
+ position: relative;
+ top:330px;
+ }
+ 
  
 /*좌측 네이게이터 바 메뉴그림 배경*/
  .social-icons a{
  		position:relative;
- 		left:-7px;
- 		top:5px;
+ 		left:-5px;
+ 		top:-150px;
 		 height:13rem;
 		 width:13rem;
 		 background-color:#85ccbb;
@@ -87,7 +94,7 @@
  <!--이미지 프로필-->
  #sideNav .navbar-brand .img-profile{
  									position: fixed;
- 									bottom: 50px;
+ 									bottom: 0px;
 									right: 0;
  									max-width:10rem;
 									max-height:10rem;
@@ -136,4 +143,9 @@
  a{color:#B2B2A2}
  
  a:active,a:focus,a:hover{color:#824027}
- 
+
+<!--프로필 클릭시 오버되는 메뉴css-->
+
+$totalItems:1;
+
+

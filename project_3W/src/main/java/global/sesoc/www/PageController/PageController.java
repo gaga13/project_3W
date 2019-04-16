@@ -21,10 +21,9 @@ public class PageController {
 	//날씨 페이지로 이동
 	@RequestMapping(value="weather", method=RequestMethod.GET)
 	public String weather(){
-		return "weatherData/weatherTest2";
+		return "weather/weather_RealTime";
 	}
 
-	
 	//뉴스 페이지로 이동
 	@RequestMapping(value="news", method=RequestMethod.GET)
 	public String news(){
@@ -32,12 +31,12 @@ public class PageController {
 	}
 	
 	//회원정보 수정 페이지로 이동
-	@RequestMapping(value="user", method=RequestMethod.GET)
-	public String user(){
-		return "Uprofil";
+	@RequestMapping(value="profile", method=RequestMethod.GET)
+	public String profile(){
+		return "login/updateForm";
 	}
 	
-	//회원정보 수정 페이지로 이동
+	//하루일정 입력 페이지로 이동
 		@RequestMapping(value="scheduleplus", method=RequestMethod.GET)
 		public String schedule_plus(){
 			return "schedule";
