@@ -22,6 +22,15 @@ public class MapController {
 		return;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/reverseGeoCording", method=RequestMethod.POST)
+	public void reverseGeoCording(String loca, HttpSession session){
+		session.setAttribute("loginLocation", loca);
+		
+		logger.debug("{}",session.getAttribute("loginLocation").toString());
+		return;
+	}
+	
 	//홈화면에서 편의시설 등 보여줄 맵(카카오맵)
 	@RequestMapping(value="/map_Basic", method=RequestMethod.GET)
 	public String mapBasic(){

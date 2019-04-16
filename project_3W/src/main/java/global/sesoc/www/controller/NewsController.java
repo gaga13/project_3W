@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,9 @@ public class NewsController {
 	private final static Logger logger = LoggerFactory.getLogger(NewsController.class);
 	
 	@RequestMapping(value="getNews", method=RequestMethod.GET)
-	public String getNews(){
-		
+	public String getNews(HttpSession session){
+		String chk = session.getAttribute("loginLon").toString();
+		logger.debug("" + chk);
 		return "news";
 	}
 	

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>뉴스</title>
-<script src="<c:url value='resources/jquery/jquery-3.3.1.min.js'/>"></script>
+<script src="<c:url value='resources/js/jquery-3.3.1.js'/>"></script>
 <script>
 $(document).ready(function (){
 	list();
@@ -14,6 +14,10 @@ $(document).ready(function (){
 
 function list(){
 	var local= "광주광역시 북구";
+	var lat = $('#lat').html();
+	
+	var lon = $('#lng').html();
+	alert(lat);
 	$.ajax({
 		url:'news',
 		type:'post',
@@ -44,5 +48,7 @@ function outnews(json){
 </head>
 <body>
 <div id = "news"></div>
+<input type="hidden" id="lng" value="${sessionScope.loginLon}"/>
+<input type="hidden" id="lat" value="${sessionScope.loginLat}"/>
 </body>
 </html>
