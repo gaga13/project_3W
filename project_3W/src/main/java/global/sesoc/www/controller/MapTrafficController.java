@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,8 +27,10 @@ public class MapTrafficController {
 	@ResponseBody
 	@RequestMapping(value="/traffic", method=RequestMethod.POST,
 			produces="application/json;charset=UTF-8")
-	public void trafficTest1(String str){
+	public void trafficTest1(String str, Model model){
+		//넘어오는 정보
 		logger.debug("{}",str);
+		//gson
 		Gson gson = new Gson();
         JsonParser parser = new JsonParser();
         
@@ -35,178 +38,125 @@ public class MapTrafficController {
         JsonObject json = (JsonObject)parser.parse(str);
         
         //맨 처음 {} 벗기기
-        Model model = gson.fromJson(json, Model.class);
+        PubPath pb = gson.fromJson(json, PubPath.class);
         
-        int count;
-        String a1;
+        //리스트들
+		ArrayList<subPath> s = new ArrayList<>(); 
+		ArrayList<OBJ> OBJ = new ArrayList<>();
+		ArrayList<path> path = new ArrayList<>();
+		subPath[][] pathar = null;
+        int count = 0;
         
-        Result result = model.result;
+        Result result = pb.result;
         
+        logger.debug("결과값:{}", result.totalCount);
+        try{
+        	
+        	if(result.path != null){
+        		pathar = new subPath[result.path.size()][];
+        	}
+
         //도시 내 이동일 때
-        if(result.searchType == 0){    
-	        ArrayList<path> path = result.path;
-	   
-	        for(int i = 0; i < path.size(); i ++){
-	        	count = i;
+        	if(result.searchType == 0){    
+        		path= result.path;
+	        
+        		logger.debug("반복문 전에 path사이즈:{}", path.size());
+        		for(int i = 0; i < path.size(); i ++){
 	        	
-	        	path p = path.get(i);
+        			count = i;
 	        	
-	        	ArrayList<subPath> subpath = p.subPath;
+        			path p = path.get(i);
 	        	
-	        	for(int j = 0; j < subpath.size(); j ++){
-	        		subPath s = subpath.get(j);
+        			ArrayList<subPath> subpath = p.subPath;
+        			pathar[i]= new subPath[subpath.size()];
+        			
+        			for(int j = 0; j < subpath.size(); j ++){
+        				pathar[i][j] = subpath.get(j);
+        				s.add(subpath.get(j));
 	        		
-	        		JsonObject result1 = (JsonObject)json.get("result");
-	        		JsonArray pathh = (JsonArray) result1.get("path");
-	        		JsonObject route = (JsonObject) pathh.get(i);
-	        		JsonArray subP = (JsonArray) route.get("subPath");
-	        		JsonObject route2 = (JsonObject) subP.get(j);
-	        		
-	        		if(route2.has("lane") == true){
-		        		ArrayList<Lane> lane = s.lane;
-		        		for(int k = 0; k < lane.size(); k ++){
-		        			Lane l = lane.get(k);
-			        			a1 = "" +
-		        	        		"searchType : " + model.result.searchType + "\n" + 
-		        	        		"subwayCount : " + model.result.subwayCount + "\n" + 
-		        	        		"busCount : " + model.result.busCount + "\n" + 
-		        	        		"outTrafficCheck : " + model.result.outTrafficCheck + "\n" +
-		        					"pathType : " + p.pathType + "\n" +
-	    			            	"payment : " + p.info.payment + "\n" +
-	    			            	"busTransitCount : " + p.info.busTransitCount + "\n" +
-	    			            	"subwayTransitCount : " + p.info.subwayTransitCount + "\n" +		
-	    			            	"totalStationCount : " + p.info.totalStationCount + "\n" +
-	    			            	"totalTime : " + p.info.totalTime + "\n" +
-	    			            	"totalWalk : " + p.info.totalWalk + "\n" +
-	    			            	"trafficDistance : " + p.info.trafficDistance + "\n" +
-	    			            	"totalDistance : " + p.info.totalDistance + "\n" +
-		        					"trafficType : " + s.trafficType + "\n" +
-		        	        		"distance : " + s.distance + "\n" +
-		        	        		"sectionTime : " + s.sectionTime + "\n" +
-		        					"startName : " + s.startName + "\n" +
-		        	        		"startX : " + s.startX + "\n" +
-		        	        		"startY : " + s.startY + "\n" +
-		        	        		"endName : " + s.endName + "\n" +
-		        	        		"endX : " + s.endX + "\n" +
-		        	        		"endY : " + s.endY + "\n" +
-		        	        		"busNo : " + l.busNo + "\n" +
-		        	        		"name : " + l.name;
-		        				logger.debug("count: {}, {}",count, a1);
-		        		}
-	        		}
-	        		
-	        		else{
-	        			a1 = "" +
-	    	        		"searchType : " + model.result.searchType + "\n" + 
-	    	        		"subwayCount : " + model.result.subwayCount + "\n" + 
-	    	        		"busCount : " + model.result.busCount + "\n" + 
-	    	        		"outTrafficCheck : " + model.result.outTrafficCheck + "\n" +
-	    					"pathType : " + p.pathType + "\n" +
-			            	"payment : " + p.info.payment + "\n" +
-			            	"busTransitCount : " + p.info.busTransitCount + "\n" +
-			            	"subwayTransitCount : " + p.info.subwayTransitCount + "\n" +		
-			            	"totalStationCount : " + p.info.totalStationCount + "\n" +
-			            	"totalTime : " + p.info.totalTime + "\n" +
-			            	"totalWalk : " + p.info.totalWalk + "\n" +
-			            	"trafficDistance : " + p.info.trafficDistance + "\n" +
-			            	"totalDistance : " + p.info.totalDistance + "\n" +
-	    					"trafficType : " + s.trafficType + "\n" +
-	    	        		"distance : " + s.distance + "\n" +
-	    	        		"sectionTime : " + s.sectionTime + "\n";
-	    				logger.debug("count: {}, {}",count, a1);
-	        		}
-	        		
-	        	}
-	        }
+        				JsonObject result1 = (JsonObject)json.get("result");
+        				JsonArray pathh = (JsonArray) result1.get("path");
+        				JsonObject route = (JsonObject) pathh.get(i);
+        				JsonArray subP = (JsonArray) route.get("subPath");
+        				JsonObject route2 = (JsonObject) subP.get(j);
+	        			
+        			}
+	        	
+        		}
+        	}
+        	//도시간 이동일 때
+        	else{            
+        		trainRequest trainRequest = result.trainRequest;
+        		exBusRequest exBusRequest = result.exBusRequest;
+        		outBusRequest outBusRequest = result.outBusRequest;
+        		airRequest airRequest = result.airRequest;
+    	
+        		if(trainRequest.count != 0){
+        			logger.debug("기차 들림");
+        			OBJ.addAll(trainRequest.OBJ);
+        		}
+        	
+        		if(exBusRequest.count != 0){
+        			logger.debug("버스 들림");
+        			OBJ.addAll(exBusRequest.OBJ);
+
+        		}
+        	
+        		if(outBusRequest.count != 0){
+        			logger.debug("아웃버스 들림");
+        			OBJ.addAll(outBusRequest.OBJ);
+        		}
+        	
+        		if(airRequest.count != 0){
+        			logger.debug("비행기 들림");
+        			OBJ.addAll(airRequest.OBJ);
+        		}
+        	}
+
+        	if(pathar!= null){
+        		for(int i=0 ; i<pathar.length;i++){
+        			logger.debug(i+"번째"+"path{}", path.get(i));
+        			logger.debug("가격:{}", path.get(i).info.payment);
+        			logger.debug("도착시간:{}", path.get(i).info.totalTime);
+        			logger.debug("출발정류장:{}", path.get(i).info.firstStartStation);
+        			logger.debug("도착정류장:{}", path.get(i).info.lastEndStation);
+        			logger.debug("도보:{}", path.get(i).info.totalWalk);
+        			logger.debug("환승여부- 버스:{}, 지하철:{}", path.get(i).info.busTransitCount, path.get(i).info.subwayTransitCount);
+        	
+        			for(int j=0; j<pathar[i].length;j++){
+        				System.out.println("j값"+j);
+        				
+        				if(pathar[i][j].lane == null){
+        					logger.debug("도보");
+        				}else if(pathar[i][j].lane.get(0).busNo != null){
+        					logger.debug(i+"행"+j+"열 버스:{}", pathar[i][j].lane.get(0).busNo);
+            	
+        				}else if(pathar[i][j].lane.get(0).name !=null){
+        					logger.debug(i+"행"+j+"열 지하철:{}", pathar[i][j].lane.get(0).name);
+        				}
+        			}
+        		}
+        		model.addAttribute("subpath", pathar);
+        	}else if(OBJ != null){
+        	logger.debug("obj크기:{}", OBJ.size());
+        	for(int k =0;  k<OBJ.size();k++){	
+        		logger.debug(k+"번째 시외 정보:{}", OBJ.get(k));
+        	}
+        	model.addAttribute("obj",OBJ);
+        	}
+        }catch(NullPointerException n){
+        	n.printStackTrace();
         }
-        //도시간 이동일 때
-        else{            
-        	trainRequest trainRequest = result.trainRequest;
-        	exBusRequest exBusRequest = result.exBusRequest;
-        	outBusRequest outBusRequest = result.outBusRequest;
-        	airRequest airRequest = result.airRequest;
-    		
-        	if(trainRequest.count != 0){
-    			ArrayList<OBJ> OBJ = trainRequest.OBJ;
-    			for(int i = 0; i < OBJ.size(); i++){
-    				a1 = "\n " +
-						"startCityName : " + model.result.startCityName + "\n" + 
-	            		"endCityName : " + model.result.endCityName + "\n" + 
-	            		"totalCount : " + model.result.totalCount + "\n" +
-    					"trainStartSTN : " + OBJ.get(i).startSTN + "\n" +
-    					"trainSX : " + OBJ.get(i).SX + "\n" +
-    					"trainSY : " + OBJ.get(i).SY + "\n" +
-    					"trainEndSTN : " + OBJ.get(i).endSTN + "\n" +
-    					"trainEX : " + OBJ.get(i).EX + "\n " +
-    					"trainEY : " + OBJ.get(i).EY + "\n " +
-    					"trainPayment : " + OBJ.get(i).payment + "\n " +
-    					"trainTime : " + OBJ.get(i).time;
-    				logger.debug(": {}", a1);
-    			}
-    		}
-        	
-        	if(exBusRequest.count != 0){
-    			ArrayList<OBJ> OBJ = exBusRequest.OBJ;
-    			for(int i = 0; i < OBJ.size(); i++){
-    				a1 = "\n " +
-						"startCityName : " + model.result.startCityName + "\n" + 
-	            		"endCityName : " + model.result.endCityName + "\n" + 
-	            		"totalCount : " + model.result.totalCount + "\n" +
-    					"exBusStartSTN : " + OBJ.get(i).startSTN + "\n" +
-    					"exBusSX : " + OBJ.get(i).SX + "\n" +
-    					"exBusSY : " + OBJ.get(i).SY + "\n" +
-    					"exBusEndSTN : " + OBJ.get(i).endSTN + "\n" +
-    					"exBusEX : " + OBJ.get(i).EX + "\n " +
-    					"exBusEY : " + OBJ.get(i).EY + "\n " +
-    					"exBusPayment : " + OBJ.get(i).payment + "\n " +
-    					"exBusTime : " + OBJ.get(i).time; 
-    				logger.debug(": {}", a1);
-    			}
-    		}
-        	
-        	if(outBusRequest.count != 0){
-    			ArrayList<OBJ> OBJ = outBusRequest.OBJ;
-    			for(int i = 0; i < OBJ.size(); i++){
-    				a1 = "\n " +
-						"startCityName : " + model.result.startCityName + "\n" + 
-	            		"endCityName : " + model.result.endCityName + "\n" + 
-	            		"totalCount : " + model.result.totalCount + "\n" +
-    					"outBusStartSTN : " + OBJ.get(i).startSTN + "\n" +
-    					"outBusSX : " + OBJ.get(i).SX + "\n" +
-    					"outBusSY : " + OBJ.get(i).SY + "\n" +
-    					"outBusEndSTN : " + OBJ.get(i).endSTN + "\n" +
-    					"outBusEX : " + OBJ.get(i).EX + "\n " +
-    					"outBusEY : " + OBJ.get(i).EY + "\n " +
-    					"outBusPayment : " + OBJ.get(i).payment + "\n " +
-    					"outBusTime : " + OBJ.get(i).time;
-    				logger.debug(": {}", a1);
-    			}
-    		}
-        	
-        	if(airRequest.count != 0){
-    			ArrayList<OBJ> OBJ = airRequest.OBJ;
-    			for(int i = 0; i < OBJ.size(); i++){
-    				a1 = "\n " +
-						"startCityName : " + model.result.startCityName + "\n" + 
-	            		"endCityName : " + model.result.endCityName + "\n" + 
-	            		"totalCount : " + model.result.totalCount + "\n" +
-    					"airStartSTN : " + OBJ.get(i).startSTN + "\n" +
-    					"airSX : " + OBJ.get(i).SX + "\n" +
-    					"airSY : " + OBJ.get(i).SY + "\n" +
-    					"airEndSTN : " + OBJ.get(i).endSTN + "\n" +
-    					"airEX : " + OBJ.get(i).EX + "\n " +
-    					"airEY : " + OBJ.get(i).EY + "\n " +
-    					"airPayment : " + OBJ.get(i).payment + "\n " +
-    					"airTime : " + OBJ.get(i).time;
-    				logger.debug(": {}", a1);
-    			}
-    		}
-        }        
         return;
 	}
 	
-	class Model{
+	class PubPath{
 		Result result;
+
+		@Override
+		public String toString() {
+			return "PubPath [result=" + result + "]";
+		}
 	}
 	
 	class Result{
@@ -226,6 +176,15 @@ public class MapTrafficController {
 		exBusRequest exBusRequest; // 고속버스 관련
 		outBusRequest outBusRequest; // 시외버스 관련
 		airRequest airRequest; // 항공 관련
+	
+		@Override
+		public String toString() {
+			return "Result [searchType=" + searchType + ", path=" + path + ", subwayCount=" + subwayCount
+					+ ", busCount=" + busCount + ", outTrafficCheck=" + outTrafficCheck + ", startCityName="
+					+ startCityName + ", endCityName=" + endCityName + ", totalCount=" + totalCount + ", trainRequest="
+					+ trainRequest + ", exBusRequest=" + exBusRequest + ", outBusRequest=" + outBusRequest
+					+ ", airRequest=" + airRequest + "]";
+		}	
 		
 	}
 	
@@ -233,6 +192,11 @@ public class MapTrafficController {
 		int pathType;
 		ArrayList<subPath> subPath;
 		Info info;
+		
+		@Override
+		public String toString() {
+			return "path [pathType=" + pathType + ", subPath=" + subPath + ", info=" + info + "]";
+		}
 	}
 	
 	class subPath{
@@ -246,11 +210,24 @@ public class MapTrafficController {
 		String endName;
 		double endX;
 		double endY;
+		
+		@Override
+		public String toString() {
+			return "subPath [trafficType=" + trafficType + ", distance=" + distance + ", sectionTime=" + sectionTime
+					+ ", lane=" + lane + ", startName=" + startName + ", startX=" + startX + ", startY=" + startY
+					+ ", endName=" + endName + ", endX=" + endX + ", endY=" + endY + "]";
+		}
+		
 	}
 	
 	class Lane{
 		String busNo = null;
 		String name = null;
+		
+		@Override
+		public String toString() {
+			return "Lane [busNo=" + busNo + ", name=" + name + "]";
+		}
 	}
 	
 	class Info{
@@ -260,29 +237,64 @@ public class MapTrafficController {
 		int totalStationCount;
 		int totalTime;
 		int totalWalk;
+		String firstStartStation;
+		String lastEndStation;
 		double trafficDistance;
 		double totalDistance;
+		
+		@Override
+		public String toString() {
+			return "Info [payment=" + payment + ", busTransitCount=" + busTransitCount + ", subwayTransitCount="
+					+ subwayTransitCount + ", totalStationCount=" + totalStationCount + ", totalTime=" + totalTime
+					+ ", totalWalk=" + totalWalk + ", firstStartStation=" + firstStartStation + ", lastEndStation="
+					+ lastEndStation + ", trafficDistance=" + trafficDistance + ", totalDistance=" + totalDistance
+					+ "]";
+		}
+		
 	}
 	
 	//도시간 이동시 사용하는 클래스
 	class trainRequest{
 		int count;
 		ArrayList<OBJ> OBJ;
+		
+		@Override	
+		public String toString() {
+			return "trainRequest [count=" + count + ", OBJ=" + OBJ + "]";
+		}
+		
 	}
 	
 	class exBusRequest{
 		int count;
 		ArrayList<OBJ> OBJ;
+		
+		@Override	
+		public String toString() {
+			return "exBusRequest [count=" + count + ", OBJ=" + OBJ + "]";
+		}
+		
 	}
 	
 	class outBusRequest{
 		int count;
 		ArrayList<OBJ> OBJ;
+		
+		@Override
+		public String toString() {
+			return "outBusRequest [count=" + count + ", OBJ=" + OBJ + "]";
+		}
+		
 	}
 	
 	class airRequest{
 		int count;
 		ArrayList<OBJ> OBJ;
+		
+		@Override
+		public String toString() {
+			return "airRequest [count=" + count + ", OBJ=" + OBJ + "]";
+		}
 	}
 	
 	class OBJ{
@@ -294,5 +306,12 @@ public class MapTrafficController {
 		double EY; // 도착y좌표
 		int payment; // 가격
 		int time; // 시간
+		
+		@Override
+		public String toString() {
+			return "OBJ [startSTN=" + startSTN + ", SX=" + SX + ", SY=" + SY + ", endSTN=" + endSTN + ", EX=" + EX
+					+ ", EY=" + EY + ", payment=" + payment + ", time=" + time + "]";
+		}
+		
 	}
 }

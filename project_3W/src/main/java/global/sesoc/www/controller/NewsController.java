@@ -87,7 +87,7 @@ public class NewsController {
 		
 		//중복된 기사 삭제
 		for(n=0; n<list.size();n++){
-			for(int a = 1; a<list.size();a++){
+			for(int a = 1; a<n;a++){
 				if( n!=a && list.get(n).getTitle().compareTo(list.get(a).getTitle()) == 0|| list.get(a).getTitle().length()<10){
 					list.remove(a);
 				}
