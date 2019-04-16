@@ -24,6 +24,11 @@ public class MapTrafficController {
 		return "map/map_Traffic";
 	}
 	
+	@RequestMapping(value="/map_SearchTraffic", method=RequestMethod.GET)
+	public String map_SearchTraffic(){
+		return "map/map_SearchTraffic";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/traffic", method=RequestMethod.POST,
 			produces="application/json;charset=UTF-8")

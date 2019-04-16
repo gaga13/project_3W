@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>출발지, 도착지 입력 후 자동차 길찾기</title>
+<title>출발지 도착지 검색해서 대중교통 길찾기</title>
 <script src="resources/js/jquery-3.3.1.js"></script>
 <script
 	src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=99ed5523-2eb1-46fb-8cf0-60d0377b2345"></script>
@@ -20,11 +20,11 @@ var markerLayer;
 var arrname = [];
 var arrlat = [];
 var arrlng = [];
+var checkNum;
+var tDistance;
 var marker = null;
 var routeLayer;
 var vectorLayer;
-//출발지 도착지 입력 구별 위한 checkNum
-var checkNum;
 
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
 function initTmap(){
@@ -65,7 +65,7 @@ function initTmap(){
 }
 
 function search(num){
-	
+
 	if(vectorLayer != null || routeLayer != null){
 		map.destroy();
 		initTmap();
@@ -80,13 +80,13 @@ function search(num){
 	var searchKeyword;
 	//출발지 입력인지 도착지 입력인지 확인하는 숫자.
 	checkNum = num;
+	
 	switch(checkNum){
 	case 1:
 		searchKeyword = startKeyword;
 		break;
 	case 2:
 		searchKeyword = endKeyword;
-		break;
 	}
 	
 	$.ajax({
@@ -116,12 +116,19 @@ function search(num){
 		//데이터 로드가 성공적으로 완료되었을 때 발생하는 함수입니다.
 		success:function(response){
 			prtcl = response;
-						
+			
+			// 2. 기존 마커, 팝업 제거
+			if(markerLayer != null) {
+				markerLayer.clearMarkers();
+				map.removeAllPopup();
+			}
+			
 			// 3. POI 마커 표시
 			markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
 			map.addLayer(markerLayer);//map에 마커 레이어 추가
 			var size = new Tmap.Size(24, 38);//아이콘 크기 설정
 			var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));//아이콘 중심점 설정
+			var maker;
 			var popup;
 			var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String	
 			xmlDoc = $.parseXML( prtclString ),
@@ -146,7 +153,7 @@ function search(num){
 			   	innerHtml+="<div><img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_"+index+".png' style='vertical-align:middle'/><span onclick="+"javascript:nameClick("+ index +")"+">"+name+"</span></div>";
 				
 				var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_'+index+'.png',size, offset);//마커 아이콘 설정
-				var lonlat = new Tmap.LonLat(lon1, lat1);//좌표설정
+				var lonlat = new Tmap.LonLat(lon1, lat1);//좌표설정 
 				marker = new Tmap.Marker(lonlat, icon);//마커생성
 				markerLayer.addMarker(marker);//마커레이어에 마커 추가
 				
@@ -168,7 +175,7 @@ function search(num){
 			    }
 			    
 		   });
-			$("#searchResult").html(innerHtml);
+		$("#searchResult").html(innerHtml);
 			map.zoomToExtent(markerLayer.getDataExtent());//마커레이어의 영역에 맞게 map을 zoom합니다.
 		},
 		//요청 실패시 콘솔창에서 에러 내용을 확인할 수 있습니다.
@@ -201,7 +208,7 @@ function nameClick(index){
 		
 		$('#endKeyword').val(name);
 		break;
-	}				
+	}
 }
 
 function searchRoute(){
@@ -220,13 +227,13 @@ function searchRoute(){
 		var size = new Tmap.Size(24, 38);//아이콘 사이즈 설정
 		var offset = new Tmap.Pixel(-(size.w/2), -(size.h));//아이콘 중심점 설정
 		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png',size, offset);//마커 아이콘 설정
-		var marker = new Tmap.Marker(lonlat1.transform("EPSG:4326", "EPSG:3857"), icon);//마커 생성
+		var marker1 = new Tmap.Marker(lonlat1.transform("EPSG:4326", "EPSG:3857"), icon);//마커 생성
 
 		var lonlat2 = new Tmap.LonLat(endLng, endLat).transform("EPSG:3857", "EPSG:4326");
 		var size = new Tmap.Size(24, 38);//아이콘 사이즈 설정
 		var offset = new Tmap.Pixel(-(size.w/2), -(size.h));//아이콘 중심점 설정
 		var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png',size, offset);//마커 아이콘 설정
-		var marker = new Tmap.Marker(lonlat2.transform("EPSG:4326", "EPSG:3857"), icon);//마커 생성 
+		var marker2 = new Tmap.Marker(lonlat2.transform("EPSG:4326", "EPSG:3857"), icon);//마커 생성
 		
 		//REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.
 		s_lonLat = new Tmap.LonLat(lonlat1.lon, lonlat1.lat); //시작 좌표입니다.   
@@ -251,7 +258,7 @@ function searchRoute(){
 		console.log(this.responseXML); //xml로 데이터를 받은 정보들을 콘솔창에서 확인할 수 있습니다.
 			      
 		var kmlForm = new Tmap.Format.KML({extractStyles:true}).read(this.responseXML);
-		vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
+		var vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
 		vectorLayer.addFeatures(kmlForm);
 		map.addLayer(vectorLayer);
 		//경로 그리기 후 해당영역으로 줌  
@@ -309,12 +316,21 @@ function searchRoute(){
 		     $xml = $( xmlDoc ),
 		     $intRate = $xml.find("Document");
 		
-		     var tDistance = " 총 거리 : "+($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1)+"km,";
+		     tDistance = " 총 거리 : "+($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1)+"km,";
 		     var tTime = " 총 시간 : "+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+"분,";
 		     var tFare = " 총 요금 : "+$intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue+"원입니다";
 		     
 		     $("#result2").text(tDistance+tTime+tFare);
-		
+			
+		     tDistance = ($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1);
+		     
+		 	 // 출발 - 도착지점 거리 700m 이하시 다시 찍도록 하기
+		     if(tDistance <= 2){
+		    	alert('출발지와 도착지가 너무 가까워요! 다시 입력해주세요!');
+		    	history.go(0);	//끝까지 다 실행되고 새로고침되네.. 어떻게 해야할까나
+		    	return;
+		     }
+		     
 		     // 실시간 교통정보 추가
 		     var trafficColors = {
 		         extractStyles:true,
@@ -338,10 +354,70 @@ function searchRoute(){
 		 console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		 }
 		});
+		
+		if(tDistance > 0.7){
+			//길찾기 API 호출
+	    	searchPubTransPathAJAX(lon1, lat1, lon2, lat2);
+		}
 	}
+	
+	//ODsay api 호출
+	function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
+		var xhr = new XMLHttpRequest();
+		var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+lon1+"&SY="+lat1+"&EX="+lon2+"&EY="+lat2+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
+		xhr.open("GET", url, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {		
+				//노선그래픽 데이터 호출. 출발지 - 도착지 거리가 700 m 이하일 경우 {"error": {"code": "-98","msg": "radius error"}} 에러 발생.
+				$.ajax({
+					//url : 어디로 갈지. controller의 경로와 맞아야함. 상대경로로 중간에 ../ 등의 경로가 추가될 수도 있음.
+					url: 'traffic',
+					//type : 요청을 get방식으로 보낼 것인가, post방식으로 보낼 것인가.
+					type: 'post',
+					data: {str : xhr.responseText},
+					//dataType : 데이터를 가져올 때 어떤 타입으로 가져올지. 보통 text 아니면 json이 들어간다.
+					dataType: 'text',
+					//요청 성공시 어떻게 할 것인지. 방법 1: 다른 함수로 보내기. 뒤에 ()붙이면 안됨. ()붙이는 것은 그 함수를 지금 이 자리에서 실행한다는 뜻이므로.
+					success: function(){
+						alert('성공');
+					},
+					//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
+					error: function (e, request, status, error) {
+						//에러 발생시 에러 내용을 문자열로 출력하는 명령어.
+						alert(JSON.stringify(e));
+						alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+					}
+				});				
+				//callMapObjApiAJAX((JSON.parse(xhr.responseText))["result"]["path"][0].info.mapObj, lon1, lat1, lon2, lat2);
+			}
+		}
+	}
+
+/* 	//폴리라인 부분
+ 	function callMapObjApiAJAX(mabObj){
+		var xhr = new XMLHttpRequest();
+		//ODsay apiKey 입력
+		var url = "https://api.odsay.com/v1/api/loadLane?mapObject=0:0@"+mabObj+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
+		xhr.open("GET", url, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				//var resultJsonData = JSON.parse(xhr.responseText);
+				var kmlForm = new Tmap.Format.KML({extractStyles:true}).read(xhr.responseText);
+				var vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
+				vectorLayer.addFeatures(kmlForm);
+				map.addLayer(vectorLayer);
+				//경로 그리기 후 해당영역으로 줌  
+				map.zoomToExtent(vectorLayer.getDataExtent());
+			}
+		}
+	} */
 }
+
 </script>
 </head>
+
 <body onload="initTmap()">
 	<!-- 맵 -->
 	<div id="map_div"></div>
@@ -351,7 +427,6 @@ function searchRoute(){
 	<input type="button" value="검색" onclick="javascript:searchRoute()" />
 	<p id="result2"></p>
 	<div style="height:400px; overflow-y:scroll; " id="searchResult" name="searchResult">검색결과</div>
-	
 	
 </body>
 </html>
