@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="resources/jquery/bootstrap.min.js"></script>
 <script src="resources/jquery/jquery-3.3.1.min.js"></script>
+<script src="resources/jquery/bootstrap.min.js"></script>
 <link href="resources/css/jquery.timepicker.min.css" rel="stylesheet" type="text/css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
       <link rel="stylesheet" href="resources/css/table.css">
@@ -14,10 +14,6 @@
 
 
 <script>
-
-$(document).ready(function(){
-	$('.button').on('click', btclick);
-});
 
 //페이지 실행하자마자 실행
 $(document).ready(function(){

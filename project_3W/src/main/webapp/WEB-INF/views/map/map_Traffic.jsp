@@ -219,7 +219,7 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 				type: 'post',
 				data: {str : xhr.responseText},
 				//dataType : 데이터를 가져올 때 어떤 타입으로 가져올지. 보통 text 아니면 json이 들어간다.
-				dataType: 'text',
+				dataType: 'json',
 				//요청 성공시 어떻게 할 것인지. 방법 1: 다른 함수로 보내기. 뒤에 ()붙이면 안됨. ()붙이는 것은 그 함수를 지금 이 자리에서 실행한다는 뜻이므로.
 				success: function(){
 					alert('성공');

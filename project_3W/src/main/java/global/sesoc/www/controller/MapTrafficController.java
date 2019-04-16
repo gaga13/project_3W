@@ -1,6 +1,8 @@
 package global.sesoc.www.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -38,7 +41,7 @@ public class MapTrafficController {
 		//gson
 		Gson gson = new Gson();
         JsonParser parser = new JsonParser();
-        
+    
         //Json
         JsonObject json = (JsonObject)parser.parse(str);
         
@@ -142,17 +145,19 @@ public class MapTrafficController {
         			}
         		}
         		model.addAttribute("subpath", pathar);
+        		
         	}else if(OBJ != null){
         	logger.debug("obj크기:{}", OBJ.size());
         	for(int k =0;  k<OBJ.size();k++){	
         		logger.debug(k+"번째 시외 정보:{}", OBJ.get(k));
         	}
         	model.addAttribute("obj",OBJ);
+        	
         	}
         }catch(NullPointerException n){
         	n.printStackTrace();
         }
-        return;
+        return ;
 	}
 	
 	class PubPath{
