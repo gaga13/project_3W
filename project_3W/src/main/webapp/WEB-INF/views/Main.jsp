@@ -8,9 +8,14 @@
 <html>
 <script src="resources/jquery/jquery-3.3.1.min.js"></script>
 <script>
+var lon;
+var lat;
+var loca;
+
 $(document).ready(function(){
 	$('#loginBts').on('click',logCheck);
 	$('#joinBts').on('click',joinCheck);
+	locationSave();
 });
 //로그인 시 회원체크
 function logCheck(){
@@ -143,6 +148,67 @@ function getCookie(cookieName) {
         cookieValue = cookieData.substring(start, end);
     }
     return unescape(cookieValue);
+}
+
+function locationSave(){
+	// Geolocation API에 액세스할 수 있는지를 확인
+    if (navigator.geolocation) {
+    	//위치 정보를 얻기
+        navigator.geolocation.getCurrentPosition (function(pos) {
+        	lon = pos.coords.longitude;
+        	lat = pos.coords.latitude;
+        	$.ajax({
+				//url : 어디로 갈지. controller의 경로와 맞아야함. 상대경로로 중간에 ../ 등의 경로가 추가될 수도 있음.
+				url: 'loginLocation',
+				//type : 요청을 get방식으로 보낼 것인가, post방식으로 보낼 것인가.
+				type: 'post',
+				data: {lat : pos.coords.latitude, lon : pos.coords.longitude},
+				//dataType : 데이터를 가져올 때 어떤 타입으로 가져올지. 보통 text 아니면 json이 들어간다.
+				dataType: 'text',
+				//요청 성공시 어떻게 할 것인지. 방법 1: 다른 함수로 보내기. 뒤에 ()붙이면 안됨. ()붙이는 것은 그 함수를 지금 이 자리에서 실행한다는 뜻이므로.
+				success: reverseGeoCording,
+				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
+				error: function (e) {
+					//에러 발생시 에러 내용을 문자열로 출력하는 명령어.
+					alert(JSON.stringify(e));
+					alert("현재위치 session 저장 실패");
+				}
+			});
+        });
+    } 
+    else {
+        alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+    }
+}
+
+function reverseGeoCording(){
+	var latlng = "https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + lon + "&language=ko&sensor=false&key=AIzaSyDBLJ3URwB6HcAHqAJiwwOOqgqwUe2Hu0M"
+			
+	$.ajax({
+		url: latlng,
+		type: "POST",
+		success: XMLParsing,
+		error: function(e){
+			alert(json.stringify(e));
+		}
+	});
+}
+
+function XMLParsing(xml){
+	var xmlDoc = xml.getElementsByTagName("formatted_address");	
+	loca = xmlDoc[4].childNodes[0].nodeValue;
+	$.ajax({
+		url: 'reverseGeoCording',
+		type: 'post',
+		data: {loca : loca},
+		dataType: 'text',
+		success: function(){
+		},
+		error: function (e) {
+			alert(JSON.stringify(e));
+			alert("현재위치에 따른 주소명 session 저장 실패");
+		}
+	});
 }
 </script> 
       

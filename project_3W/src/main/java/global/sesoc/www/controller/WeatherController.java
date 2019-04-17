@@ -26,9 +26,14 @@ public class WeatherController {
 
 	public static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
 	
-	@RequestMapping(value = "getWeather", method = RequestMethod.GET)
-	public String getWeather(){
+	@RequestMapping(value = "weather_RealTime", method = RequestMethod.GET)
+	public String weather_RealTime(){
 		return "weather/weather_RealTime";
+	}
+	
+	@RequestMapping(value = "weather_5Days", method = RequestMethod.GET)
+	public String weather_5Days(){
+		return "weather/weather_5Days";
 	}
 	
 	@RequestMapping(value = "weather_Search", method = RequestMethod.GET)

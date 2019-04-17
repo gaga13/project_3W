@@ -315,13 +315,6 @@ function delete_schedule(){
        
         
 	      <table>
-		     <!-- 로그아웃 버튼 -->
-		     <li class="nav-item">    
-		     <div class="logout">
-	          <a class="nav-link js-scroll-trigger" href="" >
-	            <img src="resources/img/logout.png" width=120 height=50></a>
-	            </div>
-	        </li>
 	        
 		        <div class="social-icons">
 			        <!-- 날씨 -->
@@ -341,9 +334,17 @@ function delete_schedule(){
 			          <a class="nav-link js-scroll-trigger" href="news" target="box2">
 			          <img src="resources/img/newsp.png" width=80 height=80></a>
 			        </li>
-	
 				</div>
-		  
+								 <!-- 로그아웃 버튼 -->
+		     <li class="logout">    
+		     <a class="logoutbtn" onclick="logout_function();">
+	            <img src="resources/img/logout.png" width=120 height=50>
+	         </a>
+	         </li>
+				
+				
+	
+			  
 		  </table>
 		        
 				

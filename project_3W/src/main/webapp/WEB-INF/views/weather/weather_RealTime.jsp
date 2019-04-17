@@ -4,14 +4,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+  <link href="resources/css/weather.css" rel="stylesheet">
+  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="resources/js/jquery-3.3.1.js"></script>
 <script>
 $(document).ready(function(){			
- 	
-	var lat = $('#lat').html();
 	
-	var lon = $('#lng').html();
+	var lat = "<%=session.getAttribute("lat")%>";
+
+	var lon = "<%=session.getAttribute("lon")%>";
 	
 	var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid="+"c1ae780151cf0ef8cdce02451a0dcc70";
 	$.ajax({
@@ -241,7 +243,70 @@ $(document).ready(function(){
 <body>
 
 현재 기온 : <div id="outputDiv1"></div><br>
-날씨 : <div id="outputDiv2"></div><br>
+날씨 : <div id="outputDiv2"> </div><br>
+
+
+<!-- 날씨별 css -->
+
+<!-- 맑음 -->
+
+<!-- <div class="sun">
+    <div class="rays"></div>
+  </div>  -->
+
+<!-- 비 -->
+ <!-- <div class="icon_rain">
+  <div class="cloud"></div>
+  <div class="rain"></div>
+</div>  --> 
+
+<!--구름  -->
+<!-- <div class="icon cloudy">
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+</div> 
+ -->
+<!--황사  -->
+  <!-- <div class="icon sand">
+  <div class="sand"></div>
+  <div class="sand"></div>
+</div> -->
+
+
+<!-- 폭우 -->
+<!--  <div class="icon thunder-storm">
+  <div class="cloud"></div>
+  <div class="lightning">
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+  </div>
+</div> -->
+
+<!-- 천둥번개 -->
+<!--  <div class="icon thunder">
+	 <div class="lightning">
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+  </div>
+</div>  -->
+
+<!-- 폭설 -->
+ <!-- <div class="icon flurries">
+  <div class="cloud"></div>
+  <div class="snow">
+    <div class="flake"></div>
+    <div class="flake"></div>
+  </div>
+</div>  -->
+
+<!-- 눈 -->
+<!--  <div class="icon snow">
+    <div class="flake"></div>
+    <div class="flake"></div>
+</div>  -->
+
+
+
 
 [5일간의 날씨 정보]<br>
 <c:forEach var="i" begin="0" end="38">
@@ -249,9 +314,6 @@ $(document).ready(function(){
 	평균 기온 : <div id="temp${i}"></div>
 	날씨 : <div id="weather${i}"></div><br>
 </c:forEach>
-
-<input type="hidden" id="lng" value="${sessionScope.loginLon}"/>
-<input type="hidden" id="lat" value="${sessionScope.loginLat}"/>
 
 </body>
 </html>

@@ -17,8 +17,16 @@ public class MapController {
 	@ResponseBody
 	@RequestMapping(value="/loginLocation", method=RequestMethod.POST)
 	public void loginLocation(double lat, double lon, HttpSession session){
-		session.setAttribute("loginLon", lon);
-		session.setAttribute("loginLat", lat);
+		session.setAttribute("lon", lon);
+		session.setAttribute("lat", lat);
+		return;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/reverseGeoCording", method=RequestMethod.POST)
+	public void reverseGeoCording(String loca, HttpSession session){
+		session.setAttribute("location", loca);
+		
 		return;
 	}
 	

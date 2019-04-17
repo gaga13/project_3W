@@ -1,6 +1,7 @@
 package global.sesoc.www.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import global.sesoc.www.vo.NewsVO;
 
 @Controller
 public class MapTrafficController {
@@ -35,16 +38,16 @@ public class MapTrafficController {
 	@ResponseBody
 	@RequestMapping(value="/traffic", method=RequestMethod.POST,
 			produces="application/json;charset=UTF-8")
-	public void trafficTest1(String str, Model model){
+	public Result trafficTest1(String str, Model model){
 		//넘어오는 정보
 		logger.debug("{}",str);
-		//gson
+		//gson 
 		Gson gson = new Gson();
         JsonParser parser = new JsonParser();
     
         //Json
         JsonObject json = (JsonObject)parser.parse(str);
-        
+        logger.debug("json:{}", json);
         //맨 처음 {} 벗기기
         PubPath pb = gson.fromJson(json, PubPath.class);
         
@@ -140,24 +143,22 @@ public class MapTrafficController {
         					logger.debug(i+"행"+j+"열 버스:{}", pathar[i][j].lane.get(0).busNo);
             	
         				}else if(pathar[i][j].lane.get(0).name !=null){
-        					logger.debug(i+"행"+j+"열 지하철:{}", pathar[i][j].lane.get(0).name);
+        					logger.debug(i+"행"+j+"열 지하철:{}", pathar[i][j].lane.get(0).name); 
         				}
         			}
-        		}
-        		model.addAttribute("subpath", pathar);
+        		}	
         		
         	}else if(OBJ != null){
         	logger.debug("obj크기:{}", OBJ.size());
         	for(int k =0;  k<OBJ.size();k++){	
         		logger.debug(k+"번째 시외 정보:{}", OBJ.get(k));
         	}
-        	model.addAttribute("obj",OBJ);
         	
         	}
         }catch(NullPointerException n){
         	n.printStackTrace();
         }
-        return ;
+        return result;
 	}
 	
 	class PubPath{

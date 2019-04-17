@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,15 +34,13 @@ public class NewsController {
 	
 	@RequestMapping(value="getNews", method=RequestMethod.GET)
 	public String getNews(){
-		
 		return "news";
 	}
 	
 	//네이버 뉴스
 	@ResponseBody
 	@RequestMapping(value="news", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
-	public List<NewsVO> output(Model model, String local){
-		logger.debug(""+local);
+	public List<NewsVO> output(Model model, HttpSession session){
 		int n = 0;
 		String keywr[] ={"사망","사고","사건","주의","피해","살인","아동","인명","자연재해","화재","홍수","안전","소방","경찰"}; 
 		String res = null;
@@ -49,10 +49,12 @@ public class NewsController {
 
 		String clientId = "SXuDuY9peRkbfT9sVQeo";//애플리케이션 클라이언트 아이디값";
 		String clientSecret = "12Y2ZWzXru";//애플리케이션 클라이언트 시크릿값";
+		String local = session.getAttribute("location").toString();
 		try {
 			String text = URLEncoder.encode(local, "UTF-8");
 			String apiURL = "https://openapi.naver.com/v1/search/news.json?query="+ text+"&display=100&start=1&sort=date"; // json 결과
 			//String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
+			
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("GET");
@@ -73,11 +75,11 @@ public class NewsController {
 			}
 			br.close();
 			res = response.toString();
-
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
+		
 		//json의 VO클래스 객체화
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
