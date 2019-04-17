@@ -36,6 +36,9 @@ select
 		 , to_char(startdate, 'PM hh12:mi') as startdate
 		 , to_char(enddate, 'PM hh12:mi') as enddate
 		 , scontent
+		 , slocation
+		 , slatitude
+		 , slongitude
 from 	
 		 schedule 
 where 	

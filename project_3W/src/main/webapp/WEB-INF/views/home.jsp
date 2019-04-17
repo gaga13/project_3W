@@ -343,7 +343,10 @@ function delete_schedule(){
       <span class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span>
       <span class="d-none d-lg-block">
       
+      <!-- 홈으로 돌아가기 -->
+      
       <!-- 프로필 이미지 들어가는 공간 -->
+	</a>
 	<a href="profile">
 	<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
 	</a>
