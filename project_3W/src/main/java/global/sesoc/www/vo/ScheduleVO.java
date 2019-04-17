@@ -7,6 +7,8 @@ public class ScheduleVO {
 	private String startdate;				//스케쥴 시작 날짜(년/월/일/시간)
 	private String enddate;					//스케쥴 끝 날짜	(년/월/일/시간)
 	private String slocation;				//스케쥴 위치
+	private String slatitude;				//스케쥴 위치에 따른 위도
+	private String slongitude;				//스케쥴 위치에 따른 경도
 	
 	public ScheduleVO() {
 		super();
@@ -27,6 +29,37 @@ public class ScheduleVO {
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.slocation = slocation;
+	}
+
+	
+	public ScheduleVO(String email, int snum, String scontent, String startdate, String enddate, String slocation,
+			String slatitude, String slongitude) {
+		super();
+		this.email = email;
+		this.snum = snum;
+		this.scontent = scontent;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.slocation = slocation;
+		this.slatitude = slatitude;
+		this.slongitude = slongitude;
+	}
+	
+
+	public String getSlatitude() {
+		return slatitude;
+	}
+
+	public void setSlatitude(String slatitude) {
+		this.slatitude = slatitude;
+	}
+
+	public String getSlongitude() {
+		return slongitude;
+	}
+
+	public void setSlongitude(String slongitude) {
+		this.slongitude = slongitude;
 	}
 
 	public String getEmail() {
@@ -80,8 +113,10 @@ public class ScheduleVO {
 	@Override
 	public String toString() {
 		return "ScheduleVO [email=" + email + ", snum=" + snum + ", scontent=" + scontent + ", startdate=" + startdate
-				+ ", enddate=" + enddate + ", slocation=" + slocation + "]";
+				+ ", enddate=" + enddate + ", slocation=" + slocation + ", slatitude=" + slatitude + ", slongitude="
+				+ slongitude + "]";
 	}
+
 	
 
 	

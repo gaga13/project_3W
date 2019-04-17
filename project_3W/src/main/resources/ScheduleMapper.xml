@@ -14,6 +14,8 @@
 		, slocation
 		, startdate
 		, enddate
+		, slatitude
+		, slongitude
 	) 
 	values(
  		 #{email}
@@ -22,6 +24,8 @@
  		, #{slocation}
  		, to_date(#{startdate},'yyyy-mm-dd PM hh:MI')
  		, to_date(#{enddate},'yyyy-mm-dd PM hh:MI')
+ 		, #{slatitude}
+ 		, #{slongitude}
 	)
 </insert>
 

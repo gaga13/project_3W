@@ -163,10 +163,19 @@ function nameClick(index){
 	var lon = lonlat.lon;
 	var lat = lonlat.lat;
 	var name = arrname[index];
-	
+	var slon = arrlng[index];
+	var slat = arrlat[index];
+	var slonlat; 
 	map.setCenter(new Tmap.LonLat(lon, lat).transform("EPSG:4326", "EPSG:3857"), 15);
 	
+	slonlat = new Tmap.LonLat(slon, slat).transform("EPSG:3857", "EPSG:4326");
+	slon = slonlat.lon;
+	slat = slonlat.lat;
+	
 	$('#keyword').val(name);
+	$('#inslocation', parent.document).val(name);
+	$('#slat', parent.document).val(slat);
+	$('#slon', parent.document).val(slon);
 }
 </script>
 </head>
