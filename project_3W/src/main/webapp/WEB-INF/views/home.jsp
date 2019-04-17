@@ -315,6 +315,13 @@ function delete_schedule(){
        
         
 	      <table>
+		     <!-- 로그아웃 버튼 -->
+		     <li class="nav-item">    
+		     <div class="logout">
+	          <a class="nav-link js-scroll-trigger" href="" >
+	            <img src="resources/img/logout.png" width=120 height=50></a>
+	            </div>
+	        </li>
 	        
 		        <div class="social-icons">
 			        <!-- 날씨 -->
@@ -334,17 +341,9 @@ function delete_schedule(){
 			          <a class="nav-link js-scroll-trigger" href="news" target="box2">
 			          <img src="resources/img/newsp.png" width=80 height=80></a>
 			        </li>
-				</div>
-								 <!-- 로그아웃 버튼 -->
-		     <li class="logout">    
-		     <a class="logoutbtn" onclick="logout_function();">
-	            <img src="resources/img/logout.png" width=120 height=50>
-	         </a>
-	         </li>
-				
-				
 	
-			  
+				</div>
+		  
 		  </table>
 		        
 				
@@ -406,6 +405,7 @@ function delete_schedule(){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <button type="button" class="btn btn-primary" id="btin">일정 등록</button>
       </div>
      
       <div class="modal-body">
@@ -427,11 +427,13 @@ function delete_schedule(){
             <br>
             <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap">여기에 버튼 삽입 가능</button></label><br>
             <input type="text" class="form-control" name = "slocation" id="inslocation">
-             <div id = "inlocation">디브를 띄우는 것에 성공하였다. 정말 기쁘구나</div>
+           	<input type="hidden" id="slat" name="slatitude">
+           	<input type="hidden" id="slon" name="slongitude">
+             <iframe width="100%" height="400px" src="map_Search" name = "slocationMap"></iframe><br> 
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btin">일정 등록</button>
+        
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>
     </div>
@@ -492,4 +494,4 @@ function delete_schedule(){
   	</div>
 </body>
 </html>
-	
+		
