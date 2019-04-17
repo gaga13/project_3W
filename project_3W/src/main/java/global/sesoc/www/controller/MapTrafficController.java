@@ -53,7 +53,16 @@ public class MapTrafficController {
        
         Result result = gson.fromJson(json.get("result"), Result.class);
         
+        
         try{
+            if(result.getSearchType()==0){
+            	path_list.addAll(result.getPath());
+            	DescendingPath path_sort = new DescendingPath();
+                Collections.sort(path_list, path_sort);
+                
+                return result;
+            }
+            else{
         	DescendingObj descending = new DescendingObj();
         	if(result.getAirRequest().getCount() != 0){
         		Collections.sort(result.getAirRequest().getOBJ(), descending);
@@ -76,19 +85,14 @@ public class MapTrafficController {
         	}
         	
         	Collections.sort(obj, descending);
+        	}
         }catch(Exception e){
         	e.printStackTrace();
         }
-        if(result.getSearchType()==0){
-        	path_list.addAll(result.getPath());
-        	DescendingPath path_sort = new DescendingPath();
-            Collections.sort(path_list, path_sort);
-            
-            return result;
-        }
         
         return obj;
-	}
+	 }
+
 }
 
 class DescendingObj implements Comparator<OBJ> {

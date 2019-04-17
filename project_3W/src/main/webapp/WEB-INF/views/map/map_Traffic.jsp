@@ -224,6 +224,8 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 				dataType: 'json',
 				//요청 성공시 어떻게 할 것인지. 방법 1: 다른 함수로 보내기. 뒤에 ()붙이면 안됨. ()붙이는 것은 그 함수를 지금 이 자리에서 실행한다는 뜻이므로.
 				success: function(e){
+					$('#start').html('시작 경도:'+lon1+', 위도:'+lat1);
+					$('#end').html('도착 경도:'+lon2+', 위도:'+lat2);
 					console.log(e);
 					if(e.searchType == 0){
 						var ph=e.path;
@@ -236,10 +238,14 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 									str+='도보';		
 								} 
 								if(ph[i].subPath[n].trafficType==2){
-									str+=ph[i].subPath[n].lane[0].busNo;		
+									str+=ph[i].subPath[n].startName+'->';
+									str+=ph[i].subPath[n].lane[0].busNo;
+									str+='->'+ph[i].subPath[n].endName;
 								} 
 								if(ph[i].subPath[n].trafficType==1){
+									str+=ph[i].subPath[n].startName+'->';
 									str+=ph[i].subPath[n].lane[0].name;
+									str+='->'+ph[i].subPath[n].endName;
 								}
 								str+=((n<ph[i].subPath.length-1)? '->':'</td>');
 
@@ -266,10 +272,10 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 						
 
 					}
-
-						str+='</table>';
+					
+						str+='</table>';.
 					$('#result_sub').html(str);
-
+					$('#bus').html(ph[1].subPath[1].lane[0].busNo);
 				},
 				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
 				error: function (e, request, status, error) {
@@ -330,5 +336,8 @@ function onError(){
 
 	<p id="result2">결과 표시</p>
 	<div id="result_sub"></div>
+	<div id="start"></div>
+	<div id="end"></div>
+	<div id="bus"></div>
 </body>
 </html>
