@@ -206,6 +206,8 @@ function insert_schedule(){
 	var title = $('#insertModal #inscontent').val();
 	var isd = $('#insertModal #instartdate').val();
 	var ied = $('#insertModal #inenddate').val();
+	var iti = $('#insertModal #instarttime').val();
+	var ime = $('#insertModal #inendtime').val();
 	
 	if(title ==""){
 		alert("제목을 입력해 주세요.");
@@ -213,11 +215,46 @@ function insert_schedule(){
 		$('#insertModal  #inscontent').select();
 		return false;
 	}
+
+	if(title.length>20){
+		alert("제목은 20자 이내로 입력해주세요.");		
+		$('#insertModal  #inscontent').focus();
+		$('#insertModal  #inscontent').select();
+		return false;
+	}
+	if(isd==""){
+		alert("시작일을 설정해 주세요.");
+		$('#insertModal  #instartdate').focus();
+		$('#insertModal  #instartdate').select();
+		return false;
+	}
+	
+	if(ied==""){
+		alert("종료일을 설정해 주세요.");
+		$('#insertModal  #inenddate').focus();
+		$('#insertModal  #inenddate').select();
+		return false;
+	}
+	
+	if(iti==""){
+		alert("시작시간을 설정해 주세요.");
+		$('#insertModal  #instarttime').focus();
+		$('#insertModal  #instarttime').select();
+		return false;
+	}
+	
+	if(ime==""){
+		alert("종료시간을 설정해 주세요.");
+		$('#insertModal  #inendtime').focus();
+		$('#insertModal  #inendtime').select();
+		return false;
+	}
 	
 	if(isd>ied){
 		alert('종료일을 시작일보다 늦은 날짜로 입력해주세요.');
 		return false;
 	}
+	
 	if(confirm('일정을 등록하시겠습니까?')){
 		$.ajax({
 			url:'inSchedule',
@@ -246,11 +283,19 @@ function update_schedule(){
 		$('#updateModal  #setscontent').select();
 		return false;
 	}
+
+	if(title.length>20){
+		alert("제목은 20자 이내로 입력해주세요.");		
+		$('#updateModal  #setscontent').focus();
+		$('#updateModal  #setscontent').select();
+		return false;
+	}
 	
 	if(isd>ied){
 		alert('종료일을 시작일보다 늦은 날짜로 입력해주세요.');
 		return false;
 	}
+	
 	if(confirm('일정을 수정하시겠습니까?')){
 		$.ajax({
 			url:'setSchedule',

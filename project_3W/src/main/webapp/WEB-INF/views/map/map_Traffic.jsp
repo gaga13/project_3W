@@ -205,7 +205,7 @@ function total(lon1, lat1, lon2, lat2){
 
 //ODsay api 호출
 function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
-	var str = '<table>';
+	var str = '<table border=1><tr><th>추천</th><th>경로</th><th>시간(분)</th><th>요금</th></tr>';
 	var xhr = new XMLHttpRequest();
 	var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+lon1+"&SY="+lat1+"&EX="+lon2+"&EY="+lat2+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
 	xhr.open("GET", url, true);
@@ -221,14 +221,55 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 				type: 'post',
 				data: {str : xhr.responseText},
 				//dataType : 데이터를 가져올 때 어떤 타입으로 가져올지. 보통 text 아니면 json이 들어간다.
-				dataType: 'text',
+				dataType: 'json',
 				//요청 성공시 어떻게 할 것인지. 방법 1: 다른 함수로 보내기. 뒤에 ()붙이면 안됨. ()붙이는 것은 그 함수를 지금 이 자리에서 실행한다는 뜻이므로.
 				success: function(e){
 					console.log(e);
-					var js = JSON.stringify(e.result);
-					var jss = JSON.parse(js); 
-				//	console.log(jss.path[0].info);
-					alert('성공');
+					if(e.searchType == 0){
+						var ph=e.path;
+						for(var i = 0 ; i<3 ; i++){	
+							str+='<tr><td>추천'+(i+1)+'</td><td>'
+							
+							for(var n = 0; n<ph[i].subPath.length;n++){
+								
+								if(ph[i].subPath[n].trafficType==3){
+									str+='도보';		
+								} 
+								if(ph[i].subPath[n].trafficType==2){
+									str+=ph[i].subPath[n].lane[0].busNo;		
+								} 
+								if(ph[i].subPath[n].trafficType==1){
+									str+=ph[i].subPath[n].lane[0].name;
+								}
+								str+=((n<ph[i].subPath.length-1)? '->':'</td>');
+
+							}
+							str+='<td>'+ph[i].info.totalTime+'</td>';
+							if(ph[i].info.payment ==0){
+								str+='<td>가격 미정</td></tr>';
+							}else{
+							str+='<td>'+ph[i].info.payment+'</td></tr>';
+							}
+						}
+					}else {
+			
+						for(var i = 0 ; i<e.length ; i++){
+							str+='<tr><td>추천'+(i+1)+'</td>';
+							str+='<td>'+e[i].startSTN+'->'+e[i].endSTN+'</td>';
+							str+='<td>'+e[i].time+'</td>';
+							if(e[i].payment == 0){
+								str+='<td>가격 미정</td></tr>';	
+							}else{
+							str+='<td>'+e[i].payment+'</td></tr>';
+							}
+						}
+						
+
+					}
+
+						str+='</table>';
+					$('#result_sub').html(str);
+
 				},
 				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
 				error: function (e, request, status, error) {
@@ -240,7 +281,7 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 			callMapObjApiAJAX((JSON.parse(xhr.responseText))["result"]["path"][0].info.mapObj, lon1, lat1, lon2, lat2);
 		}
 	}
-	$('#result_sub').html(str);
+
 }
 
  function callMapObjApiAJAX(mabObj){
