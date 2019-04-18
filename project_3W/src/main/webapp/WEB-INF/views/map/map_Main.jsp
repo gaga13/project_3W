@@ -115,7 +115,7 @@ function initTmap(sList){
 		var slon = sList[i].slongitude;
 		var slocation = sList[i].slocation;
 		console.log(slat +'' +slon+''+slocation);
-		var lonlat = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");//좌표 지정
+		var s = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");//좌표 지정
 		
 		marker = new Tmap.Marker(lonlat, icon);//마커 생성
 		markerLayer.addMarker(marker); //마커 레이어에 마커 추가

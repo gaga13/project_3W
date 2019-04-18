@@ -54,4 +54,4 @@ public class MapController {
 		return "map/map_Main";
 	}
 	
-	}
+}
