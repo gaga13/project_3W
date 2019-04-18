@@ -59,7 +59,7 @@ public class MapTrafficController {
             	path_list.addAll(result.getPath());
             	DescendingPath path_sort = new DescendingPath();
                 Collections.sort(path_list, path_sort);
-                
+                result.getPath().addAll(path_list);
                 return result;
             }
             else{
