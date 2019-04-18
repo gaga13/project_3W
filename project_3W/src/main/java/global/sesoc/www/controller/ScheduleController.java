@@ -63,6 +63,8 @@ public class ScheduleController {
 		sList = dao.getScheduleList(hmap);
 		
 		ses.setAttribute("sListSize", (sList.size()+1));
+		
+		
 		logger.debug("sList:{}", sList);
 		
 		
