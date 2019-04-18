@@ -77,20 +77,31 @@ function insert_md(){
 
 //리스트 클릭했을 때
 function clickList(i){
-	var id = '#inputTR'+i;
-	console.log(id);
-	$('#updateModal #setcontent').val();
-	$('#updateModal',parent.document).modal('show');
-	
-	
 	$.ajax({
 		url:'clickList',
 		type: 'post',
 		data: {i : i},
 		dataType: 'json',
-		success: function(){
-			alert('성공');
-			$('#updateModal #setstartdate',parent.document).val();
+		success: function(iList){
+			var sp = iList.startdate.split(" ");
+			var ep = iList.enddate.split(" ");
+			var setnum = iList.snum;
+			var content = iList.scontent;
+			var location = iList.slocation;
+			var startDate = sp[0];
+			var endDate = ep[0];
+			var startTime = sp[1] + " " + sp[2];
+			var endTime = ep[1] + " " + ep[2];
+			
+			$('#updateModal #setnum', parent.document).val(setnum);
+			$('#updateModal #setscontent', parent.document).val(content);
+			$('#updateModal #setslocation', parent.document).val(location);
+			$('#updateModal #setstartdate', parent.document).val(startDate);
+			$('#updateModal #setenddate',parent.document).val(endDate);
+			$('#updateModal #setstarttime',parent.document).val(startTime);
+			$('#updateModal #setendtime',parent.document).val(endTime);
+			
+			$('#updateModal',parent.document).modal('show');
 		},
 		error: function(er){
 			alert(JSON.stringify(er));
@@ -124,44 +135,6 @@ function clickList(i){
 	</tr>
 	</table>
 </div>
-
-<%-- <!-- 수정용 모달 -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">일정 입력</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <form id="update">
-        <input type="hidden" name="email" id="setemail" value="${sessionScope.loginId}">
-        <input type="hidden" name="snum" id="setnum">
-        <label for="schedulecontent" class="col-form-label">제목</label>
-        <input type="text" class="form-control" name = "scontent" id="setscontent"><br>
-        
-            <label for="starttime">시작일</label><br>
-            <input type="text" name = "startdate" id="setstartdate" style="width:100px;">
-            <input type="text" name = "startdate" id="setstarttime" style="width:100px;">
-           <h4>~</h4>
-            <label for="enddate">종료일</label><br>
-            <input type="text" name = "enddate" id="setenddate" style="width:100px;">
-            <input type="text" name = "enddate" id="setendtime" style="width:100px;"><br>
-            <label for="local">위치</label>
-            <input type="text" class="form-control" name = "slocation" id="setslocation">
-        </form>
-      </div>
-      <div class="modal-footer">
-   	    <button type="button" class="btn btn-primary" id="btde">삭제하기</button>
-        <button type="button" class="btn btn-primary" id="btup">수정하기</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div> --%>
 
 </body>
 </html>
