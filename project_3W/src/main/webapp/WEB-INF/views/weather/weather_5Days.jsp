@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="resources/css/scroll.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="resources/js/jquery-3.3.1.js"></script>
 <script>
@@ -129,11 +130,9 @@ $(document).ready(function(){
 
 </script>
 <title>실시간 날씨 - 현재위치 자동으로 받아와서</title>
-<script>
-	
-</script>
+
 </head>
-<body>
+<body >
 
 <c:forEach var="i" begin="0" end="38">
 	시간 : <div id="time${i}"></div><br>

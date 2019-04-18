@@ -4,18 +4,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="resources/css/scroll.css" rel="stylesheet">
   <link href="resources/css/weather.css" rel="stylesheet">
   
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="resources/js/jquery-3.3.1.js"></script>
+
 <script>
-$(document).ready(function(){			
+$(document).ready(function(){	
 	
+
+	 $("#sun").hide();
+	 $("#rain").hide();
+	 $("#cloudy").hide();
+	 $("#sand").hide();
+	 $("#flurries").hide();
+	 $("#snow").hide();
+	 $("#storm").hide();
+	 $("#thunder").hide();
+		
+/* 
+	var sun = document.getElementById("sun");
+	var rain = document.getElementById("icon_rain");
+	var cloudy = document.getElementById("icon cloudy");
+	var sand = document.getElementById("icon sand");
+	var flurries = document.getElementById("icon flurries");
+	var snow = document.getElementById("icon snow");
+	var storm = document.getElementById("icon thunder-storm");
+	var thunder = document.getElementById("icon thunder");
+	 */
 	var lat = "<%=session.getAttribute("lat")%>";
 
 	var lon = "<%=session.getAttribute("lon")%>";
 	
 	var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid="+"c1ae780151cf0ef8cdce02451a0dcc70";
+	
 	$.ajax({
 	    url: apiURI,
 	    dataType: "json",
@@ -36,46 +59,72 @@ $(document).ready(function(){
 	    	var weather = 0;
 	    	var weather2 = null;
 	    	var weather3 = "";
+	    	
+			
+			
+	    	
+	    	
 	    	for(var i = 0; i < resp.weather.length; i++){
 	    		weather = resp.weather[i].id;
 	    		if(weather >=200 && weather <= 232){
 	    			weather2 = "천둥";
+	    		
+	    			 $("#thunder").show();
+	    	
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather >= 300 && weather <= 321){
 	    			weather2 = "가랑비";
+	    			
+	    			 $("#rain").show();
+	    			
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather >= 500 && weather <= 531){
 	    			weather2 = "비";
+	    			 
+	    			$("#rain").show();
+	    	
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather >= 600 && weather <= 622){
 	    			weather2 = "눈";
+	    			
+	    			$("#snow").show();
+	    			
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather == 701 || weather == 721 || weather == 741){
 	    			weather2 = "안개";
+			
+	    			 $("#cloudy").show();
+	    		
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather == 711){
 	    			weather2 = "연기";
+
+	    			 $("#cloudy").show();
+	    			
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather == 731 || weather == 751 || weather == 761){
 	    			weather2 = "모래, 먼지";
+	    			
+	    			 $("#sand").show();
+	    			
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
@@ -88,30 +137,41 @@ $(document).ready(function(){
 	    		}
 	    		if(weather == 771){
 	    			weather2 = "스콜스";
+	    			
+	    			 $("#rain").show();
+	    			 
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather == 781){
 	    			weather2 = "폭풍";
+	    			 $("#storm").show();
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather == 800){
 	    			weather2 = "맑은 하늘";
+	    			 $("#sun").show();
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather == 801){
 	    			weather2 = "구름 없는 날씨";
+	    			$("#sun").show();
+	    			
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
 	    		}
 	    		if(weather >= 802 && weather <= 804){
 	    			weather2 = "구름 있는 날씨";
+	    			
+	    			$("#cloudy").show();
+	    			
+	    			
 	    			if(weather3.search(weather2) == -1){
 	    				weather3 = weather2 + " " + weather3;
 	    			}
@@ -121,117 +181,7 @@ $(document).ready(function(){
 	    }
 	});
 	
-	var apiURI = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid="+"c1ae780151cf0ef8cdce02451a0dcc70";
 	
-	$.ajax({
-		url: apiURI,
-	    dataType: "json",
-	    type: "GET",
-	    async: "false",
-	    success: function(resp) {
-	    	
-	    	for(var i = 0; i < resp.list.length; i++){
-	    		//시간
-	    		var time = resp.list[i].dt_txt;
-	    		$("#time"+ i).html(time);
-	    		
-		    	//기온
-		    	var temp = resp.list[i].main.temp- 273.15;
-		    	temp = Math.floor(temp*10)/10;
-		    	$("#temp" + i).html(temp);
-		    	
-		    	//날씨 컨디션
-		    	var weather = 0;
-		    	var weather2 = null;
-		    	var weather3 = "";
-		    	for(var j = 0; j < resp.list[i].weather.length; j++){
-		    		weather = resp.list[i].weather[j].id;
-		    		if(weather >=200 && weather <= 232){
-		    			weather2 = "천둥";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 300 && weather <= 321){
-		    			weather2 = "가랑비";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 500 && weather <= 531){
-		    			weather2 = "비";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 600 && weather <= 622){
-		    			weather2 = "눈";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 701 || weather == 721 || weather == 741){
-		    			weather2 = "안개";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 711){
-		    			weather2 = "연기";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 731 || weather == 751 || weather == 761){
-		    			weather2 = "모래, 먼지";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 762){
-		    			weather2 = "화산재";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 771){
-		    			weather2 = "스콜스";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 781){
-		    			weather2 = "폭풍";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 800){
-		    			weather2 = "맑은 하늘";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 801){
-		    			weather2 = "구름 없는 날씨";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 802 && weather <= 804){
-		    			weather2 = "구름 있는 날씨";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		$("#weather" + i).html(weather3);
-		    	}
-	    	}
-	    },
-		error: function (e) {
-			alert(JSON.stringify(e));
-		}
-	});
 })
 
 </script>
@@ -241,79 +191,108 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+<!-- 
 현재 기온 : <div id="outputDiv1"></div><br>
-날씨 : <div id="outputDiv2"> </div><br>
+날씨 : <div id="outputDiv2"> </div><br> -->
 
-
+<!-- <h3 color="white">오늘의 날씨 정보</h3> -->
 <!-- 날씨별 css -->
 
-<!-- 맑음 -->
+<table style="border-spacing: 500px;">
+<tr>
 
-<!-- <div class="sun">
-    <div class="rays"></div>
-  </div>  -->
+	<div class="tem" style="color:white" >
+	날씨  <div id="outputDiv2"> </div><br>
+	</div>
+</tr>
 
-<!-- 비 -->
- <!-- <div class="icon_rain">
-  <div class="cloud"></div>
-  <div class="rain"></div>
-</div>  --> 
+<tr>
+	<div id="sun">
+	 <div class="sun">
+	    <div class="rays"></div>
+	  </div>  
+	</div>
+	
+	<!-- 비 -->
+	<div id="rain">
+	  	<div class="icon_rain">
+	  	<div class="cloud"></div>
+	  	<div class="rain"></div>
+		</div>  
+	</div>
+	
+	<!--구름  -->
+	<div id="cloudy">
+	<div class="icon cloudy">
+	  <div class="cloud"></div>
+	  <div class="cloud"></div>
+	</div> 
+	 </div>
+	 
+	<!--황사  -->
+	<div id="sand">
+	   <div class="icon sand">
+	  <div class="sand"></div>
+	  <div class="sand"></div>
+	</div> 
+	</div>
+	
+	<!-- 폭우 -->
+	<div id="storm">
+	<  <div class="icon thunder-storm">
+	  <div class="cloud"></div>
+	  <div class="lightning">
+	    <div class="bolt"></div>
+	    <div class="bolt"></div>
+	  </div>
+	</div> 
+	</div>
+	
+	<!-- 천둥번개 -->
+	<div id="thunder">
+	  <div class="icon thunder">
+		 <div class="lightning">
+	    <div class="bolt"></div>
+	    <div class="bolt"></div>
+	  </div>
+	</div>  
+	</div>
+	
+	<!-- 폭설 -->
+	<div id="flurries">
+	  <div class="icon flurries">
+	  <div class="cloud"></div>
+	  <div class="snow">
+	    <div class="flake"></div>
+	    <div class="flake"></div>
+	  </div>
+	</div>  
+	</div>
+	
+	<!-- 눈 -->
+	<div id="snow">
+	  <div class="icon snow">
+	    <div class="flake"></div>
+	    <div class="flake"></div>
+	</div>  
+	</div>
+</tr>
+<tr><img src="resources/img/table_space.png" height="140px"></tr>
 
-<!--구름  -->
-<!-- <div class="icon cloudy">
-  <div class="cloud"></div>
-  <div class="cloud"></div>
-</div> 
- -->
-<!--황사  -->
-  <!-- <div class="icon sand">
-  <div class="sand"></div>
-  <div class="sand"></div>
-</div> -->
+	<tr height="200px"></tr>
+	<tr>
+	<div class="tem" style="color:white">
+	현재 기온  <div id="outputDiv1"></div><br>
+	</div>
+	</tr>
 
-
-<!-- 폭우 -->
-<!--  <div class="icon thunder-storm">
-  <div class="cloud"></div>
-  <div class="lightning">
-    <div class="bolt"></div>
-    <div class="bolt"></div>
-  </div>
-</div> -->
-
-<!-- 천둥번개 -->
-<!--  <div class="icon thunder">
-	 <div class="lightning">
-    <div class="bolt"></div>
-    <div class="bolt"></div>
-  </div>
-</div>  -->
-
-<!-- 폭설 -->
- <!-- <div class="icon flurries">
-  <div class="cloud"></div>
-  <div class="snow">
-    <div class="flake"></div>
-    <div class="flake"></div>
-  </div>
-</div>  -->
-
-<!-- 눈 -->
-<!--  <div class="icon snow">
-    <div class="flake"></div>
-    <div class="flake"></div>
-</div>  -->
-
-
-
-
-[5일간의 날씨 정보]<br>
+</table>
+<%-- [5일간의 날씨 정보]<br>
 <c:forEach var="i" begin="0" end="38">
 	시간 : <div id="time${i}"></div>
 	평균 기온 : <div id="temp${i}"></div>
 	날씨 : <div id="weather${i}"></div><br>
 </c:forEach>
-
+ --%>
 </body>
 </html>

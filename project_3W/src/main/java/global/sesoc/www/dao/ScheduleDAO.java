@@ -30,6 +30,22 @@ public class ScheduleDAO {
 		return sList;
 	}
 	
+	//하루 일정 목록 날짜 가져오기
+	public ArrayList<ScheduleVO> getScheduleListClick(HashMap<String, String> hmap) {
+		
+		ArrayList<ScheduleVO> sList = null;
+		
+		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
+		try {
+			sList = mapper.getScheduleListClick(hmap);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return sList;
+	}
+	
 	//일정을 달력에 호출
 	public ArrayList<ScheduleVO> getMonth(ScheduleVO vo) {
 		

@@ -52,7 +52,7 @@ public class NewsController {
 		String local = session.getAttribute("location").toString();
 		try {
 			String text = URLEncoder.encode(local, "UTF-8");
-			String apiURL = "https://openapi.naver.com/v1/search/news.json?query="+ text+"&display=100&start=1&sort=date"; // json 결과
+			String apiURL = "https://openapi.naver.com/v1/search/news.json?query="+ text+"&display=20&start=1&sort=date"; // json 결과
 			//String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
 			
 			URL url = new URL(apiURL);

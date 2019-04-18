@@ -206,6 +206,8 @@ function insert_schedule(){
 	var title = $('#insertModal #inscontent').val();
 	var isd = $('#insertModal #instartdate').val();
 	var ied = $('#insertModal #inenddate').val();
+	var iti = $('#insertModal #instarttime').val();
+	var ime = $('#insertModal #inendtime').val();
 	
 	if(title ==""){
 		alert("제목을 입력해 주세요.");
@@ -213,11 +215,46 @@ function insert_schedule(){
 		$('#insertModal  #inscontent').select();
 		return false;
 	}
+
+	if(title.length>20){
+		alert("제목은 20자 이내로 입력해주세요.");		
+		$('#insertModal  #inscontent').focus();
+		$('#insertModal  #inscontent').select();
+		return false;
+	}
+	if(isd==""){
+		alert("시작일을 설정해 주세요.");
+		$('#insertModal  #instartdate').focus();
+		$('#insertModal  #instartdate').select();
+		return false;
+	}
+	
+	if(ied==""){
+		alert("종료일을 설정해 주세요.");
+		$('#insertModal  #inenddate').focus();
+		$('#insertModal  #inenddate').select();
+		return false;
+	}
+	
+	if(iti==""){
+		alert("시작시간을 설정해 주세요.");
+		$('#insertModal  #instarttime').focus();
+		$('#insertModal  #instarttime').select();
+		return false;
+	}
+	
+	if(ime==""){
+		alert("종료시간을 설정해 주세요.");
+		$('#insertModal  #inendtime').focus();
+		$('#insertModal  #inendtime').select();
+		return false;
+	}
 	
 	if(isd>ied){
 		alert('종료일을 시작일보다 늦은 날짜로 입력해주세요.');
 		return false;
 	}
+	
 	if(confirm('일정을 등록하시겠습니까?')){
 		$.ajax({
 			url:'inSchedule',
@@ -246,11 +283,19 @@ function update_schedule(){
 		$('#updateModal  #setscontent').select();
 		return false;
 	}
+
+	if(title.length>20){
+		alert("제목은 20자 이내로 입력해주세요.");		
+		$('#updateModal  #setscontent').focus();
+		$('#updateModal  #setscontent').select();
+		return false;
+	}
 	
 	if(isd>ied){
 		alert('종료일을 시작일보다 늦은 날짜로 입력해주세요.');
 		return false;
 	}
+	
 	if(confirm('일정을 수정하시겠습니까?')){
 		$.ajax({
 			url:'setSchedule',
@@ -298,7 +343,10 @@ function delete_schedule(){
       <span class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span>
       <span class="d-none d-lg-block">
       
+      <!-- 홈으로 돌아가기 -->
+      
       <!-- 프로필 이미지 들어가는 공간 -->
+	</a>
 	<a href="profile">
 	<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
 	</a>
@@ -392,8 +440,8 @@ function delete_schedule(){
 		
 		<!-- 화면 이중분할 -->
 		<div class="divide">
-		<iframe width="100%" height="400px" src="map_Basic" name = "box1"></iframe><br> <!-- 위에가 바뀜 -->
-		<iframe width="100%" height="350px" src="scheduleplus" name = "box2"></iframe> <!-- 아래가 바뀜 -->
+		<iframe width="100%" height="400px" src="map_Basic" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
+		<iframe width="100%" height="350px" src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe> <!-- 아래가 바뀜 -->
 		</div>
 
 	<!-- 입력용 모달-->

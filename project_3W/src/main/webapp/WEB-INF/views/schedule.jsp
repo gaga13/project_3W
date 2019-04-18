@@ -40,6 +40,7 @@ $(document).ready(function(){
 			$.each(sList, function (index, item){
 				var scontent = item.scontent;
 				var startdate = item.startdate;
+
 				//var enddate = item.enddate;
 				if(startdate.substring(3,4) == 0){
 					startdate = startdate.substring(0,3)
@@ -51,7 +52,8 @@ $(document).ready(function(){
 				}
 				//html에 일정 넣기
 				$('#inputTR'+ index).html('<td>'+(index +1)+'</td>'+'<td>'+startdate+''
-						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ '' + '</td>');	
+						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ '' + '</td>');
+				clickList;
 			});
 		},
 		error: function(er){
@@ -73,6 +75,40 @@ function insert_md(){
     
 }
 
+//리스트 클릭했을 때
+function clickList(i){
+	$.ajax({
+		url:'clickList',
+		type: 'post',
+		data: {i : i},
+		dataType: 'json',
+		success: function(iList){
+			var sp = iList.startdate.split(" ");
+			var ep = iList.enddate.split(" ");
+			var setnum = iList.snum;
+			var content = iList.scontent;
+			var location = iList.slocation;
+			var startDate = sp[0];
+			var endDate = ep[0];
+			var startTime = sp[1] + " " + sp[2];
+			var endTime = ep[1] + " " + ep[2];
+			
+			$('#updateModal #setnum', parent.document).val(setnum);
+			$('#updateModal #setscontent', parent.document).val(content);
+			$('#updateModal #setslocation', parent.document).val(location);
+			$('#updateModal #setstartdate', parent.document).val(startDate);
+			$('#updateModal #setenddate',parent.document).val(endDate);
+			$('#updateModal #setstarttime',parent.document).val(startTime);
+			$('#updateModal #setendtime',parent.document).val(endTime);
+			
+			$('#updateModal',parent.document).modal('show');
+		},
+		error: function(er){
+			alert(JSON.stringify(er));
+		}
+	});
+}
+
 </script>
 <title>schedule</title>
 </head>
@@ -89,7 +125,7 @@ function insert_md(){
          <th>How to</th>
       </tr>
 	<c:forEach var="i" begin="0" end="${sessionScope.sListSize}">
-		<tr id = "inputTR${i}">
+		<tr id = "inputTR${i}" onclick="clickList(${i})">
 		</tr>
 	</c:forEach>
 	<tr>  
@@ -98,9 +134,7 @@ function insert_md(){
 	</div>
 	</tr>
 	</table>
-	
 </div>
-
 
 </body>
 </html>
