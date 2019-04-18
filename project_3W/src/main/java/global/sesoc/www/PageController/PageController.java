@@ -37,10 +37,10 @@ public class PageController {
 	}
 	
 	//하루일정 입력 페이지로 이동
-		@RequestMapping(value="scheduleplus", method=RequestMethod.GET)
-		public String schedule_plus(){
-			return "schedule";
-		}
+	@RequestMapping(value="scheduleplus", method=RequestMethod.GET)
+	public String schedule_plus(){
+		return "schedule";
+	}
 
 	@RequestMapping(value="home", method=RequestMethod.GET)
 	public String home(){
