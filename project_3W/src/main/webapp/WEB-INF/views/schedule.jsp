@@ -21,14 +21,15 @@ $(document).ready(function(){
 	
 	//홈에서 모달 호출 버튼
 	$('.button').on('click', insert_md);
-	
+
     $('#insertModal', parent.document).on('hide.bs.modal', function(e){
 		$('#insertModal #inscontent', parent.document).val("");
 		$('#insertModal #inslocation', parent.document).val("");
 		$('#insertModal input[name=startdate]', parent.document).val("");
 		$('#insertModal input[name=enddate]', parent.document).val("");
 		$('#insertModal #inlocation', parent.document).hide();
-    });  
+		$('body', parent.document).removeClass('modal-open');
+    });//hied 모달 이벤트
     
 	//서버에서 하루스케쥴 목록 불러오기
 	$.ajax({
@@ -71,8 +72,8 @@ function insert_md(){
 	$('#insertModal',parent.document).modal('show');
     $('#insertModal',parent.document).on('shown.bs.modal', function(e){
     	$('#insertModal #schedulecontent',parent.document).focus();
+    	$('body',parent.document).addClass('modal-open');
     });
-    
 }
 
 //리스트 클릭했을 때

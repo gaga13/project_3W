@@ -25,6 +25,9 @@
 <script>
 $(function (){
 	calendar();
+    $('#updateModal', parent.document).on('hide.bs.modal', function(e){;
+	$('body', parent.document).removeClass('modal-open');
+});//hied 모달 이벤트
 });
 
 //달력호출
@@ -70,6 +73,9 @@ function calendar() {
 							$('#updateModal #setendtime',parent.document).val(EndTimeSet);
  
 							$('#updateModal',parent.document).modal('show');
+						    $('#updateModal',parent.document).on('shown.bs.modal', function(e){						    	
+						    	$('body',parent.document).addClass('modal-open');
+						    });
 							
 						  },
 						dayClick:function (date, jsEvent, view){
