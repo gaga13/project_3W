@@ -115,12 +115,15 @@ function initTmap(sList){
 		var slon = sList[i].slongitude;
 		var slocation = sList[i].slocation;
 		console.log(slat +'' +slon+''+slocation);
-		var s = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");//좌표 지정
+		var lonlat = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");//좌표 지정
 		
 		marker = new Tmap.Marker(lonlat, icon);//마커 생성
 		markerLayer.addMarker(marker); //마커 레이어에 마커 추가
 		
-		marker.events.register("click", marker, onClickMarker);	//마커 마우스 클릭 이벤트 등록
+		//마커 이벤트등록
+		marker.events.register("mouseover",marker, onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+		marker.events.register("mouseout", marker, onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
+		marker.events.register("click", marker, onClickMarker); // 마커를 클릭했을 때 이벤트 설정
 	} 
    	
    	
@@ -150,9 +153,32 @@ function initTmap(sList){
 	 
 	vectorLayer.addFeatures([mLineFeature]); // 백터를 백터 레이어에 추가 
    	
-	function onClickMarker(){
-		alert('a');x
-		/* if( selectMarker ) {
+	// 마커에 마우스가 오버되었을 때 발생하는 이벤트 함수입니다.
+	function onOverMarker(evt) {
+		
+		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
+		size = new Tmap.Size(48, 75); // 마커 사이즈 지정
+		icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_b_a.png',size, offset); // 마커 아이콘 지정
+		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
+		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+		marker.events.register("mouseout", marker, onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
+		marker.events.register("click", marker, onClickMarker); // 마커를 클릭했을 때 이벤트 설정
+	}
+	
+	// 마커에 마우스가 아웃되었을 때 발생하는 이벤트 함수입니다.
+	function onOutMarker(evt) {
+				
+		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
+		size = new Tmap.Size(24, 38); // 마커 아이콘 사이즈 설정
+		icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png',size, offset); // 마커 아이콘 지정
+		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
+		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+		marker.events.register("mouseover", marker, onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+	}
+	// 마커가 클릭되었을 때 발생하는 이벤트 함수입니다.
+	function onClickMarker(evt) {
+				
+		if( selectMarker ) {
 			// 기존 빨간 마커 지우기
 			markerLayer.removeMarker(selectMarker);
 			// 기존 빨간 마커 파란 마커로 다시 그리기
@@ -160,7 +186,7 @@ function initTmap(sList){
 			icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png',size, offset); // 마커 아이콘 생성
 			marker = new Tmap.Marker(selectMarker.lonlat, icon); // 마커 생성
 			markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-			
+			marker.events.register("mouseover", marker, onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
 		}
 		
 		// 빨간 마커 그리기
@@ -171,14 +197,9 @@ function initTmap(sList){
 		selectMarker=marker; // 선택된 마커 저장
 		selectPopup=this.popup; // 선택된 팝업 저장 
 		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-		 */
-		
-		
 	}
-   
-
 }
-//마커를 클릭했을 때 발생하는 이벤트 함수입니다.
+
 
 </script>
 

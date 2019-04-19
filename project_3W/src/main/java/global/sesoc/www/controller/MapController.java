@@ -53,5 +53,10 @@ public class MapController {
 	public String mapMain(){
 		return "map/map_Main";
 	}
+	//연습용
+	@RequestMapping(value="/mapTest", method=RequestMethod.GET)
+	public String mapTest(){
+		return "map/mapTest";
+	}
 	
 }
