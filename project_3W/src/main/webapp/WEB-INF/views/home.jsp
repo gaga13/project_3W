@@ -335,6 +335,8 @@ function delete_schedule(){
 
 //검색값 map_Search로 보내기
 function submitToWindow(){
+	
+	//자식창에서 location reload
 	var search = $('#inslocation').val();
 	slocationMap.search(search);
 

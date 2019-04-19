@@ -183,7 +183,7 @@ function nameClick(index){
 	<!-- 맵 -->
 	<div id="map_div"></div>
 	
-	<div style="height:400px; overflow-y:scroll; " id="searchResult" name="searchResult">검색결과</div>
+	<div style="height:400px; overflow-y:scroll; " id="searchResult" name="searchResult" >검색결과</div>
 	
 </body>
 </html>

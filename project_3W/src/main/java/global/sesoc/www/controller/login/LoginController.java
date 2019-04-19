@@ -85,7 +85,7 @@ public class LoginController {
 	//홈으로 돌아가기
 	@RequestMapping(value ="hom", method = RequestMethod.GET)
 	public String returnHome(){
-		return "home";
+		return "redirect:/home";
 	}
 	
 	//로그아웃
