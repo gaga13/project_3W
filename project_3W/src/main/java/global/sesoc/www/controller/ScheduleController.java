@@ -63,8 +63,6 @@ public class ScheduleController {
 		sList = dao.getScheduleList(hmap);
 		
 		ses.setAttribute("sListSize", (sList.size()+1));
-		
-		
 		logger.debug("sList:{}", sList);
 		
 		return sList;
@@ -73,7 +71,7 @@ public class ScheduleController {
 	//오늘 스케쥴 중 하나 클릭했을 때 정보 가져오기
 	@ResponseBody
 	@RequestMapping(value = "clickList", method = RequestMethod.POST)
-	public ScheduleVO clickList(int i, HttpSession session){
+	public void clickList(int i, HttpSession session){
 		Date sysdate = (Date) session.getAttribute("sysdate");
 		String email = (String) session.getAttribute("loginId");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
@@ -82,10 +80,16 @@ public class ScheduleController {
 		hmap.put("email", email);
 		hmap.put("startdate", formattedDate);
 		
-		ArrayList<ScheduleVO> sListTime = dao.getScheduleListClick(hmap);
+		ArrayList<ScheduleVO> sList = dao.getScheduleList(hmap);
+		logger.debug("sList:{}", sList);
+		String loc = sList.get(i).getSlocation();
+		String lat = sList.get(i).getSlatitude();
+		String lon = sList.get(i).getSlongitude();
 		
-		ScheduleVO iList = sListTime.get(i);
-		return iList;
+		session.setAttribute("lon", lon);
+		session.setAttribute("lat", lat);
+		session.setAttribute("location", loc);
+		return;
 	}
 	
 	//캘린더 폼

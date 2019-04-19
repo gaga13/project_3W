@@ -16,7 +16,9 @@ var cnt = 1;
 var lat, lng;
 var tData; 
 var tDistance;
-
+var start_name;
+var end_name;
+var count = 0;
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
 function initTmap(){
 	
@@ -108,6 +110,7 @@ function lola(lonlat1, lonlat2){
 	tData.getRoutePlan(s_lonLat, e_lonLat, optionObj);//경로 탐색 데이터를 콜백 함수를 통해 XML로 리턴합니다.
 	
 	total(lonlat1.lon, lonlat1.lat, lonlat2.lon, lonlat2.lat);
+	
 	
 	if(tDistance > 2){
 		tData.events.register("onComplete", tData, onComplete);//데이터 로드가 성공적으로 완료되었을 때 발생하는 이벤트를 등록합니다.
@@ -205,7 +208,7 @@ function total(lon1, lat1, lon2, lat2){
 
 //ODsay api 호출
 function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
-	var str = '<table border=1><tr><th>추천</th><th>경로</th><th>시간(분)</th><th>요금</th></tr>';
+	var str = '<table border=1><tr><th>추천</th><th>경로</th><th>시간(분)</th><th>요금</th><th>버스등록</th></tr>';
 	var xhr = new XMLHttpRequest();
 	var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+lon1+"&SY="+lat1+"&EX="+lon2+"&EY="+lat2+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
 	xhr.open("GET", url, true);
@@ -224,13 +227,12 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 				dataType: 'json',
 				//요청 성공시 어떻게 할 것인지. 방법 1: 다른 함수로 보내기. 뒤에 ()붙이면 안됨. ()붙이는 것은 그 함수를 지금 이 자리에서 실행한다는 뜻이므로.
 				success: function(e){
-					$('#start').html('시작 경도:'+lon1+', 위도:'+lat1);
-					$('#end').html('도착 경도:'+lon2+', 위도:'+lat2);
-					console.log(e);
+				    reverseGeoCording({s_lonLat:s_lonLat});
+					reverseGeoCording({e_lonLat:e_lonLat});
 					if(e.searchType == 0){
 						var ph=e.path;
 						for(var i = 0 ; i<3 ; i++){	
-							str+='<tr><td>추천'+(i+1)+'</td><td>'
+							str+='<tr id="bus'+i+'"><td >추천'+(i+1)+'</td><td>'
 							
 							for(var n = 0; n<ph[i].subPath.length;n++){
 								
@@ -252,9 +254,11 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 							}
 							str+='<td>'+ph[i].info.totalTime+'</td>';
 							if(ph[i].info.payment ==0){
-								str+='<td>가격 미정</td></tr>';
+								str+='<td>가격 미정</td>';
+								str+='<td><button>등록</button></td></tr>';
 							}else{
-							str+='<td>'+ph[i].info.payment+'</td></tr>';
+							str+='<td>'+ph[i].info.payment+'</td>';
+							str+='<td><button class="setsub" datanum='+i+'>등록</button></td></tr>';
 							}
 						}
 					}else {
@@ -264,18 +268,19 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 							str+='<td>'+e[i].startSTN+'->'+e[i].endSTN+'</td>';
 							str+='<td>'+e[i].time+'</td>';
 							if(e[i].payment == 0){
-								str+='<td>가격 미정</td></tr>';	
+								str+='<td>가격 미정</td>';	
+								str+='<td><button>등록</button></td></tr>';
 							}else{
-							str+='<td>'+e[i].payment+'</td></tr>';
+							str+='<td>'+e[i].payment+'</td>';
+							str+='<td><button>등록</button></td></tr>';
 							}
 						}
 						
-
 					}
 					
-						str+='</table>';.
+						str+='</table>';
 					$('#result_sub').html(str);
-					$('#bus').html(ph[1].subPath[1].lane[0].busNo);
+					$('.setsub').on('click',{sub:e},set_subPath);
 				},
 				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
 				error: function (e, request, status, error) {
@@ -326,6 +331,58 @@ function onProgress(){
 function onError(){
 	alert("onError");
 }
+
+function reverseGeoCording(location){
+	var reverse_lat;
+	var reverse_lon;
+	if(location.s_lonLat != null){
+	reverse_lat = location.s_lonLat.lat;
+	reverse_lon = location.s_lonLat.lon;
+	}else{
+	reverse_lat = location.e_lonLat.lat;
+	reverse_lon = location.e_lonLat.lon;
+	}
+	
+	var latlng = "https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + reverse_lat + "," + reverse_lon + "&language=ko&sensor=false&key=AIzaSyDBLJ3URwB6HcAHqAJiwwOOqgqwUe2Hu0M";
+	         
+	   $.ajax({
+	      url: latlng,
+	      type: "POST",
+	      success: function(xml){	    	  
+	    		var xmlDoc = xml.getElementsByTagName("formatted_address");	
+	    		loca = xmlDoc[0].childNodes[0].nodeValue;
+	    		
+	    		if(location.s_lonLat!=null){
+	    			$('#start').html('시작 위치: '+loca);
+	    		}else{
+	    			$('#end').html('도착 위치: '+loca);
+	    		}
+	   
+	      },
+	      error: function(e){
+	         alert(json.stringify(e));
+	      }
+	   });
+
+	}
+	
+	function set_subPath(e){
+		var num = $(this).attr('datanum');
+		var ph =e.data.sub.path[num].subPath;
+		for(var m=0; m<ph.length;m++){
+			if(ph[m].trafficType==3){
+				continue;
+			}else if(ph[m].trafficType==2){
+				$('#bus').html(1+"번째 첫 대중교통: "+ph[m].lane[0].busNo);
+				$('#input_sub').val(ph[m].lane[0].busNo);
+				return;
+			}else if(ph[m].trafficType==1){
+				$('#bus').html(ph[m].lane[0].name);
+				$('#input_sub').val(ph[m].lane[0].busNo);
+				return;
+			}
+		}
+	}
 </script>
 </head>
 <body onload="initTmap()">
@@ -339,5 +396,6 @@ function onError(){
 	<div id="start"></div>
 	<div id="end"></div>
 	<div id="bus"></div>
+	<p>첫번째 대중교통<input type="text" id="input_sub" readonly="readonly"></p>
 </body>
 </html>

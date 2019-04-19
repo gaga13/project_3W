@@ -1,10 +1,0 @@
-diff a/project_3W/src/main/webapp/WEB-INF/views/home.jsp b/project_3W/src/main/webapp/WEB-INF/views/home.jsp	(rejected hunks)
-@@ -206,6 +206,8 @@
- 	var title = $('#insertModal #inscontent').val();
- 	var isd = $('#insertModal #instartdate').val();
- 	var ied = $('#insertModal #inenddate').val();
-+	var iti = $('#insertModal #instarttime').val();
-+	var ime = $('#insertModal #inendtime').val();
- 	
- 	if(title ==""){
- 		alert("?紐⑹ ??ν?二쇱몄.");

@@ -47,16 +47,5 @@ public class MapController {
 	public String mapSearchRoute(){
 		return "map/map_SearchRoute";
 	}
-	
-	//main맵 jsp호출
-	@RequestMapping(value="/map_Main", method=RequestMethod.GET)
-	public String mapMain(){
-		return "map/map_Main";
-	}
-	//연습용
-	@RequestMapping(value="/mapTest", method=RequestMethod.GET)
-	public String mapTest(){
-		return "map/mapTest";
-	}
-	
+
 }
