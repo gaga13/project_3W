@@ -6,6 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="resources/js/jquery-3.3.1.js"></script>
+<style>
+body{
+overflow:hidden;
+}
+</style> 
 <script
 	src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=99ed5523-2eb1-46fb-8cf0-60d0377b2345"></script>
 <script>
@@ -20,6 +25,8 @@ var start_name;
 var end_name;
 var count = 0;
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
+
+
 function initTmap(){
 	
 	if (!navigator.geolocation){
@@ -81,9 +88,6 @@ function onClick(e){
 		case 2 :
 			lonlat = map.getLonLatFromViewPortPx(e.xy).transform("EPSG:3857", "EPSG:4326");//클릭 부분의 ViewPortPx를 LonLat 좌표로 변환합니다.
 			lonlat2 = map.getLonLatFromViewPortPx(e.xy).transform("EPSG:3857", "EPSG:4326");
-			var result ='클릭한 위치의 좌표는'+lonlat+'입니다.'; 
-			var resultDiv = document.getElementById("result");
-			resultDiv.innerHTML = result;
 		
 			var size = new Tmap.Size(24, 38);//아이콘 사이즈 설정
 			offset2 = new Tmap.Pixel(-(size.w/2), -(size.h));//아이콘 중심점 설정
@@ -255,11 +259,11 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 							str+='<td>'+ph[i].info.totalTime+'</td>';
 							if(ph[i].info.payment ==0){
 								str+='<td>가격 미정</td>';
-								str+='<td><button>등록</button></td></tr>';
+								
 							}else{
 							str+='<td>'+ph[i].info.payment+'</td>';
-							str+='<td><button class="setsub" datanum='+i+'>등록</button></td></tr>';
 							}
+							str+='<td><button type="button" class="setsub" datanum='+i+'>등록</button></td></tr>';
 						}
 					}else {
 			
@@ -279,8 +283,8 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 					}
 					
 						str+='</table>';
-					$('#result_sub').html(str);
-					$('.setsub').on('click',{sub:e},set_subPath);
+					$('#result_sub',parent.document).html(str);
+					$('.setsub',parent.document).on('click',{sub:e},set_subPath);
 				},
 				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
 				error: function (e, request, status, error) {
@@ -353,9 +357,9 @@ function reverseGeoCording(location){
 	    		loca = xmlDoc[0].childNodes[0].nodeValue;
 	    		
 	    		if(location.s_lonLat!=null){
-	    			$('#start').html('시작 위치: '+loca);
+	    			$('#start', parent.document).html('시작 위치: '+loca);
 	    		}else{
-	    			$('#end').html('도착 위치: '+loca);
+	    			$('#end', parent.document).html('도착 위치: '+loca);
 	    		}
 	   
 	      },
@@ -367,18 +371,17 @@ function reverseGeoCording(location){
 	}
 	
 	function set_subPath(e){
+
 		var num = $(this).attr('datanum');
 		var ph =e.data.sub.path[num].subPath;
 		for(var m=0; m<ph.length;m++){
 			if(ph[m].trafficType==3){
 				continue;
 			}else if(ph[m].trafficType==2){
-				$('#bus').html(1+"번째 첫 대중교통: "+ph[m].lane[0].busNo);
-				$('#input_sub').val(ph[m].lane[0].busNo);
+				$('#input_sub', parent.document).val(ph[m].lane[0].busNo);
 				return;
 			}else if(ph[m].trafficType==1){
-				$('#bus').html(ph[m].lane[0].name);
-				$('#input_sub').val(ph[m].lane[0].busNo);
+				$('#input_sub', parent.document).val(ph[m].lane[0].name);
 				return;
 			}
 		}
@@ -388,14 +391,5 @@ function reverseGeoCording(location){
 <body onload="initTmap()">
 	<!-- 맵 -->
 	<div id="map_div"></div>
-
-	<p id="result"></p>
-
-	<p id="result2">결과 표시</p>
-	<div id="result_sub"></div>
-	<div id="start"></div>
-	<div id="end"></div>
-	<div id="bus"></div>
-	<p>첫번째 대중교통<input type="text" id="input_sub" readonly="readonly"></p>
 </body>
 </html>

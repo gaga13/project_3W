@@ -487,6 +487,10 @@ function submitToWindow(){
            	<input type="hidden" id="slat" name="slatitude">
            	<input type="hidden" id="slon" name="slongitude">
             <iframe width="100%" height="400px" src="map_Search" name = "slocationMap"></iframe><br> 
+            <div id="result_sub"></div>
+			<div id="start"></div>
+			<div id="end"></div>
+			<p>첫번째 대중교통<input type="text" id="input_sub" readonly="readonly"></p>
         </form>
       </div>
       <div class="modal-footer">
