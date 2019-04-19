@@ -333,6 +333,12 @@ function delete_schedule(){
 	}
 }
 
+//검색값 map_Search로 보내기
+function submitToWindow(){
+	var search = $('#inslocation').val();
+	slocationMap.search(search);
+
+}
 </script>
 </head>
 
@@ -344,14 +350,14 @@ function delete_schedule(){
       <span class="d-none d-lg-block">
       
       <!-- 홈으로 돌아가기 -->
-      
+      <a href="hom">홈으로</a>
       <!-- 프로필 이미지 들어가는 공간 -->
 	</a>
 	<a href="profile">
 	<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
 	</a>
 
-      </span>
+     </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -395,9 +401,9 @@ function delete_schedule(){
 		  </table>
 		        
 				
-        </li>
-        </ul>
-        </div>
+     	   </li>
+    	</ul>
+	</div>
         
 
   </nav>
@@ -440,6 +446,7 @@ function delete_schedule(){
 		
 		<!-- 화면 이중분할 -->
 		<div class="divide">
+		<button onclick >맵 변환 버튼 들어갈 자리</button>
 		<iframe width="100%" height="400px" src="map_Basic" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
 		<iframe width="100%" height="350px" src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe> <!-- 아래가 바뀜 -->
 		</div>
@@ -473,11 +480,11 @@ function delete_schedule(){
             <input type="text" name = "enddate" id="inenddate" style="width:100px; float:left;">
             <input type="text" name = "enddate" id="inendtime" style="width:100px;">
             <br>
-            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap">여기에 버튼 삽입 가능</button></label><br>
+            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToWindow()">검색</button> <button type="button" id="inmapClose" onclick="">닫기</button></label><br>
             <input type="text" class="form-control" name = "slocation" id="inslocation">
            	<input type="hidden" id="slat" name="slatitude">
            	<input type="hidden" id="slon" name="slongitude">
-             <iframe width="100%" height="400px" src="map_Search" name = "slocationMap"></iframe><br> 
+            <iframe width="100%" height="400px" src="map_Search" name = "slocationMap"></iframe><br> 
         </form>
       </div>
       <div class="modal-footer">
@@ -514,6 +521,8 @@ function delete_schedule(){
             <input type="text" name = "enddate" id="setenddate" style="width:100px;">
             <input type="text" name = "enddate" id="setendtime" style="width:100px;"><br>
             <label for="local">위치</label>
+            <input type="text" class="form-control" name = "slocation" id="setslocation">
+            <label for="local">길찾기 경로</label>
             <input type="text" class="form-control" name = "slocation" id="setslocation">
         </form>
       </div>

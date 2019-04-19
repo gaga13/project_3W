@@ -57,8 +57,8 @@ function initTmap(){
 
 }
 
-function search(){
-	var keyword = $('#keyword').val();
+function search(search){
+	var keyword = search;
 
 	$.ajax({
 		method:"GET",
@@ -182,9 +182,6 @@ function nameClick(index){
 <body onload="initTmap()">
 	<!-- 맵 -->
 	<div id="map_div"></div>
-
-	<input id="keyword" type="text" placeholder="검색하기" />
-	<input type="button" value="검색" onclick="javascript:search()" />
 	
 	<div style="height:400px; overflow-y:scroll; " id="searchResult" name="searchResult">검색결과</div>
 	

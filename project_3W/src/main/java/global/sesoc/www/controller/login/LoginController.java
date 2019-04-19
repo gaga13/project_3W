@@ -82,6 +82,11 @@ public class LoginController {
 		return check;
 	}
 	
+	//홈으로 돌아가기
+	@RequestMapping(value ="hom", method = RequestMethod.GET)
+	public String returnHome(){
+		return "home";
+	}
 	
 	//로그아웃
 	@RequestMapping(value = "logout", method=RequestMethod.GET)
