@@ -47,7 +47,7 @@ function initTmap(){
 	
 	// map 생성
 	// Tmap.map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
-	map = new Tmap.Map({div:'map_div', width:'100%', height:'400px'});
+	map = new Tmap.Map({div:'map_div', width:'100%', height:'350px'});
 	
 	function setCenter(lng,lat){	
 		map.setCenter(new Tmap.LonLat(lng, lat).transform("EPSG:4326", "EPSG:3857"), 15);
@@ -122,7 +122,7 @@ function search(search){
 							        "<span style='display: inline-block; width: 14px; height: 14px; background-image: url(/resources/images/common/icon_blet.png); vertical-align: middle; margin-right: 5px;'></span>"+name+
 							    "</div>"+
 							 "</div>";
-			   	innerHtml+="<div><img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_"+index+".png' style='vertical-align:middle'/><span onclick="+"javascript:nameClick("+ index +")"+">"+name+"</span></div>";
+			   	innerHtml+="<div><img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_"+index+".png' style='vertical-align:middle'/><span onclick="+"javascript:slocationMap.nameClick("+ index +")"+">"+name+"</span></div>";
 				
 				var icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_'+index+'.png',size, offset);//마커 아이콘 설정
 				var lonlat = new Tmap.LonLat(lon1, lat1);//좌표설정 
@@ -147,7 +147,8 @@ function search(search){
 			    }
 			  
 		   });
-		$("#searchResult").html(innerHtml);
+			//$("#searchResult").html(innerHtml);
+			$('#result_loc',parent.document).html("<위치 검색 결과>" + "\n" + innerHtml);
 			map.zoomToExtent(markerLayer.getDataExtent());//마커레이어의 영역에 맞게 map을 zoom합니다.
 		},
 		//요청 실패시 콘솔창에서 에러 내용을 확인할 수 있습니다.
@@ -182,8 +183,6 @@ function nameClick(index){
 <body onload="initTmap()">
 	<!-- 맵 -->
 	<div id="map_div"></div>
-	
-	<div style="height:400px; overflow-y:scroll; " id="searchResult" name="searchResult" >검색결과</div>
 	
 </body>
 </html>

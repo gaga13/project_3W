@@ -27,7 +27,7 @@ $(function (){
 	calendar();
     $('#updateModal', parent.document).on('hide.bs.modal', function(e){;
 	$('body', parent.document).removeClass('modal-open');
-});//hied 모달 이벤트
+});//hide 모달 이벤트
 });
 
 //달력호출

@@ -334,12 +334,32 @@ function delete_schedule(){
 }
 
 //검색값 map_Search로 보내기
-function submitToWindow(){
+function submitToMapSearch(){
 	
-	//자식창에서 location reload
-	var search = $('#inslocation').val();
-	slocationMap.search(search);
+	//검색 눌렀을 때 자식창 열기
+	document.getElementById("searchMapControl").style.display = "block";
 
+	var search = $('#inslocation').val();
+	
+	var frame = document.getElementById("slocationMap");
+    var gocoderFrameGo = frame.contentWindow || frame.contentDocument ;
+
+    gocoderFrameGo.search(search);
+}
+
+//위치의 닫기 눌렀을 때 map_Search창 닫기
+function MapSearchClose(){
+	document.getElementById("searchMapControl").style.display = "none";
+}
+
+//모달의 닫기 눌렀을 때 기존 map_Search기록 삭제하기
+function ClickClose(){
+	document.getElementById("searchMapControl").style.display = "none";
+	
+	var frame = document.getElementById("slocationMap");
+    var gocoderFrameGo = frame.contentWindow || frame.contentDocument ;
+
+    gocoderFrameGo.search("");
 }
 </script>
 </head>
@@ -459,9 +479,6 @@ function submitToWindow(){
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">일정 입력</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
         <button type="button" class="btn btn-primary" id="btin">일정 등록</button>
       </div>
      
@@ -482,11 +499,14 @@ function submitToWindow(){
             <input type="text" name = "enddate" id="inenddate" style="width:100px; float:left;">
             <input type="text" name = "enddate" id="inendtime" style="width:100px;">
             <br>
-            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToWindow()">검색</button> <button type="button" id="inmapClose" onclick="">닫기</button></label><br>
+            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToMapSearch()">검색</button> <button type="button" id="inmapClose" onclick="MapSearchClose()">닫기</button></label><br>
             <input type="text" class="form-control" name = "slocation" id="inslocation">
            	<input type="hidden" id="slat" name="slatitude">
            	<input type="hidden" id="slon" name="slongitude">
-            <iframe width="100%" height="400px" src="map_Search" name = "slocationMap"></iframe><br> 
+            <div id="searchMapControl" style="display:none">
+            	<iframe width="100%" height="400px" src="map_Search" name = "slocationMap" id = "slocationMap"></iframe><br>
+            	<div id="result_loc"></div>
+            </div>
             <div id="result_sub"></div>
 			<div id="start"></div>
 			<div id="end"></div>
@@ -495,7 +515,7 @@ function submitToWindow(){
       </div>
       <div class="modal-footer">
         
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ClickClose()">닫기</button>
       </div>
     </div>
   </div>
@@ -529,7 +549,7 @@ function submitToWindow(){
             <label for="local">위치</label>
             <input type="text" class="form-control" name = "slocation" id="setslocation">
             <label for="local">길찾기 경로</label>
-            <input type="text" class="form-control" name = "slocation" id="setslocation">
+            <input type="text" class="form-control" name = "slocation2" id="setslocation2">
         </form>
       </div>
       <div class="modal-footer">

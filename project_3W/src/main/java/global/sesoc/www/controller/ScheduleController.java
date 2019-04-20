@@ -83,8 +83,6 @@ public class ScheduleController {
 		ArrayList<ScheduleVO> sList = dao.getScheduleListClick(hmap);
 		
 		ScheduleVO iList = sList.get(i);
-		
-		logger.debug(iList.toString());
 
 		return iList;
 	}
