@@ -43,5 +43,21 @@ public class PracticeController {
 			ScheduleVO vo = sdao.getSchedule(snum);
 			logger.debug("vo:{}", vo);
 			return vo;
-		}
+	}
+	//트위터 연습용
+	@RequestMapping(value="/Btn", method=RequestMethod.GET)
+	public String Btn(){
+		return "twitter/practice/Btn";
+	}
+	//트위터 연습용
+	@RequestMapping(value="/twitt2", method=RequestMethod.GET)
+	public String twitt2(){
+		return "twitter/practice/twitt2";
+	}
+	
+	//트위터 연습용
+	@RequestMapping(value="/WriteTest", method=RequestMethod.GET)
+	public String WriteTest(){
+		return "twitter/practice/WriteTest";
+	}
 }

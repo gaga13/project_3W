@@ -18,4 +18,6 @@ create sequence snum_seq;
 --slatitude, slongitude 칼럼 추가
 alter table schedule add (slatitude varchar2(100));
 alter table schedule add (slongitude varchar2(100));
+alter table schedule add (subpath varchar2(100));
+alter table schedule add (subroute varchar2(4000));
 commit;
