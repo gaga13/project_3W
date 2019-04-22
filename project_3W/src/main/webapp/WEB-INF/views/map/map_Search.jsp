@@ -19,6 +19,9 @@ var arrname = [];
 var arrlat = [];
 var arrlng = [];
 
+$(document).ready(function (){
+	initTmap();
+});
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
 function initTmap(){
 	
@@ -58,6 +61,7 @@ function initTmap(){
 }
 
 function search(search){
+
 	var keyword = search;
 
 	$.ajax({
@@ -180,7 +184,7 @@ function nameClick(index){
 }
 </script>
 </head>
-<body onload="initTmap()">
+<body>
 	<!-- 맵 -->
 	<div id="map_div"></div>
 	

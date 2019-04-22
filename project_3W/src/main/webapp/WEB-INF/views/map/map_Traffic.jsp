@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="resources/js/jquery-3.3.1.js"></script>
 <style>
-body{
+ body{
 overflow:hidden;
 }
 </style> 
@@ -25,7 +25,9 @@ var start_name;
 var end_name;
 var count = 0;
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
-
+$(document).ready(function (){
+	initTmap();
+});
 
 function initTmap(){
 	
@@ -64,10 +66,11 @@ function initTmap(){
     	map.addLayer(markerLayer);//map에 맵 레이어를 추가합니다.
     	
    	map.events.register("click", map, onClick);//map 클릭 이벤트를 등록합니다.
-	
+   	
 	tData = new Tmap.TData();//REST API 에서 제공되는 경로, 교통정보, POI 데이터를 쉽게 처리할 수 있는 클래스입니다.
 
 }
+
 
 function onClick(e){
 	//markerLayer.removeMarker(marker); // 기존 마커 삭제
@@ -283,8 +286,8 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 					}
 					
 						str+='</table>';
-					$('#result_sub',parent.document).html(str);
-					$('.setsub',parent.document).on('click',{sub:e},set_subPath);
+					$('#result_sub', parent.document).html(str);
+					$('.setsub', parent.document).on('click',{sub:e},set_subPath);
 				},
 				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
 				error: function (e, request, status, error) {
@@ -372,23 +375,52 @@ function reverseGeoCording(location){
 	
 	function set_subPath(e){
 
+		var rain = "";
 		var num = $(this).attr('datanum');
 		var ph =e.data.sub.path[num].subPath;
+		console.log(ph);
+		for(var i = 0 ; i<ph.length; i++){
+			
+			if(ph[i].trafficType==3){
+				rain+='도보';
+			} 
+			if(ph[i].trafficType==2){
+				rain+=ph[i].startName+'->';
+				rain+=ph[i].lane[0].busNo;
+				rain+='->'+ph[i].endName;
+			} 
+			if(ph[i].trafficType==1){
+				rain+=ph[i].startName+'->';
+				rain+=ph[i].lane[0].name;
+				rain+='->'+ph[i].endName;
+			}
+			if(i<ph.length-1){
+				rain+='->';
+			}
+		}
+		$('#subroute', parent.document).val(rain);
+	
 		for(var m=0; m<ph.length;m++){
+			
 			if(ph[m].trafficType==3){
 				continue;
 			}else if(ph[m].trafficType==2){
 				$('#input_sub', parent.document).val(ph[m].lane[0].busNo);
-				return;
+				break;
 			}else if(ph[m].trafficType==1){
 				$('#input_sub', parent.document).val(ph[m].lane[0].name);
-				return;
+				break;
 			}
+			
 		}
+		parent.subMapClose();
+		location.reload();
+		$('#result_sub', parent.document).html("");
 	}
+
 </script>
 </head>
-<body onload="initTmap()">
+<body>
 	<!-- 맵 -->
 	<div id="map_div"></div>
 </body>

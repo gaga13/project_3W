@@ -9,6 +9,8 @@ public class ScheduleVO {
 	private String slocation;				//스케쥴 위치
 	private String slatitude;				//스케쥴 위치에 따른 위도
 	private String slongitude;				//스케쥴 위치에 따른 경도
+	private String subroute;
+	private String subpath;
 	
 	public ScheduleVO() {
 		super();
@@ -21,19 +23,8 @@ public class ScheduleVO {
 		this.enddate = enddate;
 	}
 
-	public ScheduleVO(String email, int snum, String scontent, String startdate, String enddate, String slocation) {
-		super();
-		this.email = email;
-		this.snum = snum;
-		this.scontent = scontent;
-		this.startdate = startdate;
-		this.enddate = enddate;
-		this.slocation = slocation;
-	}
-
-	
 	public ScheduleVO(String email, int snum, String scontent, String startdate, String enddate, String slocation,
-			String slatitude, String slongitude) {
+			String slatitude, String slongitude, String subroute, String subpath) {
 		super();
 		this.email = email;
 		this.snum = snum;
@@ -43,23 +34,8 @@ public class ScheduleVO {
 		this.slocation = slocation;
 		this.slatitude = slatitude;
 		this.slongitude = slongitude;
-	}
-	
-
-	public String getSlatitude() {
-		return slatitude;
-	}
-
-	public void setSlatitude(String slatitude) {
-		this.slatitude = slatitude;
-	}
-
-	public String getSlongitude() {
-		return slongitude;
-	}
-
-	public void setSlongitude(String slongitude) {
-		this.slongitude = slongitude;
+		this.subroute = subroute;
+		this.subpath = subpath;
 	}
 
 	public String getEmail() {
@@ -110,14 +86,43 @@ public class ScheduleVO {
 		this.slocation = slocation;
 	}
 
+	public String getSlatitude() {
+		return slatitude;
+	}
+
+	public void setSlatitude(String slatitude) {
+		this.slatitude = slatitude;
+	}
+
+	public String getSlongitude() {
+		return slongitude;
+	}
+
+	public void setSlongitude(String slongitude) {
+		this.slongitude = slongitude;
+	}
+
+	public String getSubroute() {
+		return subroute;
+	}
+
+	public void setSubroute(String subroute) {
+		this.subroute = subroute;
+	}
+
+	public String getSubpath() {
+		return subpath;
+	}
+
+	public void setSubpath(String subpath) {
+		this.subpath = subpath;
+	}
+
 	@Override
 	public String toString() {
 		return "ScheduleVO [email=" + email + ", snum=" + snum + ", scontent=" + scontent + ", startdate=" + startdate
 				+ ", enddate=" + enddate + ", slocation=" + slocation + ", slatitude=" + slatitude + ", slongitude="
-				+ slongitude + "]";
+				+ slongitude + ", subroute=" + subroute + ", subpath=" + subpath + "]";
 	}
-
-	
-
 	
 }

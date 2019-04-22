@@ -92,12 +92,13 @@ function calendar() {
 							});
 							
 						},
+						nextDayThreshold:"00:00",
 						buttonIcons : true,
 						navLinks : false,
 						editable : false,
 						eventLimit : true,
 						events : function(startdate, enddate, timezone,callback) {
-							
+
 							var std = startdate._d;
 							var edd = enddate._d;
 							
@@ -111,6 +112,7 @@ function calendar() {
 										dataType : 'json',
 										success : function(list) {
 											var events = [];
+											console.log(list);
 											$.each(list,function(key,item) {
 											
 																events.push({

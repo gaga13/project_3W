@@ -29,6 +29,10 @@ $(document).ready(function(){
 		$('#insertModal input[name=enddate]', parent.document).val("");
 		$('#insertModal #inlocation', parent.document).hide();
 		$('body', parent.document).removeClass('modal-open');
+		//$(parent.frames["slocationMap"].document).get(0).location.reload(); //traffic용
+     	//$(parent.frames["slocationMap"].contentDocument).get(0).location.reload(); //search 용
+    
+		//parent.location.reload(); //만약의 경우 사용
     });//hied 모달 이벤트
     
 	//서버에서 하루스케쥴 목록 불러오기
@@ -39,9 +43,11 @@ $(document).ready(function(){
 		success : function(sList){         
 			//반복문으로 sList안의 일정 읽기
 			$.each(sList, function (index, item){
+				
 				var scontent = item.scontent;
 				var startdate = item.startdate;
-
+				var subpath = item.subpath
+				
 				//var enddate = item.enddate;
 				if(startdate.substring(3,4) == 0){
 					startdate = startdate.substring(0,3)
@@ -53,7 +59,7 @@ $(document).ready(function(){
 				}
 				//html에 일정 넣기
 				$('#inputTR'+ index).html('<td>'+(index +1)+'</td>'+'<td>'+startdate+''
-						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ '' + '</td>');
+						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ subpath+ '</td>');
 				clickList;
 			});
 		},
@@ -84,6 +90,7 @@ function clickList(i){
 		data: {i : i},
 		dataType: 'json',
 		success: function(iList){
+
 			var sp = iList.startdate.split(" ");
 			var ep = iList.enddate.split(" ");
 			var setnum = iList.snum;
@@ -93,10 +100,12 @@ function clickList(i){
 			var endDate = ep[0];
 			var startTime = sp[1] + " " + sp[2];
 			var endTime = ep[1] + " " + ep[2];
+			var subroute = iList.subroute;
 			
 			$('#updateModal #setnum', parent.document).val(setnum);
 			$('#updateModal #setscontent', parent.document).val(content);
 			$('#updateModal #setslocation', parent.document).val(location);
+			$('#updateModal #setsubroute', parent.document).val(subroute);
 			$('#updateModal #setstartdate', parent.document).val(startDate);
 			$('#updateModal #setenddate',parent.document).val(endDate);
 			$('#updateModal #setstarttime',parent.document).val(startTime);

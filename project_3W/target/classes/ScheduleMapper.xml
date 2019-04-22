@@ -16,6 +16,8 @@
 		, enddate
 		, slatitude
 		, slongitude
+		, subpath
+		,subroute
 	) 
 	values(
  		 #{email}
@@ -26,6 +28,8 @@
  		, to_date(#{enddate},'yyyy-mm-dd PM hh:MI')
  		, #{slatitude}
  		, #{slongitude}
+ 		,#{subpath}
+ 		,#{subroute}
 	)
 </insert>
 
@@ -39,10 +43,12 @@ select
 		 , slocation
 		 , slatitude
 		 , slongitude
+		 ,subroute
+		 , subpath
 from 	
 		 schedule 
 where 	
-		 email like #{email} and to_char(startdate, 'yyyy/mm/dd') = #{startdate}
+		 email like #{email} and to_date(#{startdate}) between startdate-1 and enddate
 order by 
 		 startdate asc
 </select>
@@ -57,6 +63,8 @@ select
 		 , slocation
 		 , slatitude
 		 , slongitude
+		 ,subroute
+		 , subpath
 from 	
 		 schedule 
 where 	
@@ -108,8 +116,5 @@ where
 	and 
 		snum=#{num}
 </delete>
-<select id="getSchedule" parameterType="int" resultType="ScheduleVO">
-select * from schedule where snum = #{snum}
-</select>
 
 </mapper>
