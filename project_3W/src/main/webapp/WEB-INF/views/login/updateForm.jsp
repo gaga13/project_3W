@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="resources/css/profileupdate.css" rel="stylesheet">
 <title>회원정보 수정</title>
 
 <script src="resources/jquery/jquery-3.3.1.min.js"></script>
@@ -100,96 +101,115 @@ function twitterDisconnect(){
 </head>
 <body>
 
-<h1>회원정보 관리</h1>
-<form method="post" action="update" id="update" enctype="multipart/form-data" >
-<input type="hidden" value="${member.email}" name="email" id="email">
-<table border="1">
 
-	<tr>
-		<td>
-		
-		</td>
-		
-		<td>
-				<div class="img_wrap">
-					<img id="img" width="130" height="auto" />
-				</div>
-				
-				<div>
-				<p class="title"></p>
-				<input type="file" id="input_img" name="profile_photo">
-				</div>
-		
-		</td>
-	</tr>
- 
-	<tr>
-		<td>
-			이름
-		</td>
-		<td>
-			<input type="text" name="username" id="username" value="${member.username}"/>
-		</td>
-	</tr>
 
-	<tr>
-		<td>
-			생년월일 [공개/비공개]
-		</td>
-		<td>
-			${member.userbirthdate}
-			<input type = "date" name="userbirthdate" id="userbirthdate" value="${member.userbirthdate}"/>
-		</td>
-	</tr>
+<table>
+
 	
-	<tr>
-		<td>
-			이메일 주소
-		</td>
-		<td>
-			${sessionScope.loginId}
-		</td>
-	</tr>
-	
-	<tr>
-		<td>
-			새 비밀번호를 입력하세요
-		</td>
-		<td>
-			<input type="password" id="password" name="password">
-		</td>
-	</tr>
-	
-	<tr>
-		<td>
-			비밀번호 확인
-		</td>
-		<td>
-			<input type="password" id="password2">
-		</td>
-	</tr>
-	
-	<tr>
-		<td>SNS계정</td>
-		<td>
-			<img src="./resources/img/twitterLogo2.PNG">twitter
-			<c:choose>
-				<c:when test="${member.twitterId eq 'N' }">
-					<input type="button" id="twitterConnectBtn" value="계정 연결">
-				</c:when>
-				<c:otherwise>
-					<input type="button" id="twitterDisconnectBtn" value="연결 해제">
-				</c:otherwise>
-			</c:choose>
 			
-		</td>
-	</tr>
+		
+
+<div class="profile-text">
+			<h1 class="profile-name">회원 정보</h1>
+		
+					<div class="img_wrap">
+						<img id="img" width="130" height="auto" />
+					</div>
+					
+					<div>
+					<p class="title"></p>
+					<input type="file" id="input_img" name="profile_photo">
+					</div>
 	
-</table>
-<br>
-<input type="button" id="updateBts" value="수정">
+	<form method="post" action="update" id="update" enctype="multipart/form-data" >
+	<input type="hidden" value="${member.email}" name="email" id="email">
+
+
+
+<div class="profile-title">
+
+	<table >
+	
+		<tr>
+			<td>
+			
+			</td>
+			
+		</tr>
+	 
+		<tr>
+			<td>
+				이름
+			</td>
+			<td>
+				<input type="text" name="username" id="username" value="${member.username}"/>
+			</td>
+		</tr>
+	
+		<tr>
+			<td>
+				생년월일 [공개/비공개]
+			</td>
+			<td>
+				${member.userbirthdate}
+				<input type = "date" name="userbirthdate" id="userbirthdate" value="${member.userbirthdate}"/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				이메일 주소
+			</td>
+			<td>
+				${sessionScope.loginId}
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				새 비밀번호를 입력하세요
+			</td>
+			<td>
+				<input type="password" id="password" name="password">
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				비밀번호 확인
+			</td>
+			<td>
+				<input type="password" id="password2">
+			</td>
+		</tr>
+		
+		<tr>
+			<td>SNS계정</td>
+			<td>
+				<img src="./resources/img/twitter.png" width="20px" height="18px">
+				<c:choose>
+					<c:when test="${member.twitterId eq 'N' }">
+						<input type="button" id="twitterConnectBtn" value="계정 연결">
+					</c:when>
+					<c:otherwise>
+						<input type="button" id="twitterDisconnectBtn" value="연결 해제">
+					</c:otherwise>
+				</c:choose>
+				
+			</td>
+		</tr>
+		
+	</table>
+</div>
+
+</div>
+	<br>
+	<input type="button" id="updateBts" value="수정">
 
 </form>
+
+</table>
+
 
 </body>
 </html>

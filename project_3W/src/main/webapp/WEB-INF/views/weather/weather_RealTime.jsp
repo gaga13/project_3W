@@ -13,7 +13,7 @@
 <script>
 $(document).ready(function(){	
 	
-
+//애니메이션 숨김
 	 $("#sun").hide();
 	 $("#rain").hide();
 	 $("#cloudy").hide();
@@ -23,16 +23,8 @@ $(document).ready(function(){
 	 $("#storm").hide();
 	 $("#thunder").hide();
 		
-/* 
-	var sun = document.getElementById("sun");
-	var rain = document.getElementById("icon_rain");
-	var cloudy = document.getElementById("icon cloudy");
-	var sand = document.getElementById("icon sand");
-	var flurries = document.getElementById("icon flurries");
-	var snow = document.getElementById("icon snow");
-	var storm = document.getElementById("icon thunder-storm");
-	var thunder = document.getElementById("icon thunder");
-	 */
+
+	 
 	var lat = "<%=session.getAttribute("lat")%>";
 
 	var lon = "<%=session.getAttribute("lon")%>";
@@ -277,7 +269,7 @@ $(document).ready(function(){
 	</div>  
 	</div>
 </tr>
-<tr><img src="resources/img/table_space.png" height="140px"></tr>
+<!-- <tr><img src="resources/img/table_space.png" height="140px"></tr> -->
 
 	<tr height="200px"></tr>
 	<tr>
