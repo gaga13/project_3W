@@ -105,4 +105,17 @@ public class ScheduleDAO {
 		
 		return result; 
 	}
+
+	//가현 - 일정 하나 가져오기
+	public ScheduleVO getSchedule(int snum) {
+		ScheduleVO vo = null;
+		ScheduleMapper mapper = sqlsession.getMapper(ScheduleMapper.class);
+		try{
+			vo = mapper.getSchedule(snum);
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return vo;
+	}
 }

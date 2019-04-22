@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
+    pageEncoding="UTF-8"%>
+<!DOCTYPE >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>스케쥴과 맵 연동하여 마커 찍기</title>
 <script src="resources/js/jquery-3.3.1.js"></script>
 <script
    src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=99ed5523-2eb1-46fb-8cf0-60d0377b2345"></script>
 <script>
-// 페이지가 로딩이 된 후 호출하는 함수입니다.
+var map, marker, popup, markerLayer;
+var lonlat, size, offset, icon, index, img;
+var selectMarker, selectPopup;
+var arrMarkerPopup = [];
+
+//마커와 팝업을 세팅합니다.
+function MarkerPopup(marker, popup) {
+	this.marker = marker;
+	this.popup = popup;
+}
+//페이지가 로딩이 된 후 호출하는 함수입니다.
 var selectMarker
 $(document).ready(function(){
 	getScheduleList();
@@ -74,137 +82,118 @@ function initTmap(sList){
     markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
    	map.addLayer(markerLayer);//map에 마커 레이어 추가
    	
-   	var size = new Tmap.Size(32, 38);//아이콘 크기
-   	var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));	//아이콘 중심점
+   	var size = new Tmap.Size(28, 34);//아이콘 크기
+   	var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));				//아이콘 중심점
 	   
-	for (var i = 0; i< sList.length; i++){//for문을 통하여 배열 안에 있는 값을 마커 생성
-		if(i == 0){
-			var img = 'resources/img/number/one.png';
-		}
-		if(i == 1){
-			var img = 'resources/img/number/two.png';
-		}
-		if(i == 2){
-			var img = 'resources/img/number/three.png';
-		}
-		if(i == 3){
-			var img = 'resources/img/number/four.png';
-		}
-		if(i == 4){
-			var img = 'resources/img/number/five.png';
-		}
-		if(i == 5){
-			var img = 'resources/img/number/six.png';
-		}
-		if(i == 6){
-			var img = 'resources/img/number/seven.png';
-		}
-		if(i == 7){
-			var img = 'resources/img/number/eight.png';
-		}
-		if(i == 8){
-			var img = 'resources/img/number/nine.png';
-		}
-		if(i == 9){
-			var img = 'resources/img/number/ten.png';
-		}
+	for (var i = 0; i< sList.length; i++){			//for문을 통하여 배열 안에 있는 값을 마커 생성
 		
 		
-		var icon = new Tmap.Icon(img,size, offset);//아이콘 설정
+		var icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset);//아이콘 설정
 		var slat = sList[i].slatitude;
 		var slon = sList[i].slongitude;
-		var slocation = sList[i].slocation;
-		console.log(slat +'' +slon+''+slocation);
+		
+		console.log(slat +',' +slon);
+		
 		var lonlat = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");//좌표 지정
+		
+		//팝업을 위한 배열(위치값 , 팝업에 띄울 값)
+		var positions = new Array();
+		positions[i] = lonlat;
+		var locations = new Array(); 	//db에서 받아온 '위도,경도' 배열 
+		locations[i] = slat + ',' + slon + '!' + i;
 		
 		marker = new Tmap.Marker(lonlat, icon);//마커 생성
 		markerLayer.addMarker(marker); //마커 레이어에 마커 추가
+		//팝업 생성
+		popup = new Tmap.Popup("p1", positions[i], new Tmap.Size(120, 30), locations[i]);
+		map.addPopup(popup); // 지도에 팝업 추가
+		popup.hide(); // 팝업 숨기기
 		
 		//마커 이벤트등록
-		marker.events.register("mouseover",marker, onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
-		marker.events.register("mouseout", marker, onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
-		marker.events.register("click", marker, onClickMarker); // 마커를 클릭했을 때 이벤트 설정
+		marker.events.register("click", new MarkerPopup(marker, popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
+		
 	} 
    	
-   	
-	//선 그리기
-	var pointList = []; //포인트를 저장할 배열
-	for( var i=0; i< sList.length; i++){
-		var slat = sList[i].slatitude;
-		var slon = sList[i].slongitude;
-		pointList.push(new Tmap.Geometry.Point(slon, slat).transform("EPSG:4326", "EPSG:3857"));
-	}
-	
-	//선 스타일
-	var style = {
-			fillColor:"#56b48c",
-			fillOpacity:0.2,
-			strokeColor: "#56b48c",
-			strokeWidth: 3,	// 선 굵기 지정
-			strokeDashstyle: "solid",
-			pointRadius: 60
-		};
-	
-	var lineString = new Tmap.Geometry.LineString(pointList); // 라인 스트링 생성 
-	var mLineFeature = new Tmap.Feature.Vector(lineString, null, style); // 백터 생성
-	 
-	var vectorLayer = new Tmap.Layer.Vector("vectorLayerID"); // 백터 레이어 생성
-	map.addLayer(vectorLayer); // 지도에 백터 레이어 추가
-	 
-	vectorLayer.addFeatures([mLineFeature]); // 백터를 백터 레이어에 추가 
-   	
-	// 마커에 마우스가 오버되었을 때 발생하는 이벤트 함수입니다.
-	function onOverMarker(evt) {
-		
-		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
-		size = new Tmap.Size(48, 75); // 마커 사이즈 지정
-		icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_b_a.png',size, offset); // 마커 아이콘 지정
-		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
-		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-		marker.events.register("mouseout", marker, onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
-		marker.events.register("click", marker, onClickMarker); // 마커를 클릭했을 때 이벤트 설정
-	}
-	
-	// 마커에 마우스가 아웃되었을 때 발생하는 이벤트 함수입니다.
-	function onOutMarker(evt) {
-				
-		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
-		size = new Tmap.Size(24, 38); // 마커 아이콘 사이즈 설정
-		icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png',size, offset); // 마커 아이콘 지정
-		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
-		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-		marker.events.register("mouseover", marker, onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
-	}
 	// 마커가 클릭되었을 때 발생하는 이벤트 함수입니다.
-	function onClickMarker(evt) {
-				
+	function onClickMarker(evt) {	
+		
+		this.popup.hide(); // 클릭했을때 팝업이 숨겨집니다.
+		var img, red_img;
+		var all = this.popup.contentHTML.split('!');
+		var index = all[1]; 	//현재 마커 번호 - 1
+		
+		var seslonlat = all[0];		//현재 마커 위치(위도경도)
 		if( selectMarker ) {
 			// 기존 빨간 마커 지우기
 			markerLayer.removeMarker(selectMarker);
 			// 기존 빨간 마커 파란 마커로 다시 그리기
-			size = new Tmap.Size(24, 38); // 마커 아이콘 사이즈 지정
-			icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_a.png',size, offset); // 마커 아이콘 생성
+			
+			size = new Tmap.Size(28, 34); // 마커 아이콘 사이즈 지정
+			
+			icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 생성
 			marker = new Tmap.Marker(selectMarker.lonlat, icon); // 마커 생성
 			markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-			marker.events.register("mouseover", marker, onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+			marker.events.register("click", new MarkerPopup(marker, this.popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
 		}
 		
 		// 빨간 마커 그리기
 		markerLayer.removeMarker(this.marker); // 마커 삭제
-		size = new Tmap.Size(24, 38); // 마커 아이콘 사이즈 지정
-		icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_a.png',size, offset); // 마커 아이콘 생성
+		size = new Tmap.Size(28, 34); // 마커 아이콘 사이즈 지정
+		
+		icon = new Tmap.Icon('resources/img/marker/marker_red.png' ,size, offset); // 마커 아이콘 생성
+		
 		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
 		selectMarker=marker; // 선택된 마커 저장
-		selectPopup=this.popup; // 선택된 팝업 저장 
+		
 		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+		marker.events.register("click", new MarkerPopup(marker, this.popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
+		//session에 값 저장
+		reverseGeoCording(seslonlat);
+		
 	}
+		
 }
+
+function reverseGeoCording(seslonlat){
+		
+		var seslonlatList = seslonlat.split(',');
+		var lat = seslonlatList[0];
+		var lon = seslonlatList[1];
+	
+	   var latlng = "https://maps.googleapis.com/maps/api/geocode/xml?latlng=" + lat + "," + lon + "&language=ko&sensor=false&key=AIzaSyDBLJ3URwB6HcAHqAJiwwOOqgqwUe2Hu0M"
+	         
+	   $.ajax({
+	      url: latlng,
+	      type: "POST",
+	      success: XMLParsing,
+	      error: function(e){
+	         alert(json.stringify(e));
+	      }
+	   });
+	}
+
+	function XMLParsing(xml){
+	   var xmlDoc = xml.getElementsByTagName("formatted_address");   
+	   loca = xmlDoc[5].childNodes[0].nodeValue;
+	   $.ajax({
+	      url: 'reverseGeoCording',
+	      type: 'post',
+	      data: {loca : loca},
+	      dataType: 'text',
+	      success: function(){
+	      },
+	      error: function (e) {
+	         alert(JSON.stringify(e));
+	         alert("현재위치에 따른 주소명 session 저장 실패");
+	      }
+	   }); 
+} 
 
 
 </script>
-
+<title>Insert title here</title>
 </head>
 <body>
-   <div id="map_div"></div>
-   <div id="practice"></div>  
+<div id="map_div"></div>
 </body>
+</html>

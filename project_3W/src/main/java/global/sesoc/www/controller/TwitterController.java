@@ -16,12 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import global.sesoc.www.dao.MemberDAO;
 import global.sesoc.www.dao.ScheduleDAO;
 import global.sesoc.www.dao.TwitterDAO;
+import global.sesoc.www.vo.MemberVO;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -38,26 +41,13 @@ public class TwitterController {
 	
 	@Autowired
 	TwitterDAO dao;
+	@Autowired
+	MemberDAO mdao;
 	
 	//트위터 인증 후 보여줄 페이지
 	@RequestMapping(value = "endpage", method = RequestMethod.GET)
 	public String endpage(){
 		return "endpage";
-	}
-	
-	//연습용 pp.jsp 경로
-	@RequestMapping(value = "pp", method = RequestMethod.GET)
-	public String pp(HttpSession ses){
-		//연습용 schedule
-		String scontent = "새라 언니랑 밥 먹기";
-		String slocation = "쿠우쿠우";
-		String startdate = "오후 1시";
-		
-		ses.setAttribute("scontent", scontent);
-		ses.setAttribute("slocation", slocation);
-		ses.setAttribute("startdate", startdate);
-	
-		return "Gahyun/pp";
 	}
 	
 	//트위터 공유하기 버튼 눌렀을 때, 인증된 사용자인지 체크
@@ -67,44 +57,43 @@ public class TwitterController {
 		boolean check = false;
 		
 		String email = (String) ses.getAttribute("loginId");
-		
-		//db에서 해당 email의 accessToken 가져오기
-		byte[] serializedAccessToken = null;
-		HashMap<String, Object> hmap = new HashMap<>();
-		hmap = dao.selectAccessToken(email);
-		logger.debug("hmap:{}", hmap);
-		try {
+		MemberVO member = mdao.getMember(email);
+		if(member.getTwitterId().equals("Y")){
+			check = true;
+			logger.debug("트위터 인증 된 사용자");
+			
+			//db에서 해당 email의 accessToken 가져오기
+			byte[] serializedAccessToken = null;
+			HashMap<String, Object> hmap = new HashMap<>();
+			hmap = dao.selectAccessToken(email);
+			logger.debug("hmap:{}", hmap);
+			
 			serializedAccessToken = (byte[]) hmap.get("blobData");
 			logger.debug("token가져오기 성공");
-		} catch (Exception e) {
-			e.printStackTrace();
+			 
+			try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedAccessToken)) {
+				    try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+			            // 역직렬화된 accessToken 객체를 읽어온다.
+			            Object objectAccToken = ois.readObject();
+			            AccessToken accessToken =  (AccessToken) objectAccToken;
+			            
+			            //session에 accessToken 저장
+			            ses.setAttribute("accessToken", accessToken);
+			            logger.debug("세션에 accessToken 저장");
+				    }
+				    catch(Exception e){
+				    	e.printStackTrace();
+				    }
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			
 		}
-		if(serializedAccessToken == null){
-			return check;
-		}
-	
-		check = true;
-		try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedAccessToken)) {
-		    try (ObjectInputStream ois = new ObjectInputStream(bais)) {
-	            // 역직렬화된 accessToken 객체를 읽어온다.
-	            Object objectAccToken = ois.readObject();
-	            AccessToken accessToken =  (AccessToken) objectAccToken;
-	            
-	            //session에 accessToken 저장
-	            ses.setAttribute("accessToken", accessToken);
-	            logger.debug("세션에 accessToken 저장");
-		    }
-		    catch(Exception e){
-		    	e.printStackTrace();
-		    }
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		
 		return check;
+	
 	}
+
 	
 	//트위터 계정 인증 페이지 오픈
 	@RequestMapping(value = "twitterConnect", method = RequestMethod.GET)
@@ -189,7 +178,7 @@ public class TwitterController {
 	//트윗하는 페이지 jsp 경로
 	@RequestMapping(value="twitterWrite", method=RequestMethod.GET)
 	public String twitterWriteOpen(){
-		return "Gahyun/twitterPractice";
+		return "twitter/twitterWrite";
 	}
 		
 	//트윗하는 기능		//twitt : 트윗 할 내용이 담김
@@ -235,6 +224,18 @@ public class TwitterController {
 			logger.debug("트위터 계정 연결 해제 ");
 		}
 	}
+	//트위터 연습용
+	@RequestMapping(value="/twitterBtn", method = RequestMethod.GET)
+	public String twitterBtn(){
+		
+		return "twitter/twitterBtn";
+	}
+	
+	//트위터 연습용2
+	@RequestMapping(value="/twitt", method = RequestMethod.GET)
+	public String twitterBtn2(){
+		
+		return "twitter/twitt";
+	}
 	
 }
-	

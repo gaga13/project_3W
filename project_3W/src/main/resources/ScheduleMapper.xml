@@ -108,5 +108,8 @@ where
 	and 
 		snum=#{num}
 </delete>
+<select id="getSchedule" parameterType="int" resultType="ScheduleVO">
+select * from schedule where snum = #{snum}
+</select>
 
 </mapper>

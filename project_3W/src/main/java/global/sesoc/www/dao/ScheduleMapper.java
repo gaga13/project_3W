@@ -24,4 +24,7 @@ public interface ScheduleMapper {
 	
 	//일정 삭제
 	public int deSchedule(HashMap<String, Object>map);
+
+	//번호로 일정가져오기
+	public ScheduleVO getSchedule(int snum);
 }

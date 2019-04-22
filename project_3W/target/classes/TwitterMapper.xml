@@ -13,7 +13,7 @@ insert into user_twitter (email, accToken) values(#{loginEmail}, #{accessToken})
 
 <!-- resultMap 타입 지정 -->
 <resultMap id="responseMap" type="hashmap">
-      <result property="blobData" javaType="_byte[]" column="acc" jdbcType="BLOB"/>
+      <result property="blobData" javaType="_byte[]" column="acctoken" jdbcType="BLOB"/>
 </resultMap>
 
 <!--DB에서 AccessToken 가져오기  -->

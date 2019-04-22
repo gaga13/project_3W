@@ -82,7 +82,7 @@ if(pw != pw2){
 function twitterConnect(){
 	//트위터 
 	window.open('twitterConnect', '', 'width=700,height=500');
-	//시간지나면 꺼지게하기
+	
 	
 }
 //트위터 계정 연결 해제
