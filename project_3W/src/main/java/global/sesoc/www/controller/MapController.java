@@ -26,7 +26,7 @@ public class MapController {
 	@RequestMapping(value="/reverseGeoCording", method=RequestMethod.POST)
 	public void reverseGeoCording(String loca, HttpSession session){
 		session.setAttribute("location", loca);
-		
+		logger.debug("loca:{}", loca);
 		return;
 	}
 	
@@ -47,5 +47,11 @@ public class MapController {
 	public String mapSearchRoute(){
 		return "map/map_SearchRoute";
 	}
-
+	
+	//main맵 jsp호출
+	@RequestMapping(value="/map_Main", method=RequestMethod.GET)
+	public String mapMain(){
+		return "map/map_Main";
+	}
+	
 }
