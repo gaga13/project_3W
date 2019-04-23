@@ -103,9 +103,10 @@ function twitterDisconnect(){
 <table>
 
 <div class="profile-text">
+		<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/head.png" width="150px;" height="150;" alt="">
 			<h1 class="profile-name">회원 정보</h1>
 					
-					<img src="getByteImage" />
+					  
 					
 					<c:if test="${member.savedImage != null}">
 						<td colspan="3">기존 파일 : ${member.savedImage} / 파일 첨부 : <input type="file" name="savedImage" id="savedImage" size="30"></td>

@@ -472,7 +472,7 @@ $("#gooey-h").gooeymenu({
                 <input type="checkbox" class="menu-open" name="menu-open2" id="menu-open2">
 				  <label class="open-button" for="menu-open2">
 				   <!-- 프로필 이미지 들어가는 공간 -->
-				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
+				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/head.png" alt="">
 				  </label>
 				  <a href="#" class="gooey-menu-item">로그아웃</a>
 				  <a href="profile" class="gooey-menu-item">회원정보수정<li></li></a>
