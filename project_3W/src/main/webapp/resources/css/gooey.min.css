@@ -46,11 +46,12 @@
 												-moz-transform:translate3d(0,0,0) rotate(-45deg);
 												-webkit-transform:translate3d(0,0,0) rotate(-45deg);
 												-o-transform:translate3d(0,0,0) rotate(-45deg)}
-.navimenu .gooey-menu-item:hover{background-color:#4682b4;color:#00bcd4}
+.navimenu .gooey-menu-item:hover{background-color:#85ccbb;color:#00bcd4}
 .navimenu .gooey-menu-item{transition-duration:180ms;
 							-moz-transition-duration:180ms;
 							-webkit-transition-duration:180ms;
-							-o-transition-duration:180ms}
+							-o-transition-duration:180ms;
+							background-color:#85ccbb;}
 .navimenu .open-button{
 						z-index:2;
 						transition-timing-function:cubic-bezier(.175,.885,.32,1.275);
@@ -83,3 +84,8 @@
 											-o-transform:scale(.9,.9) translate3d(0,0,0);
 											-webkit-transform:scale(.9,.9) translate3d(0,0,0);
 											-moz-transform:scale(.9,.9) translate3d(0,0,0)}
+#row1{position:relative;
+		left:5px;
+		top:-80px;
+		width:200px;
+		height:200px;}

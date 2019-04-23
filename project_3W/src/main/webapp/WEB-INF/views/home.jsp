@@ -423,7 +423,7 @@ $(function() {
             
 $("#gooey-h").gooeymenu({
                 bgColor: "#85ccbb",
-                contentColor: "#fff",
+                contentColor: "#000",
                 style: "horizontal",
                 horizontal: {
                     menuItemPosition: "glue"
@@ -466,7 +466,7 @@ $("#gooey-h").gooeymenu({
            <!-- 홈으로 돌아가기 -->
       <a href="hom"></a>
       <!-- 메뉴 드롭다운바 -->
-    <div class="row">
+    <div class="row" id="row1">
         <div class="col-xs-12 col-sm-6 col-md-5">
             <nav id="gooey-h">
                 <input type="checkbox" class="menu-open" name="menu-open2" id="menu-open2">
@@ -550,11 +550,13 @@ $("#gooey-h").gooeymenu({
 		</table>
 		
 		<!-- 화면 이중분할 -->
-		<div class="divide">
-		<iframe width="100%" height="400px" src="mapTest3" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
-		<iframe width="100%" height="350px" src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe> <!-- 아래가 바뀜 -->
-		</div>
-
+	
+			<div class="divide">
+			<iframe width="90%" height="400px" style="position:relative; left:70px;" src="mapTest3" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
+			<iframe width="100%" height="350px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
+			</div>
+		
+	
 	<!-- 입력용 모달-->
 	<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

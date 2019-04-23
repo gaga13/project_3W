@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- 스크로 바 없애기 -->
+
 <style>
 .scrollblind{position:relative; left:100px; width: 1200px; height:400px; overflow-y:scroll; }
 .view{  width:1200px; height:400px; overflow:hidden; }
@@ -21,7 +21,10 @@
 <script src="<c:url value='resources/jquery/locale-all.js'/>"></script>
 <script src="<c:url value='resources/jquery/bootstrap.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery.timepicker.min.js'/>"></script>
+<style>
+<!--iframe 스크롤바 투명-->
 
+</style>
 <script>
 $(function (){
 	calendar();
@@ -134,7 +137,7 @@ function calendar() {
 </script>
 </head>
 <body>
-	<div class="S_unvisible">
+	<div class="S_unvisible" >
 		<div class="scrollblind">
 			<div id="calendar"></div>
 	</div>
