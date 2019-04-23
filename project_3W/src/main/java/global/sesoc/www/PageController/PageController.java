@@ -42,6 +42,12 @@ public class PageController {
 		return "schedule";
 	}
 
+	//메뉴테스트 페이지로 이동
+	@RequestMapping(value="menutest", method=RequestMethod.GET)
+	public String menu(){
+		return "menutest";
+	}
+
 	@RequestMapping(value="home", method=RequestMethod.GET)
 	public String home(){
 		return "home";

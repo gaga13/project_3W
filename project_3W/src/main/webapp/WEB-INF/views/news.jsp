@@ -41,8 +41,10 @@ function outnews(json){
 </script>
 </head>
 <body>
-<div id = "news"></div>
+<div id = "news" div style= "width:600px; height:800px; margin:auto;"></div>
+
 <input type="hidden" id="lng" value="${sessionScope.loginLon}"/>
 <input type="hidden" id="lat" value="${sessionScope.loginLat}"/>
+
 </body>
 </html>

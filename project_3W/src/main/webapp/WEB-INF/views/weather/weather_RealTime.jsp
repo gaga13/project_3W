@@ -269,12 +269,12 @@ $(document).ready(function(){
 	</div>  
 	</div>
 </tr>
-<!-- <tr><img src="resources/img/table_space.png" height="140px"></tr> -->
+<tr><img src="resources/img/table_space.png" height="140px"></tr> 
 
 	<tr height="200px"></tr>
 	<tr>
 	<div class="tem" style="color:white">
-	현재 기온  <div id="outputDiv1"></div><br>
+	현재 기온  <div id="outputDiv1"></div>
 	</div>
 	</tr>
 

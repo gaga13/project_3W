@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+<!--프로필 클릭시 오버되는 메뉴css-->
+
+@import "compass/css3";
+
+$fg:#a9d7cc;
+$bg:#000;
+$pi:3.14;
+
+$menu-items:3;
+$open-distance:105px;
+$opening-angle:$pi*2;
+
+body{
+  background:$bg;
+  color:#eba190;
+  text-align:center;
+}
+
+.menu a{
+  color:inherit;
+}
+.row{
+	position:fixed;
+	top:5px;
+	
+}
+.menu h1, h2, h3, h4{
+  margin:0;
+  margin-bottom:10px;
+  margin-top:10px;
+}
+
+.menu h1{
+  font-size:10em;
+}
+
+%goo{
+  filter:url('#shadowed-goo');
+  // debug 
+  //background:rgba(255,0,0,0.2);
+}
+%ball{
+  background:$fg;
+  border-radius:100%;
+  width:200px;
+  height:200px;
+  margin-left:-40px;
+  position:relative;
+  top:10px;
+  color:#eba190;
+  text-align:center;
+  line-height:80px;
+  transform:translate3d(0,0,0);
+  transition:transform ease-out 200ms;
+}
+.menu-open{
+  display:none;
+}
+.menu-item{
+  @extend %ball;
+}
+
+.menu-open:checked+.menu-open-button{
+  .hamburger-1{
+    transform:translate3d(0,0,0) rotate(45deg); 
+  }
+}
+.menu{
+  @extend %goo;
+  $width:750px;
+  $height:250px;
+  position:relative;
+  left:-30px;
+  margin-left:-80px;
+  padding-top:20px;
+  padding-left:80px;
+  width:$width;
+  height:$height;
+  box-sizing:border-box;
+  font-size:20px;
+  text-align:left;
+}
+
+
+.menu-item{
+  &:hover{
+    background:#eba190;
+    color:$fg;
+  }
+  @for $i from 1 through $menu-items{
+    &:nth-child(#{$i+2}){
+      transition-duration:180ms;
+    }
+  }
+}
+
+.menu-open-button{
+  @extend %ball;
+  z-index:2;
+  transition-timing-function:cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  transition-duration:400ms;
+  transform:scale(1.1,1.1) translate3d(0,0,0);
+  cursor:pointer;
+}
+.menu-open-button:hover{
+  transform:scale(1.2,1.2) translate3d(0,0,0);
+}
+.menu-open:checked+.menu-open-button{
+  transition-timing-function:linear;
+  transition-duration:200ms;
+  transform:scale(0.8,0.8) translate3d(0,0,0);
+}
+
+.menu-open:checked~.menu-item{
+  transition-timing-function:cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  @for $i from 1 through $menu-items{
+
+    &:nth-child(#{$i+2}){
+      transition-duration:90ms+(100ms*$i);
+      transform:translate3d(110px*$i,0,0);
+    }
+  }
+}

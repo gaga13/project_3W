@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!doctype html>
 
 <html>
 <head>
 	<title>Home</title>
+	
 <link href="<c:url value='resources/css/jquery-ui.css'/>" rel="stylesheet" type="text/css">
 <link href="<c:url value='resources/css/jquery.timepicker.min.css'/>" rel="stylesheet" type="text/css">
 <script src="<c:url value='resources/jquery/jquery-3.3.1.min.js'/>"></script>
@@ -17,9 +19,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <!-- menu meta -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>WWW에 오신것을 환영합니다</title>
 
+
+  <!-- Bootstrap core JavaScript -->
+  <!-- <script src="resources/vendor/jquery/jquery.min.js"></script> -->
+  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="resources/js/resume.min.js"></script>
+   
   <!-- Bootstrap core CSS -->
   <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,7 +46,20 @@
 
   <!-- Custom styles for this template -->
   <link href="resources/css/resume.min.css" rel="stylesheet">
-
+	
+  <!-- 메뉴 css-->
+  	<link rel="stylesheet" href="resources/css/menu.bootstrap.min.css">
+    	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+    	<link rel="stylesheet" type="resources/text/css" href="css/htmleaf-demo.css">
+    	<link rel="stylesheet" href="resources/css/gooey.min.css">
+    	<link rel="stylesheet" href="resources/css/livedemo.css">
+ <style>
+        .prettyprint ol.linenums > li {
+            list-style-type: decimal;
+        }
+    </style> 
+  
+  
 <link href="<c:url value='resources/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css">
 <script>
 $(document).ready(function(){
@@ -372,7 +401,52 @@ function subMapClose(){
 	document.getElementById("subMapControl").style.display = "none";
 }
 
+
+//menu드롭 사이드
+$(function() {
+         $("#gooey-h").gooeymenu({
+          style: "horizontal",
+          contentColor: "#eba190",
+          horizontal: {
+                    menuItemPosition: "glue"
+                }
+         });
+         });
 </script>
+
+<!-- 메뉴 드롭다운 스크립트 -->
+<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="resources/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="resources/jquery/gooey.min.js"></script>
+	<script>
+        $(function($) {
+            
+$("#gooey-h").gooeymenu({
+                bgColor: "#85ccbb",
+                contentColor: "#fff",
+                style: "horizontal",
+                horizontal: {
+                    menuItemPosition: "glue"
+                },
+                vertical: {
+                    menuItemPosition: "spaced",
+                    direction: "up"
+                },
+                circle: {
+                    radius: 120
+                },
+                margin: "small",
+                size: 100,
+                bounce: true,
+                bounceLength: "small",
+                transitionStep: 100,
+                hover: "#eba190"
+            });
+
+
+        });
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -380,18 +454,8 @@ function subMapClose(){
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span>
-      <span class="d-none d-lg-block">
-      
-      <!-- 홈으로 돌아가기 -->
-      <a href="hom">홈으로</a>
-      <!-- 프로필 이미지 들어가는 공간 -->
-	</a>
-	<a href="profile">
-	<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
-	</a>
-
-     </span>
-    </a>
+      <span class="d-none d-lg-block"></span>
+   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -399,17 +463,25 @@ function subMapClose(){
    
      <ul class="navbar-nav">
         <li class="nav-item">
-       
-        
+           <!-- 홈으로 돌아가기 -->
+      <a href="hom"></a>
+      <!-- 메뉴 드롭다운바 -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-5">
+            <nav id="gooey-h">
+                <input type="checkbox" class="menu-open" name="menu-open2" id="menu-open2">
+				  <label class="open-button" for="menu-open2">
+				   <!-- 프로필 이미지 들어가는 공간 -->
+				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
+				  </label>
+				  <a href="#" class="gooey-menu-item">로그아웃</a>
+				  <a href="profile" class="gooey-menu-item">회원정보수정<li></li></a>
+				  <a href="hom" class="gooey-menu-item">홈으로 </a>
+		    </nav>   
+        </div>
+    </div>
+<!-- 끝 -->
 	      <table>
-		     <!-- 로그아웃 버튼 -->
-		     <li class="nav-item">    
-		     <div class="logout">
-	          <a class="nav-link js-scroll-trigger" href="" >
-	            <img src="resources/img/logout.png" width=120 height=50></a>
-	            </div>
-	        </li>
-	        
 		        <div class="social-icons">
 			        <!-- 날씨 -->
 			        <li class="nav-item">
@@ -479,8 +551,7 @@ function subMapClose(){
 		
 		<!-- 화면 이중분할 -->
 		<div class="divide">
-		<button onclick >맵 변환 버튼 들어갈 자리</button>
-		<iframe width="100%" height="400px" src="map_Basic" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
+		<iframe width="100%" height="400px" src="mapTest3" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
 		<iframe width="100%" height="350px" src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe> <!-- 아래가 바뀜 -->
 		</div>
 
@@ -577,16 +648,7 @@ function subMapClose(){
   </div>
 </div>
 			
-  <!-- Bootstrap core JavaScript -->
-  <!-- <script src="resources/vendor/jquery/jquery.min.js"></script> -->
-  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="resources/js/resume.min.js"></script>
-   
   <!-- 하단 이미지 -->
    <div class="footer">
     <p class="copyright"><img src="resources/img/underbanner2.png" width="100%" height="20%"></p>
