@@ -93,7 +93,6 @@ public class TwitterController {
 		return check;
 	
 	}
-
 	
 	//트위터 계정 인증 페이지 오픈
 	@RequestMapping(value = "twitterConnect", method = RequestMethod.GET)

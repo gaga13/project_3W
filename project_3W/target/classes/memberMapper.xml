@@ -17,7 +17,6 @@
 	)
 	</insert>
 	
-	
 	<!-- 회원정보 수정 -->
 	<update id="update" parameterType="MemberVO">
 	update
@@ -26,18 +25,35 @@
 		  password = #{password}
 		, username = #{username}
 		, userbirthdate = #{userbirthdate}
-		 <if test="originalfile != null and savedfile !=null">
-   		, originalfile = #{originalfile}
-   		, savedfile =  #{savedfile}
-   		</if>
-  
 	where
 		email = #{email}
-	</update>	
+	</update>
+	
+	<!-- DB에 이미지 저장 -->
+	<update id="insertImage" parameterType="hashmap">
+	update
+		user_info
+	set
+   		savedImage = #{savedImage} 
+	where
+		email = #{email}
+	</update> 	
+		
+	<!-- DB에 저장된 이미지 불러오기 -->	
+	<!-- resultMap 타입 지정 -->
+	<resultMap id="responseMap" type="hashmap">
+	      <result property="blobData" javaType="_byte[]" column="SAVEDIMAGE" jdbcType="BLOB"/>
+	</resultMap>
+
+	<!--DB에서 이미지 가져오기  -->
+	<select id="selectImage" parameterType="string" resultMap="responseMap">
+	select savedImage from user_info where email = #{email} 
+	</select>		
+		
 		
 	<!-- 이메일로 회원 찾기 -->
 	<select id="getMember" parameterType="string" resultType="MemberVO">
-		select * from user_info where email=#{email}
+		select email, password, identification, username, userbirthdate, twitterID from user_info where email = #{email}
 	</select>
 		
 </mapper>

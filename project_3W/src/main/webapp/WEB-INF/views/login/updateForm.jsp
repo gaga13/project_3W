@@ -17,14 +17,13 @@
 	var sel_file;
 	
 $(document).ready(function(){
-		$("#input_img").on("change",handleImgFileSelect);
+		$("#Savedfile").on("change",handleImgFileSelect);
 		$('#updateBts').on('click', updateCheck);
 		//트위터 계정 연결 버튼
 		$('#twitterConnectBtn').on('click', twitterConnect);
-		$('#twitterDisconnectBtn').on('click', twitterDisconnect);
-		
+		$('#twitterDisconnectBtn').on('click', twitterDisconnect);		
 });
-	
+
 function handleImgFileSelect(e){
 	var files = e.target.files;
 	var filesArr = Array.prototype.slice.call(files);
@@ -53,7 +52,7 @@ function updateCheck(){
 	var email = $('#email').val();
 	var username = $('#username').val();
 	var userbirthdate = $('#userbirthdate').val();
-	var Savedfile = $('#input_img').val();
+	var savedImage = $('#savedImage').val();
 
 if(pw != pw2){
 		alert('비밀번호가 일치하지 않습니다.');
@@ -68,10 +67,10 @@ if(pw != pw2){
 		    	  , password: pw
 		    	  , username : username
 		    	  , userbirthdate : userbirthdate
-		    	  , Savedfile : Savedfile
+		    	  , savedImage : savedImage
 		      },
 		      success: function(){
-		         location.href="./";
+		         '성공';
 		      },
 		      error: function(){
 		         alert('실패');
@@ -101,25 +100,19 @@ function twitterDisconnect(){
 </head>
 <body>
 
-
-
 <table>
-
-	
-			
-		
 
 <div class="profile-text">
 			<h1 class="profile-name">회원 정보</h1>
-		
-					<div class="img_wrap">
-						<img id="img" width="130" height="auto" />
-					</div>
 					
-					<div>
-					<p class="title"></p>
-					<input type="file" id="input_img" name="profile_photo">
-					</div>
+					<img src="getByteImage" />
+					
+					<c:if test="${member.savedImage != null}">
+						<td colspan="3">기존 파일 : ${member.savedImage} / 파일 첨부 : <input type="file" name="savedImage" id="savedImage" size="30"></td>
+					</c:if>
+					<c:if test="${member.savedImage == null}">
+		  				<td colspan="3">파일 첨부 : <input type="file" name="savedImage" id="savedImage" size="30"></td>
+		  			</c:if>
 	
 	<form method="post" action="update" id="update" enctype="multipart/form-data" >
 	<input type="hidden" value="${member.email}" name="email" id="email">

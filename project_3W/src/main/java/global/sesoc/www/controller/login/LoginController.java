@@ -1,5 +1,20 @@
 package global.sesoc.www.controller.login;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -7,6 +22,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import global.sesoc.www.dao.MemberDAO;
 import global.sesoc.www.util.FileService;
 import global.sesoc.www.vo.MemberVO;
+import twitter4j.auth.AccessToken;
 
 //회원가입, 로그인, 로그아웃 기능
 @Controller
@@ -28,7 +48,7 @@ public class LoginController {
 	@Autowired
 	MemberDAO dao;				//회원관련 데이터 처리객체
 	
-	final String uploadPath="/boardfile";
+	final String uploadPath="/boardfile";	//업로드할 파일 경로
 	
 	//회원가입시 이메일 중복 확인 -> 중복 아니면 회원가입
 	@ResponseBody
@@ -54,8 +74,6 @@ public class LoginController {
 		return emailCheck;
 	}
 	
-	
-	
 	//로그인시 회원인지 체크 -> 아이디, 비밀번호 일치하면  로그인
 	@ResponseBody
 	@RequestMapping(value="loginCheck", method=RequestMethod.GET)
@@ -64,6 +82,7 @@ public class LoginController {
 		logger.debug("checkemail:{}, pw:{}", email, password);
 		String check = "false";
 		MemberVO memberVO = dao.getMember(email);
+		logger.debug("ddd{}",memberVO);
 		if(memberVO == null){
 			logger.debug("memberVO == null");
 			return check;
@@ -75,6 +94,7 @@ public class LoginController {
 				//로그인된 아이디 세션에 저장
 				ses.setAttribute("loginId", email);
 				logger.debug("세션 아이디:{}", ses.getAttribute("loginId"));
+
 				return check;
 			}
 		}
@@ -109,13 +129,12 @@ public class LoginController {
 	}
 	
 	//수정처리
-	
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(MemberVO member, HttpSession session, MultipartFile Savedfile){
+	public String update(MemberVO member, HttpSession session){
 		logger.info("수정처리 지나감");
 		String email = (String) session.getAttribute("loginId");
-		logger.debug("vo:{}", member);
-		logger.debug("아이디:{}", email );
+		
+		String img = member.getsavedImage();
 		
 		String birth = member.getUserbirthdate();
 		logger.info("birth: {}",birth);
@@ -123,25 +142,62 @@ public class LoginController {
 		logger.info("birth2: {}",birth2);
 		member.setUserbirthdate(birth2);
 		
-		logger.info("{}", Savedfile);
+		int result = 0;
+		//db에서 사진 저장하기
+		byte[] savedImage;
 		
-		logger.debug("파일 첨부 지나감 : {}", Savedfile);
-		  //첨부파일이 있는경우 저장된 경로에 저장하고, 원폰 파일명과 저장된 파일명을  member객체에 세팅
-		  if (Savedfile != null && !Savedfile.isEmpty())
-		  {
-			  String savedfile = FileService.saveFile(Savedfile, uploadPath);
-			  member.setOriginalfile(Savedfile.getOriginalFilename());
-			  member.setSavedfile(savedfile);
-		  }
-		 
-		logger.info("updatePOST : {}", member);
-/*		String photo = member.getProfile_photo();
-		logger.debug("photo : {}", photo);
-		member.setProfile_photo(photo);*/
+        HashMap<String, Object> hmap = new HashMap<String, Object>();
+        
+        //savedImage를 binary data로 바꿔서 byte[]에 넣기, byte[]를 mapper에 넣어 저장
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+                oos.writeObject(img);
+             // serializedMember -> 직렬화된 accessToken 객체 
+                savedImage = baos.toByteArray();
+            }
+            
+            hmap.put("savedImage", savedImage);
+            hmap.put("email", email);
+            result = dao.insertImage(hmap);
+            if(result == 1){ logger.debug("db에 토큰 저장 성공");}
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        }			
 		
 		member.setEmail(email);
-		int result = dao.update(member);
+		int result2 = dao.update(member);
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping(value="getByteImage", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> getByteImage(HttpSession session) {
+		String email = (String) session.getAttribute("loginId");
+		byte[] Image = null;
+		HashMap<String, Object> hmap = dao.selectImage(email);
+		
+		Image = (byte[]) hmap.get("blobData");
+		
+		logger.debug("Image : {}", Image);
+		
+		try (ByteArrayInputStream bais = new ByteArrayInputStream(Image)) {
+		    try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+	            
+		    	Object ImageFile = ois.readObject();   
+		    	
+		    	logger.debug("ImageFile: {}", ImageFile);
+		    }
+		    catch(Exception e){
+		    	e.printStackTrace();
+		    }
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}		
+		
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		
+		return new ResponseEntity<byte[]>(Image, headers, HttpStatus.OK);
+	}
 }
