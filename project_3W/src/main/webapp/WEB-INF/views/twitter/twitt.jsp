@@ -14,10 +14,10 @@
 
 
 <script>
+var ScheduleList = new Array();
 
 //페이지 실행하자마자 실행
 $(document).ready(function(){
-	
 	
 	//홈에서 모달 호출 버튼
 	$('.button').on('click', insert_md);
@@ -35,12 +35,14 @@ $(document).ready(function(){
 		url:'getScheduleList',
 		type: 'post',
 		dataType:'json',
-		success : function(sList){         
+		success : function(sList){        
+			scheduleList = sList;
 			//반복문으로 sList안의 일정 읽기
 			$.each(sList, function (index, item){
 				var scontent = item.scontent;
 				var startdate = item.startdate;
-
+				var snum = item.snum
+				
 				//var enddate = item.enddate;
 				if(startdate.substring(3,4) == 0){
 					startdate = startdate.substring(0,3)
@@ -52,7 +54,9 @@ $(document).ready(function(){
 				}
 				//html에 일정 넣기
 				$('#inputTR'+ index).html('<td>'+(index +1)+'</td>'+'<td>'+startdate+''
-						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ '' + '</td>');
+						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ '' + '</td>'
+						+ '<td><input type="hidden" name="twittChk" id="twittChk" value="'+ snum +'"'
+						+'onclick="javascript:twitter_selectedSchedule(this.value)">'+ '</td>');
 				clickList;
 			});
 		},
@@ -110,7 +114,28 @@ function clickList(i){
 }
 //트위터
 function twittBtn(){
-
+	var type = $("input").attr("type");
+	
+	$('input[type="hidden"][name="twittChk"]').attr("type", "radio");
+	var a = $('input[type="hidden"][name="twittChk"]').attr();
+	
+	$('input[type="radio"][name="twittChk"]').attr("type", "hidden");
+	
+	
+	
+	
+}
+function twitter_selectedSchedule(s){
+	$('#twittIcon').attr('href', 'javascript:submitTwitt()');
+	$('#hiddenSelectedSnum').val(s);
+}
+function submitTwitt(){
+	/* var twitt = $('#selectedSchedule').val();	
+	//라디오 버튼 선택 안했을 때 예외처리
+	if(!$('input:radio[name=twittChk]').is(':checked')){
+		$('#notSelected').html('트윗할 일정을 선택해주세요');
+		return;
+	} */
 	//트위터 계정 연결 여부 확인
 	$.ajax({
 		url:'twitterTokenCheck',
@@ -120,7 +145,7 @@ function twittBtn(){
 			if(check){
 				//연결되어있음, session에 accessToken 담겨있음
 				//트위터 글쓰기 창 띄우기
-				window.open('twitterWrite','','width=700,height=500');
+				window.open('twitterWrite','','width=700, height=300, location=0, resizable=0');
 			}
 			else{
 				//트위터 인증 창
@@ -132,8 +157,8 @@ function twittBtn(){
 			alert(JSON.stringify(e));
 		}
 	});
+	
 }
-
 </script>
 <title>schedule</title>
 </head>
@@ -150,8 +175,10 @@ function twittBtn(){
          <th>How to</th>
       </tr>
 	<c:forEach var="i" begin="0" end="${sessionScope.sListSize}">
+		<form action="", method="post">
 		<tr id = "inputTR${i}" onclick="clickList(${i})">
 		</tr>
+		</form>
 	</c:forEach>
 	<tr>  
 	<!-- 이 버튼을 눌러서 모달을 호출 -->
@@ -162,6 +189,7 @@ function twittBtn(){
 	</tr>
 	</table>
 </div>
-<a href="javascript:twittBtn()"><img src="./resources/img/twitterLogo2.PNG"></a>
+<a href="javascript:twittBtn()" id="twittIcon"><img src="./resources/img/twitterLogo2.PNG"></a>
+<input type="hidden" id="hiddenSelectedSnum">
 </body>
 </html>

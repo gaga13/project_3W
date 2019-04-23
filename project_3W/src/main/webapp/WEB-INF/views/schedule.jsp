@@ -14,7 +14,7 @@
 
 
 <script>
-
+var ScheduleList = new Array();
 //페이지 실행하자마자 실행
 $(document).ready(function(){
 	
@@ -40,15 +40,16 @@ $(document).ready(function(){
 		url:'getScheduleList',
 		type: 'post',
 		dataType:'json',
-		success : function(sList){         
+		success : function(sList){    
+			scheduleList = sList;
 			//반복문으로 sList안의 일정 읽기
 			$.each(sList, function (index, item){
 				
 				var scontent = item.scontent;
 				var startdate = item.startdate;
-				var subpath = item.subpath
+				var subpath = item.subpath;
+				var snum = item.snum;
 				
-				//var enddate = item.enddate;
 				if(startdate.substring(3,4) == 0){
 					startdate = startdate.substring(0,3)
 					+ startdate.substring(4,5)+ '시 ' + startdate.substring(6)+'분';
@@ -57,11 +58,19 @@ $(document).ready(function(){
 					startdate = startdate.substring(0,5) + '시 ' 
 					+startdate.substring(6) + '분';
 				}
+				//길찾기 기능 사용하지 않았을 경우
+				if(subpath == null){
+					subpath = '';
+				}
 				//html에 일정 넣기
 				$('#inputTR'+ index).html('<td>'+(index +1)+'</td>'+'<td>'+startdate+''
-						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ subpath+ '</td>');
+						+ '</td>'+ '<td>' + scontent +'</td>' + '<td>'+ subpath+ '</td>'
+						+ '<td><input type="radio" name="twittChk" id="twittChk" value="'+ snum +'"'
+						+'onclick="javascript:twitter_selectedSchedule(this.value)">'+ '</td>');
 				clickList;
 			});
+			//라디오 버튼 숨기기
+			$('input[type="radio"][name="twittChk"]').hide();
 		},
 		error: function(er){
 			alert(JSON.stringify(er));
@@ -118,7 +127,49 @@ function clickList(i){
 		}
 	});
 }
-
+//트위터
+function twittBtn(){
+	$('input[type="radio"][name="twittChk"]').show();
+	//$('input[type="hidden"][name="twittChk"]').attr("type", "radio");
+	
+	
+}
+function twitter_selectedSchedule(s){
+	$('#twittIcon').attr('href', 'javascript:submitTwitt()');
+	$('#hiddenSelectedSnum').val(s);
+	//수정폼 이벤트 해제
+	$('tr[id^="inputTR"]').attr('onclick', '');
+}
+function submitTwitt(){
+	/* var twitt = $('#selectedSchedule').val();	
+	//라디오 버튼 선택 안했을 때 예외처리
+	if(!$('input:radio[name=twittChk]').is(':checked')){
+		$('#notSelected').html('트윗할 일정을 선택해주세요');
+		return;
+	} */
+	//트위터 계정 연결 여부 확인
+	$.ajax({
+		url:'twitterTokenCheck',
+		type:'get',
+		dataType: 'json',
+		success: function(check){
+			if(check){
+				//연결되어있음, session에 accessToken 담겨있음
+				//트위터 글쓰기 창 띄우기
+				window.open('twitterWrite','','width=700,height=300, location=0, resizable=0');
+			}
+			else{
+				//트위터 인증 창
+				alert(check);
+				window.open('twitterConnect', '', 'width=700,height=500');
+			}
+		},
+		error: function(e){
+			alert(JSON.stringify(e));
+		}
+	});
+	
+}
 </script>
 <title>schedule</title>
 </head>
@@ -133,6 +184,7 @@ function clickList(i){
          <th>Time</th>
          <th width="230">Title</th>
          <th>How to</th>
+         <th></th>
       </tr>
 	<c:forEach var="i" begin="0" end="${sessionScope.sListSize}">
 		<tr id = "inputTR${i}" onclick="clickList(${i})">
@@ -145,6 +197,7 @@ function clickList(i){
 	</tr>
 	</table>
 </div>
-
+<div><a href="javascript:twittBtn()" id="twittIcon"><img src="./resources/img/twitterLogo2.PNG"></a></div>
+<input type="hidden" id="hiddenSelectedSnum">
 </body>
 </html>

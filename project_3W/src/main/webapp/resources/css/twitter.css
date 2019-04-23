@@ -1,0 +1,155 @@
+@CHARSET "UTF-8";
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body, button, textarea {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 18px;
+}
+body, textarea {
+	color: #222;
+}
+body {
+	height: 100vh;
+	overflow: hidden;
+}
+form, svg, .svgs {
+	position: absolute;
+}
+/* SVGs */
+.svgs {
+	top: 0;
+	left: 0;
+	transform: translateY(-4em);
+	z-index: -1;
+}
+svg {
+	display: block;
+}
+.svgs, svg:nth-of-type(n + 2):nth-of-type(-n + 4) {
+    visibility: hidden;
+}
+svg:not(:last-of-type) {
+	width: 30em;
+	height: 17em;
+}
+svg:last-of-type {
+	top: 8.5em;
+	left: 15em;
+	width: 14.67em;
+	height: 11.88em;
+	transform: translate(-50%,-50%);
+}
+/* Tweet form */
+.form {
+	margin: auto;
+	top: 50%;
+	left: 50%;
+	width: calc(100% - 3em);
+	max-width: 30em;
+	transform: translate(-50%,-50%);
+}
+button, button span {
+	border-radius: 1.5em;
+}
+button {
+	background-color: #55abee;
+	border: 0;
+	color: #fff;
+	display: inline-block;
+	font-weight: bold;
+}
+button span {
+	display: block;
+	padding: 0.75em 1.5em;
+	transition: all 0.1s linear;
+}
+button:hover span {
+	background-color: rgba(255,255,255,0.2);
+}
+button:active span {
+	background-color: rgba(0,0,0,0.2);
+}
+button span:focus {
+	outline: 0;
+}
+button:disabled {
+	opacity: 0.5;
+}
+button:disabled:hover span, 
+button:disabled:active span {
+	background-color: transparent;
+}
+label {
+	display: block;
+	margin-bottom: 0.75em;
+}
+textarea {
+	border: 0;
+	border-radius: 0.5em;
+	box-shadow: 0 0 0 0.1em #a8ceee inset;
+	position:center;
+	left: 20px;
+	padding: 0.75em;
+	width: 80%;
+	height: 150px;
+	display:inline-block;
+}
+#tweetForm{
+	width:100%;
+	text-align:center;
+}
+textarea:focus {
+	box-shadow: 0 0 0 0.1em #55abee inset;
+	outline: 0;
+}
+textarea::placeholder {
+	color: #aaa;
+}
+.bottom {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.bottom > span {
+	margin-right: 0.75em;
+}
+.warn {
+  color: #c00;
+}
+/* Pre-morphing stage */
+.pre-morph > .svgs {
+	visibility: visible;
+	animation: flyAway 1.5s 1s ease-in-out forwards;
+}
+.pre-morph svg:last-of-type {
+	animation: appear 1s 0.65s linear forwards;
+}
+.pre-morph svg:last-of-type path:last-child {
+	animation: flap 0.5s 1s linear infinite;
+}
+.pre-morph > *:nth-child(n + 1):nth-child(-n + 3) {
+	animation: fadeOut 0.2s linear forwards;
+}
+@keyframes fadeOut {
+	from { opacity: 1; visibility: visible }
+	to { opacity: 0; visibility: hidden }
+}
+@keyframes appear {
+	from, to { visibility: visible }
+}
+@keyframes flyAway {
+	from { transform: translate(0,-4em) }
+	50% { transform: translate(0,-6em) scale(1); opacity: 1 }
+	to { transform: translate(30em,-9em) scale(0); opacity: 0 }
+}
+@keyframes flap {
+    from, to {
+        transform: translate(7.75em, 4.99em) rotateY(0) translate(-7.75em, -4.99em);
+    }
+    50% {
+        transform: translate(7.75em, 4.99em) rotateY(160deg) translate(-7.75em, -4.99em);
+	}
+}

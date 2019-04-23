@@ -54,4 +54,9 @@ public class MapController {
 		return "map/map_Main";
 	}
 	
+	//map_Total 호출
+	@RequestMapping(value="/mapTest3", method=RequestMethod.GET)
+	public String mapTest3(){
+		return "map/mapTest3";
+	}
 }

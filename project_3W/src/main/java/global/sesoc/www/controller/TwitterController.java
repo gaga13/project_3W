@@ -183,10 +183,10 @@ public class TwitterController {
 	//트윗하는 기능		//twitt : 트윗 할 내용이 담김
 	@RequestMapping(value="twitterWrite" , method = RequestMethod.POST)
 	public String twitterWrite( HttpSession ses, 
-			String twitt, HttpServletRequest request) throws TwitterException{
+			String tweet, HttpServletRequest request) throws TwitterException{
 		
 		
-		logger.debug("twitt:{}", twitt );
+		logger.debug("tweet:{}", tweet );
 		Twitter twitter = new TwitterFactory().getInstance();
 		
 		AccessToken accessToken = (AccessToken) ses.getAttribute("accessToken");
@@ -196,7 +196,7 @@ public class TwitterController {
 		   
 		try{
 			
-			Status status = twitter.updateStatus(twitt); 		//괄호안의 내용 포스팅함
+			Status status = twitter.updateStatus(tweet); 		//괄호안의 내용 포스팅함
 			logger.debug("twitter update success");
 			
 		} catch(TwitterException te){
