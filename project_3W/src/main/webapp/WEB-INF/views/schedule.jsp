@@ -171,12 +171,29 @@ function submitTwitt(){
 	
 }
 </script>
+
+<style>
+#tw{position:absolute;
+	top: 15px;	
+	left:930px;}
+</style>
+
 <title>schedule</title>
 </head>
 <body>
 
 <div class="table-users">
-   <div class="header">Today's schedule</div>
+		
+	<!-- 트위터 호출 버튼 -->
+	
+   
+   <div class="header">Today's schedule 
+	   <div id="tw">
+		<a href="javascript:twittBtn()" id="twittIcon"><img src="./resources/img/tw.png" width="220px" height="220px"></a>
+		</div>
+	</div>
+    
+ 
    
    <table cellspacing="0">
       <tr>
@@ -197,7 +214,7 @@ function submitTwitt(){
 	</tr>
 	</table>
 </div>
-<div><a href="javascript:twittBtn()" id="twittIcon"><img src="./resources/img/twitterLogo2.PNG"></a></div>
+
 <input type="hidden" id="hiddenSelectedSnum">
 </body>
 </html>

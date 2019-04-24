@@ -53,12 +53,12 @@ public class ScheduleController {
 		String email = (String) ses.getAttribute("loginId");
 		//session에 담긴 email값 읽기
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		String formattedDate = format.format(sysdate);
+		String formattedDate = (String) ses.getAttribute("formattedDate");
 		
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		hmap.put("email", email);
 		hmap.put("startdate", formattedDate);
+		logger.debug("formattedDate:{}",formattedDate);
 		
 		sList = dao.getScheduleList(hmap);
 		

@@ -33,8 +33,13 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		logger.debug("날짜:{}",date);
 		
-		ses.setAttribute("sysdate", date);
+		//ses.setAttribute("sysdate", date);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		String formattedDate = format.format(date);
+		logger.debug(formattedDate);
+		ses.setAttribute("formattedDate", formattedDate);
 		ses.getAttribute("loginId");
+	
 		
 		return "Main";
 	}
