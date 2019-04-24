@@ -153,3 +153,16 @@ textarea::placeholder {
         transform: translate(7.75em, 4.99em) rotateY(160deg) translate(-7.75em, -4.99em);
 	}
 }
+
+.tt{	
+	display:inline-block; 
+	padding:10px;
+}
+.twittSuccess { 
+	margin:auto; 
+	width:100%;
+	text-align:right;
+}
+.close{
+	padding: 0.75em;
+}

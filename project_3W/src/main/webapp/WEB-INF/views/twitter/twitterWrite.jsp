@@ -13,6 +13,11 @@
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link href="resources/css/twitter.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
+<style type="text/css">
+ a:link { color: #565f65; text-decoration: none;}
+ a:visited { color: #565f65; text-decoration: none;}
+ a:hover { color: #63bef6; text-decoration: none;}
+</style>
 <script src="resources/jquery/jquery-3.3.1.min.js"></script>
 <script>
 var scheduleList = new Array();
@@ -113,8 +118,8 @@ function tweet(e) {
 		type:'post',
 		data: {tweet: tweet},
 		success:function(){
-			$('#twittSuccess').html('<a href="https://twitter.com">트윗 확인하러 가기</a>'
-					+ '<br><a href="#" onclick="javascript:tweetClose()">닫기</a>');
+			$('#twittSuccess').html('<div class="tt"><a href="https://twitter.com">트윗 확인하러 가기</a>'
+					+ '<a href="#" onclick="javascript:tweetClose()" class="close">닫기</a></div>');
 			
 		},
 		error: function(e){ alert(JSON.stringify(e));}
@@ -186,20 +191,7 @@ C247.555,46.496,256.75,37.106,264.001,26.405z"/>
 </div>
 </div>
 
-
-<div id="twittSuccess"></div>
-
-
+<div id="twittSuccess" class="twittSuccess"></div>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
