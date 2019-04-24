@@ -484,7 +484,7 @@ $("#gooey-h").gooeymenu({
 				  </label>
 				  <a href="#" class="gooey-menu-item">로그아웃</a>
 				  <a href="profile" class="gooey-menu-item">회원정보수정<li></li></a>
-				  <a href="hom" class="gooey-menu-item">홈으로 </a>
+				  <a href="home" class="gooey-menu-item">홈으로 </a>
 		    </nav>   
         </div>
     </div>
