@@ -131,6 +131,9 @@ $(document).ready(function(){
 })
 
 </script>
+<style>
+#weathertable{color:white;}
+</style>
 <title>실시간 날씨 </title>
 
 </head>
@@ -139,97 +142,38 @@ $(document).ready(function(){
 <!-- 생각 할 수 있는 방법  IFRAME을 DIV로 감싸고 IFRAME안에 JSP를 띄워야하니까 IF문으로 돌린다 ??
 iframe에 반복문을 씌우면 테이블로 이미지를 띄우는거같은 효과가 나지 않을까...?-->
 
+<div id="weathertable">
 <table>
 	<tr>	
-			<c:forEach var="i" begin="0" end="38">
-		<td>
-					<div class="time" style="color:white" >
-					시간 <div id="time${i}" ></div><br>
-					</div>
-					<c:if test="${time${i} eq 'time${i}+1' }">
-					<c:choose>
-						<c:when test = "${weather${i} eq '구름 없는 날씨'}">
-							<a href="sunicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '구름  있는 날씨'}">
-							<a href="cloudyicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}" >
-							<a href="rainicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '가랑비'}">
-							<a href="rainicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '천둥'}">
-							<a href="thundericon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}">
-							<a href="rainicon" target="box1">
-							</c:when>
-						<c:overwise>
-						<!-- 폭우 -->
-						<a href="stormicon" target="box1">
-						</c:overwise>
-					</c:choose>
-					<!-- 첫번째 아이프레임에 값 넘기는 건 끝남 -->
-					</c:if>
-					
-						<c:if test="${time${i} eq 'time${i}+2' }">
-					<c:choose>
-						<c:when test = "${weather${i} eq '구름 없는 날씨'}">
-							<a href="sunicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '구름  있는 날씨'}">
-							<a href="cloudyicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}" >
-							<a href="rainicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '가랑비'}">
-							<a href="rainicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '천둥'}">
-							<a href="thundericon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}">
-							<a href="rainicon" target="box2">
-							</c:when>
-						<c:overwise>
-						<!-- 폭우 -->
-						<a href="stormicon" target="box2">
-						</c:overwise>
-					</c:choose>
-					<!-- 첫번째 아이프레임에 값 넘기는 건 끝남 -->
-				<%-- 	</c:if> --%>
-					
-					<iframe width="50px" height="50px" src="sun" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->		
-					<div class="other" style="color:white" >
-					평균 기온 <div id="temp${i}"></div><br>
-					날씨 <div id="weather${i}"></div><br>
-					</div>
-		</td>
-			</c:forEach>	
+		<c:forEach var="i" begin="0" end="38">
+			<td>
+				시간 : <div id="time${i}"></div>
+				평균 기온 : <div id="temp${i}"></div>
+				날씨 : <div id="weather${i}"></div><br>
+			</td>
+		</c:forEach>	
 	</tr>
 </table>
-<table>
+</div>
+<!-- <table>
 <tr>
 	<td>
 		<div class="divi">
-				<iframe width="100px" height="400px" src="sun" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box4" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box5" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box6" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box7" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box8" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box9" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box10" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "4" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "5" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "6" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "7" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "8" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "9" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "10" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
 		</div>
 	</td>
 </tr>
 </table>
-
+ -->
 
 	
 
