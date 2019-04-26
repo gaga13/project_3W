@@ -28,115 +28,124 @@ $(document).ready(function(){
 	    	for(var i = 0; i < resp.list.length; i++){
 	    		//시간
 	    		var time = resp.list[i].dt_txt;
-	    		$("#time"+ i).html(time);
+	    		var timesplit = time.split(' ');
+	    		var time_s = timesplit[1].split(':',1);
+	    		/* 	alert(time_s); */
 	    		
-		    	//기온
-		    	var temp = resp.list[i].main.temp- 273.15;
-		    	temp = Math.floor(temp*10)/10;
-		    	$("#temp" + i).html(temp);
-		    	
-		    	//날씨 컨디션
-		    	var weather = 0;
-		    	var weather2 = null;
-		    	var weather3 = "";
-		    	for(var j = 0; j < resp.list[i].weather.length; j++){
-		    		weather = resp.list[i].weather[j].id;
-		    		if(weather >=200 && weather <= 232){
-		    			weather2 = "천둥";
-		    			/* $("#thunder").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    			
-		    		}
-		    		if(weather >= 300 && weather <= 321){
-		    			weather2 = "가랑비";
-		    			/* $("#rain").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 500 && weather <= 531){
-		    			weather2 = "비";
-		    		/* 	$("#rain").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 600 && weather <= 622){
-		    			weather2 = "눈";
-		    			/* $("#snow").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 701 || weather == 721 || weather == 741){
-		    			weather2 = "안개";
-		    		/* 	$("#cloudy").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 711){
-		    			weather2 = "연기";
-		    			/* $("#cloudy").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 731 || weather == 751 || weather == 761){
-		    			weather2 = "모래, 먼지";
-		    			/* $("#sand").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 762){
-		    			weather2 = "화산재";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 771){
-		    			weather2 = "스콜스";
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 781){
-		    			weather2 = "폭풍";
-		    		/* 	$("#storm").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 800){
-		    			weather2 = "맑은 하늘";
-		    		/* 	$("#sun").show(); */
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather == 801){
-		    			weather2 = "구름 없는 날씨";
-		    			
-		    	/* 		$("#sun").show(); */
-		    			
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		if(weather >= 802 && weather <= 804){
-		    			weather2 = "구름 있는 날씨";
-		    			
-		    	/* 		$("#cloudy").show(); */
-		    			
-		    			if(weather3.search(weather2) == -1){
-		    				weather3 = weather2 + " " + weather3;
-		    			}
-		    		}
-		    		$("#weather" + i).html(weather3);
-		    	}
+	    		
+	    		if(time_s == '06' || time_s =='18'){
+	    		
+	    			$("#time"+ i).html(time);
+					/* alert(time); */
+					
+			    	//기온
+			    	var temp = resp.list[i].main.temp- 273.15;
+			    	temp = Math.floor(temp*10)/10;
+			    	$("#temp" + i).html(temp);
+			    	
+			    	//날씨 컨디션
+			    	var weather = 0;
+			    	var weather2 = null;
+			    	var weather3 = "";
+			    	for(var j = 0; j < resp.list[i].weather.length; j++){
+			    		weather = resp.list[i].weather[j].id;
+			    		if(weather >=200 && weather <= 232){
+			    			weather2 = "천둥";
+			    			/* $("#thunder").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    			
+			    		}
+			    		if(weather >= 300 && weather <= 321){
+			    			weather2 = "가랑비";
+			    			/* $("#rain").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather >= 500 && weather <= 531){
+			    			weather2 = "비";
+			    		/* 	$("#rain").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather >= 600 && weather <= 622){
+			    			weather2 = "눈";
+			    			/* $("#snow").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 701 || weather == 721 || weather == 741){
+			    			weather2 = "안개";
+			    		/* 	$("#cloudy").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 711){
+			    			weather2 = "연기";
+			    			/* $("#cloudy").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 731 || weather == 751 || weather == 761){
+			    			weather2 = "모래, 먼지";
+			    			/* $("#sand").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 762){
+			    			weather2 = "화산재";
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 771){
+			    			weather2 = "스콜스";
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 781){
+			    			weather2 = "폭풍";
+			    		/* 	$("#storm").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 800){
+			    			weather2 = "맑은 하늘";
+			    		/* 	$("#sun").show(); */
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather == 801){
+			    			weather2 = "구름 없는 날씨";
+			    			
+			    	/* 		$("#sun").show(); */
+			    			
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		if(weather >= 802 && weather <= 804){
+			    			weather2 = "구름 있는 날씨";
+			    			
+			    	/* 		$("#cloudy").show(); */
+			    			
+			    			if(weather3.search(weather2) == -1){
+			    				weather3 = weather2 + " " + weather3;
+			    			}
+			    		}
+			    		$("#weather" + i).html(weather3);
+			    	}
+	    		}
 	    	}
 	    },
 		error: function (e) {
@@ -145,8 +154,9 @@ $(document).ready(function(){
 		
 	});
 })
+	</script>
+				
 
-</script>
 <style>
 #weather{position:absolute; top:0px; left:10px;}
 #weathertime{position:relative; left:-80px; display:inline-block; color:white;}
@@ -159,16 +169,22 @@ $(document).ready(function(){
 <!-- 생각 할 수 있는 방법  IFRAME을 DIV로 감싸고 IFRAME안에 JSP를 띄워야하니까 IF문으로 돌린다 ??
 iframe에 반복문을 씌우면 테이블로 이미지를 띄우는거같은 효과가 나지 않을까...?-->
 
-<div id="weather">
-<table>
+		<div id="weather">
+	<table>
+
+
+
 	<tr>
 			<c:forEach var="i" begin="0" end="38">
-			<td width="30px">
-				<div id="weathertime">
-				 <div id="time${i}"></div>
-				기온  <div id="temp${i}"></div>
-				날씨  <div id="weather${i}"></div><br>
-				</div>
+			<td>
+					<div id="weathertime">
+						<div id="time${i}"></div>
+						<div id="temp${i}"></div>
+						 <div id="weather${i}"></div><br>
+					</div>
+				
+			
+				
 						<!-- <div id="weathericon">
 								<div id="sun">
 								 <div class="sun">
