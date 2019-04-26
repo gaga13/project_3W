@@ -106,13 +106,27 @@ function initTmap(sList){
 		markerLayer.addMarker(marker); //마커 레이어에 마커 추가
 		//팝업 생성
 		popup = new Tmap.Popup("p1", positions[i], new Tmap.Size(120, 30), locations[i]);
+		
 		map.addPopup(popup); // 지도에 팝업 추가
 		popup.hide(); // 팝업 숨기기
 		
 		//마커 이벤트등록
 		marker.events.register("click", new MarkerPopup(marker, popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
-		
+		marker.events.register("mouseover", new MarkerPopup(marker, popup), onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+		marker.events.register("mouseout", new MarkerPopup(marker, popup), onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
 	} 
+	// 마커에 마우스가 오버되었을 때 발생하는 이벤트 함수입니다.
+	function onOverMarker(evt) {
+		this.popup.show(); // 마커에 마우스가 오버되었을 때 팝업이 보입니다. 
+		
+		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
+		size = new Tmap.Size(48, 75); // 마커 사이즈 지정
+		icon = new Tmap.Icon('http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_b_a.png',size, offset); // 마커 아이콘 지정
+		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
+		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+		marker.events.register("mouseout", new MarkerPopup(marker, this.popup), onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
+		marker.events.register("click", new MarkerPopup(marker, this.popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
+	}
    	
 	// 마커가 클릭되었을 때 발생하는 이벤트 함수입니다.
 	function onClickMarker(evt) {	

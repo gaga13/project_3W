@@ -7,16 +7,16 @@
 <script src="resources/js/jquery-3.3.1.js"></script>
 <script>
 $(document).ready(function(){
-	$('#mapBtn').on('click', changeIframe);
+	$('#mapChangeBtn').on('click', changeMapIframe);
 });
-function changeIframe(){
+function changeMapIframe(){
 	if($('#iframe2').attr('src') == 'map_Main'){
 		$('#iframe2').attr("src", "map_Basic"); 
 	}
 	else{
 		$('#iframe2').attr("src", "map_Main");
 	}
- 
+	
 
 }
 </script>
