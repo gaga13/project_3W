@@ -548,7 +548,13 @@ $("#gooey-h").gooeymenu({
 		</table>
 		
 		<!-- 화면 이중분할 -->
-			<input type="button" id="mapChangeBtn" value="맵 전환">
+			<!-- 맵전환버튼  -->
+			
+			
+				<button id="mapChangeBtn" class="button-holder">CHANGE MAP</button>
+				<span class="lines"></span>
+		
+			
 			<div class="divide">
 			<iframe width="90%" height="400px" style=" position:relative; left:70px; border-width: 10px; border-style: solid; border-color:#85ccbb; " src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
 			<iframe width="100%" height="350px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
