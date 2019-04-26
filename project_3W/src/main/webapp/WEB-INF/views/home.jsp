@@ -504,7 +504,7 @@ $("#gooey-h").gooeymenu({
 			          </div>
 			          <!-- 세션에 저장된 날짜의 값 -->
 			         <div id="day">
-			        	 <%=session.getAttribute("formattedDate")%>
+			        	 <%=session.getAttribute("sysdate")%>
 			         </div>
 			          </a>
 			        </li>

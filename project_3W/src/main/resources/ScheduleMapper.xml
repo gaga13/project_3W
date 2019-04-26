@@ -48,7 +48,11 @@ select
 from 	
 		 schedule 
 where 	
-		 email like #{email} and to_date(#{startdate}) between startdate-1 and enddate
+		 email like #{email} and to_date(#{startdate}, 'yyyy/mm/dd') 
+	between 
+		startdate-1 
+	and 
+	   enddate
 order by 
 		 startdate asc
 </select>

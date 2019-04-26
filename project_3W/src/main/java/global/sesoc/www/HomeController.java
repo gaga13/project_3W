@@ -29,15 +29,11 @@ public class HomeController {
 	public String home(Locale locale, HttpSession ses) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		logger.debug("날짜:{}",date);
-		
-		//ses.setAttribute("sysdate", date);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		String formattedDate = format.format(date);
-		logger.debug(formattedDate);
-		ses.setAttribute("formattedDate", formattedDate);
+		Date date = new Date();
+		String newdate = format.format(date);
+
+		ses.setAttribute("sysdate", newdate);
 		ses.getAttribute("loginId");
 	
 		

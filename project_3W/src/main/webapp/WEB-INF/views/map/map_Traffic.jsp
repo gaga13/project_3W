@@ -215,7 +215,7 @@ function total(lon1, lat1, lon2, lat2){
 
 //ODsay api 호출
 function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
-	var str = '<table border=1><tr><th>추천</th><th>경로</th><th>시간(분)</th><th>요금</th><th>버스등록</th></tr>';
+	var str = '<table border=1><tr><td width="40px" align="center" >추천</td><td align="center" width="345px">경로</td><td width="35px" align="center" >시간(분)</td><td>요금</td><td>경로등록</td></tr>';
 	var xhr = new XMLHttpRequest();
 	var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+lon1+"&SY="+lat1+"&EX="+lon2+"&EY="+lat2+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
 	xhr.open("GET", url, true);
@@ -239,7 +239,7 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 					if(e.searchType == 0){
 						var ph=e.path;
 						for(var i = 0 ; i<3 ; i++){	
-							str+='<tr id="bus'+i+'"><td >추천'+(i+1)+'</td><td>'
+							str+='<tr id="bus'+i+'"><td align="center">'+(i+1)+'</td><td>'
 							
 							for(var n = 0; n<ph[i].subPath.length;n++){
 								
@@ -259,12 +259,12 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 								str+=((n<ph[i].subPath.length-1)? '->':'</td>');
 
 							}
-							str+='<td>'+ph[i].info.totalTime+'</td>';
+							str+='<td align="center">'+ph[i].info.totalTime+'</td>';
 							if(ph[i].info.payment ==0){
-								str+='<td>가격 미정</td>';
+								str+='<td align="center">가격 미정</td>';
 								
 							}else{
-							str+='<td>'+ph[i].info.payment+'</td>';
+							str+='<td align="center">'+ph[i].info.payment+'</td>';
 							}
 							str+='<td><button type="button" class="setsub" datanum='+i+'>등록</button></td></tr>';
 						}
@@ -273,12 +273,12 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 						for(var i = 0 ; i<e.length ; i++){
 							str+='<tr><td>추천'+(i+1)+'</td>';
 							str+='<td>'+e[i].startSTN+'->'+e[i].endSTN+'</td>';
-							str+='<td>'+e[i].time+'</td>';
+							str+='<td align="center">'+e[i].time+'</td>';
 							if(e[i].payment == 0){
-								str+='<td>가격 미정</td>';	
+								str+='<td align="center">가격 미정</td>';	
 								str+='<td><button>등록</button></td></tr>';
 							}else{
-							str+='<td>'+e[i].payment+'</td>';
+							str+='<td align="center">'+e[i].payment+'</td>';
 							str+='<td><button>등록</button></td></tr>';
 							}
 						}
