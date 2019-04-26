@@ -64,6 +64,8 @@
 <script>
 $(document).ready(function(){
 	
+
+	
 	pickTime();
 	
 	//시작시간에 따른 종료시간 제한
@@ -447,6 +449,12 @@ $("#gooey-h").gooeymenu({
         });
     </script>
 
+<style>
+#iconimg{position:relative; top:12px;}
+#day{position:absolute; left:17px; top: 50px; color:black;}
+</style>
+
+
 </head>
 
 <body id="page-top">
@@ -472,11 +480,11 @@ $("#gooey-h").gooeymenu({
                 <input type="checkbox" class="menu-open" name="menu-open2" id="menu-open2">
 				  <label class="open-button" for="menu-open2">
 				   <!-- 프로필 이미지 들어가는 공간 -->
-				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/profil.png" alt="">
+				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/head.png" alt="">
 				  </label>
 				  <a href="#" class="gooey-menu-item">로그아웃</a>
 				  <a href="profile" class="gooey-menu-item">회원정보수정<li></li></a>
-				  <a href="hom" class="gooey-menu-item">홈으로 </a>
+				  <a href="home" class="gooey-menu-item">홈으로 </a>
 		    </nav>   
         </div>
     </div>
@@ -486,19 +494,25 @@ $("#gooey-h").gooeymenu({
 			        <!-- 날씨 -->
 			        <li class="nav-item">
 			          <a class="nav-link js-scroll-trigger" href="weather" target="box2">
-			         <img src="resources/img/sun.png" width=80 height=80 ></a>
+			        <div id="iconimg"><img src="resources/img/sun.png" width=80 height=80></div> </a>
 			        </li>
 			      
 			        <!-- 달력 -->
 			        <li class="nav-item">
 			          <a class="nav-link js-scroll-trigger" href="calendar" target="box2">
-			           <img src="resources/img/cal.png" width=80 height=80 ></a>
+			          <div id="iconimg"> <img src="resources/img/cal.png" width=80 height=80 >
+			          </div>
+			          <!-- 세션에 저장된 날짜의 값 -->
+			         <div id="day">
+			        	 <%=session.getAttribute("formattedDate")%>
+			         </div>
+			          </a>
 			        </li>
-			       
+			      
 			        <!-- 뉴스 -->
 			        <li class="nav-item">
 			          <a class="nav-link js-scroll-trigger" href="news" target="box2">
-			          <img src="resources/img/newsp.png" width=80 height=80></a>
+			          <div id="iconimg"> <img src="resources/img/newsp.png" width=80 height=80></div></a>
 			        </li>
 	
 				</div>
@@ -512,40 +526,8 @@ $("#gooey-h").gooeymenu({
         
 
   </nav>
-<!-- Mainpage -->
-  <!-- div <class="container-fluid p-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
-      <div class="w-100">
-        <h1 class="mb-0">Welcome
-          <span class="text-primary">WWW</span>
-        </h1>
-        <div class="subheading mb-5">당신 주위에서 일어나는 일들을 경험하세요!
-          <a href="mailto:name@email.com">www@gmail.com</a>
-        </div>
-        <p class="lead mb-5"></p>
-        
-         <a>로그인 폼</a>
-        
-      </div> -->
     </section>
-			<!--화면 2분할 코드 들어가는 구간 -->
-	<!-- 	<tr>
-		<th><a href="jsp/js1" target="box1"></a></th>
-		</tr>
-		target으로 name을 지정해주면 해당 name화면으로 화면이 바뀜
-		
-		<tr>
-		<th><a href="jquery3" target="box2"></a></th>
-		</tr>
-		
-		<tr>
-		<th><a href="ajax1" target="box2"></a></th>
-		</tr>
-		
-		<tr>
-		<th><a href="ajax2" target="box2"></a></th>
-		</tr> -->
 		
 		</table>
 		

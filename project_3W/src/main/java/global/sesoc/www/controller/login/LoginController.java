@@ -82,7 +82,6 @@ public class LoginController {
 		logger.debug("checkemail:{}, pw:{}", email, password);
 		String check = "false";
 		MemberVO memberVO = dao.getMember(email);
-		logger.debug("ddd{}",memberVO);
 		if(memberVO == null){
 			logger.debug("memberVO == null");
 			return check;
@@ -100,12 +99,6 @@ public class LoginController {
 		}
 		logger.debug(check);
 		return check;
-	}
-	
-	//홈으로 돌아가기
-	@RequestMapping(value ="hom", method = RequestMethod.GET)
-	public String returnHome(){
-		return "redirect:/home";
 	}
 	
 	//로그아웃
@@ -143,7 +136,7 @@ public class LoginController {
 		member.setUserbirthdate(birth2);
 		
 		int result = 0;
-		//db에서 사진 저장하기
+		/*//db에서 사진 저장하기
 		byte[] savedImage;
 		
         HashMap<String, Object> hmap = new HashMap<String, Object>();
@@ -163,11 +156,11 @@ public class LoginController {
         }
         catch(Exception e){
         	e.printStackTrace();
-        }			
+        }			*/
 		
 		member.setEmail(email);
 		int result2 = dao.update(member);
-		return "redirect:/";
+		return "home";
 	}
 	
 	@RequestMapping(value="getByteImage", method=RequestMethod.GET)

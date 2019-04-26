@@ -22,7 +22,8 @@ $("#sand").hide();
 $("#flurries").hide();
 $("#snow").hide();
 $("#storm").hide();
-$("#thunder").hide();
+$("#thunder").hide(); 
+
 
 function locationSearch(){
 	var location = document.getElementById("Search1");
@@ -41,7 +42,8 @@ function locationSearch(){
 	});
 	
 	function Conversion(country){
-		var latlng = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + country + "&language=ko&sensor=false&key=AIzaSyDBLJ3URwB6HcAHqAJiwwOOqgqwUe2Hu0M"
+		var latlng = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + 
+				country + "&language=ko&sensor=false&key=AIzaSyDBLJ3URwB6HcAHqAJiwwOOqgqwUe2Hu0M"
 		
 		$.ajax({
 			url: latlng,
@@ -91,49 +93,49 @@ function locationSearch(){
 				    		weather = resp.weather[i].id;
 				    		if(weather >=200 && weather <= 232){
 				    			weather2 = "ÃµµÕ";
-				    			 $("#thunder").show();
+				    			/*  $("#thunder").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather >= 300 && weather <= 321){
 				    			weather2 = "°¡¶ûºñ";
-				    			 $("#rain").show();
+				    			/*  $("#rain").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather >= 500 && weather <= 531){
 				    			weather2 = "ºñ";
-				    			 $("#rain").show();
+				    			/*  $("#rain").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather >= 600 && weather <= 622){
 				    			weather2 = "´«";
-				    			 $("#snow").show();
+				    			/*  $("#snow").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather == 701 || weather == 721 || weather == 741){
 				    			weather2 = "¾È°³";
-				    			 $("#cloudy").show();
+				    			/*  $("#cloudy").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather == 711){
 				    			weather2 = "¿¬±â";
-				    			 $("#cloudy").show();
+				    			/*  $("#cloudy").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather == 731 || weather == 751 || weather == 761){
 				    			weather2 = "¸ð·¡, ¸ÕÁö";
-				    			 $("#sand").show();
+				    			/*  $("#sand").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
@@ -152,28 +154,28 @@ function locationSearch(){
 				    		}
 				    		if(weather == 781){
 				    			weather2 = "ÆøÇ³";
-				    			 $("#storm").show();
+				    		/* 	 $("#storm").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather == 800){
 				    			weather2 = "¸¼Àº ÇÏ´Ã";
-				    			 $("#sun").show();
+				    		/* 	 $("#sun").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather == 801){
 				    			weather2 = "±¸¸§ ¾ø´Â ³¯¾¾";
-				    			 $("#sun").show();
+				    			/*  $("#sun").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
 				    		}
 				    		if(weather >= 802 && weather <= 804){
 				    			weather2 = "±¸¸§ ÀÖ´Â ³¯¾¾";
-				    			 $("#cloudy").show();
+				    			/*  $("#cloudy").show(); */
 				    			if(weather3.search(weather2) == -1){
 				    				weather3 = weather2 + " " + weather3;
 				    			}
@@ -210,49 +212,49 @@ function locationSearch(){
 					    		weather = resp.list[i].weather[j].id;
 					    		if(weather >=200 && weather <= 232){
 					    			weather2 = "ÃµµÕ";
-					    			 $("#thunder").show();
+					    			 /* $("#thunder").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather >= 300 && weather <= 321){
 					    			weather2 = "°¡¶ûºñ";
-					    			 $("#rain").show();
+					    			 /* $("#rain").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather >= 500 && weather <= 531){
 					    			weather2 = "ºñ";
-					    			 $("#rain").show();
+					    	/* 		 $("#rain").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather >= 600 && weather <= 622){
 					    			weather2 = "´«";
-					    			 $("#snow").show();
+					    	/* 		 $("#snow").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather == 701 || weather == 721 || weather == 741){
 					    			weather2 = "¾È°³";
-					    			 $("#cloudy").show();
+					    			 /* $("#cloudy").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather == 711){
 					    			weather2 = "¿¬±â";
-					    			 $("#cloudy").show();
+					    			 /* $("#cloudy").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather == 731 || weather == 751 || weather == 761){
 					    			weather2 = "¸ð·¡, ¸ÕÁö";
-					    			 $("#sand").show();
+					    			 /* $("#sand").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
@@ -271,28 +273,28 @@ function locationSearch(){
 					    		}
 					    		if(weather == 781){
 					    			weather2 = "ÆøÇ³";
-					    			 $("#storm").show();
+					    			 /* $("#storm").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather == 800){
 					    			weather2 = "¸¼Àº ÇÏ´Ã";
-					    			 $("#sun").show();
+					    			 /* $("#sun").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather == 801){
 					    			weather2 = "±¸¸§ ¾ø´Â ³¯¾¾";
-					    			 $("#sun").show();
+					    			 /* $("#sun").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
 					    		}
 					    		if(weather >= 802 && weather <= 804){
 					    			weather2 = "±¸¸§ ÀÖ´Â ³¯¾¾";
-					    			 $("#cloudy").show();
+					    			/*  $("#cloudy").show(); */
 					    			if(weather3.search(weather2) == -1){
 					    				weather3 = weather2 + " " + weather3;
 					    			}
@@ -337,7 +339,7 @@ function locationSearch(){
 							</td>
 						</tr>
 					
-						<tr>
+						<!-- <tr>
 							<td>
 								<div id="sun">
 								 <div class="sun">
@@ -345,7 +347,7 @@ function locationSearch(){
 								  </div>  
 								</div>
 								
-								<!-- ºñ -->
+								ºñ
 								<div id="rain">
 								  	<div class="icon_rain">
 								  	<div class="cloud"></div>
@@ -353,7 +355,7 @@ function locationSearch(){
 									</div>  
 								</div>
 								
-								<!--±¸¸§  -->
+								±¸¸§ 
 								<div id="cloudy">
 								<div class="icon cloudy">
 								  <div class="cloud"></div>
@@ -361,7 +363,7 @@ function locationSearch(){
 								</div> 
 								 </div>
 								 
-								<!--È²»ç  -->
+								È²»ç 
 								<div id="sand">
 								   <div class="icon sand">
 								  <div class="sand"></div>
@@ -369,7 +371,7 @@ function locationSearch(){
 								</div> 
 								</div>
 								
-								<!-- Æø¿ì -->
+								Æø¿ì
 								<div id="storm">
 								<  <div class="icon thunder-storm">
 								  <div class="cloud"></div>
@@ -380,7 +382,7 @@ function locationSearch(){
 								</div> 
 								</div>
 								
-								<!-- ÃµµÕ¹ø°³ -->
+								ÃµµÕ¹ø°³
 								<div id="thunder">
 								  <div class="icon thunder">
 									 <div class="lightning">
@@ -390,7 +392,7 @@ function locationSearch(){
 								</div>  
 								</div>
 								
-								<!-- Æø¼³ -->
+								Æø¼³
 								<div id="flurries">
 								  <div class="icon flurries">
 								  <div class="cloud"></div>
@@ -401,7 +403,7 @@ function locationSearch(){
 								</div>  
 								</div>
 								
-								<!-- ´« -->
+								´«
 								<div id="snow">
 								  <div class="icon snow">
 								    <div class="flake"></div>
@@ -409,7 +411,7 @@ function locationSearch(){
 								</div>  
 								</div>
 							</td>
-						</tr>
+						</tr> -->
 						
 						<tr>
 							<td>

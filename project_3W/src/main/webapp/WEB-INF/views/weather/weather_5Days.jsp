@@ -9,9 +9,9 @@
 <script src="resources/js/jquery-3.3.1.js"></script>
   <link href="resources/css/weather.css" rel="stylesheet">
 <script>
+
 $(document).ready(function(){			
-	
-	
+		
 	var lat = "<%=session.getAttribute("lat")%>";
 
 	var lon = "<%=session.getAttribute("lon")%>";
@@ -43,42 +43,50 @@ $(document).ready(function(){
 		    		weather = resp.list[i].weather[j].id;
 		    		if(weather >=200 && weather <= 232){
 		    			weather2 = "천둥";
+		    			/* $("#thunder").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
+		    			
 		    		}
 		    		if(weather >= 300 && weather <= 321){
 		    			weather2 = "가랑비";
+		    			/* $("#rain").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather >= 500 && weather <= 531){
 		    			weather2 = "비";
+		    		/* 	$("#rain").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather >= 600 && weather <= 622){
 		    			weather2 = "눈";
+		    			/* $("#snow").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather == 701 || weather == 721 || weather == 741){
 		    			weather2 = "안개";
+		    		/* 	$("#cloudy").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather == 711){
 		    			weather2 = "연기";
+		    			/* $("#cloudy").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather == 731 || weather == 751 || weather == 761){
 		    			weather2 = "모래, 먼지";
+		    			/* $("#sand").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
@@ -97,24 +105,32 @@ $(document).ready(function(){
 		    		}
 		    		if(weather == 781){
 		    			weather2 = "폭풍";
+		    		/* 	$("#storm").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather == 800){
 		    			weather2 = "맑은 하늘";
+		    		/* 	$("#sun").show(); */
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather == 801){
 		    			weather2 = "구름 없는 날씨";
+		    			
+		    	/* 		$("#sun").show(); */
+		    			
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
 		    		}
 		    		if(weather >= 802 && weather <= 804){
 		    			weather2 = "구름 있는 날씨";
+		    			
+		    	/* 		$("#cloudy").show(); */
+		    			
 		    			if(weather3.search(weather2) == -1){
 		    				weather3 = weather2 + " " + weather3;
 		    			}
@@ -131,6 +147,10 @@ $(document).ready(function(){
 })
 
 </script>
+<style>
+#weather{position:absolute; top:0px; left:10px;}
+#weathertime{position:relative; left:-80px; display:inline-block; color:white;}
+</style>
 <title>실시간 날씨 </title>
 
 </head>
@@ -139,97 +159,115 @@ $(document).ready(function(){
 <!-- 생각 할 수 있는 방법  IFRAME을 DIV로 감싸고 IFRAME안에 JSP를 띄워야하니까 IF문으로 돌린다 ??
 iframe에 반복문을 씌우면 테이블로 이미지를 띄우는거같은 효과가 나지 않을까...?-->
 
+<div id="weather">
 <table>
-	<tr>	
+	<tr>
 			<c:forEach var="i" begin="0" end="38">
-		<td>
-					<div class="time" style="color:white" >
-					시간 <div id="time${i}" ></div><br>
+			<td width="30px">
+				<div id="weathertime">
+				 <div id="time${i}"></div>
+				기온  <div id="temp${i}"></div>
+				날씨  <div id="weather${i}"></div><br>
+				</div>
+						<!-- <div id="weathericon">
+								<div id="sun">
+								 <div class="sun">
+								    <div class="rays"></div>
+								  </div>  
+								</div>
+								
+								비
+								<div id="rain">
+								  	<div class="icon_rain">
+								  	<div class="cloud"></div>
+								  	<div class="rain"></div>
+									</div>  
+								</div>
+								
+								구름 
+								<div id="cloudy">
+								<div class="icon cloudy">
+								  <div class="cloud"></div>
+								  <div class="cloud"></div>
+								</div> 
+								 </div>
+								 
+								황사 
+								<div id="sand">
+								   <div class="icon sand">
+								  <div class="sand"></div>
+								  <div class="sand"></div>
+								</div> 
+								</div>
+								
+								폭우
+								<div id="storm">
+								<  <div class="icon thunder-storm">
+								  <div class="cloud"></div>
+								  <div class="lightning">
+								    <div class="bolt"></div>
+								    <div class="bolt"></div>
+								  </div>
+								</div> 
+								</div>
+								
+								천둥번개
+								<div id="thunder">
+								  <div class="icon thunder">
+									 <div class="lightning">
+								    <div class="bolt"></div>
+								    <div class="bolt"></div>
+								  </div>
+								</div>  
+								</div>
+								
+								폭설
+								<div id="flurries">
+								  <div class="icon flurries">
+								  <div class="cloud"></div>
+								  <div class="snow">
+								    <div class="flake"></div>
+								    <div class="flake"></div>
+								  </div>
+								</div>  
+								</div>
+								
+								눈
+								<div id="snow">
+								  <div class="icon snow">
+								    <div class="flake"></div>
+								    <div class="flake"></div>
+								  </div>  
+								</div>
 					</div>
-					<c:if test="${time${i} eq 'time${i}+1' }">
-					<c:choose>
-						<c:when test = "${weather${i} eq '구름 없는 날씨'}">
-							<a href="sunicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '구름  있는 날씨'}">
-							<a href="cloudyicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}" >
-							<a href="rainicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '가랑비'}">
-							<a href="rainicon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '천둥'}">
-							<a href="thundericon" target="box1">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}">
-							<a href="rainicon" target="box1">
-							</c:when>
-						<c:overwise>
-						<!-- 폭우 -->
-						<a href="stormicon" target="box1">
-						</c:overwise>
-					</c:choose>
-					<!-- 첫번째 아이프레임에 값 넘기는 건 끝남 -->
-					</c:if>
-					
-						<c:if test="${time${i} eq 'time${i}+2' }">
-					<c:choose>
-						<c:when test = "${weather${i} eq '구름 없는 날씨'}">
-							<a href="sunicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '구름  있는 날씨'}">
-							<a href="cloudyicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}" >
-							<a href="rainicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '가랑비'}">
-							<a href="rainicon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '천둥'}">
-							<a href="thundericon" target="box2">
-							</c:when>
-						<c:when test = "${weather${i} eq '비' || ${weather${i} eq '폭우'}">
-							<a href="rainicon" target="box2">
-							</c:when>
-						<c:overwise>
-						<!-- 폭우 -->
-						<a href="stormicon" target="box2">
-						</c:overwise>
-					</c:choose>
-					<!-- 첫번째 아이프레임에 값 넘기는 건 끝남 -->
-				<%-- 	</c:if> --%>
-					
-					<iframe width="50px" height="50px" src="sun" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->		
-					<div class="other" style="color:white" >
-					평균 기온 <div id="temp${i}"></div><br>
-					날씨 <div id="weather${i}"></div><br>
-					</div>
-		</td>
-			</c:forEach>	
+	
+	 -->	
+	 
+	 </td>
+	 </c:forEach>
+
 	</tr>
 </table>
-<table>
+</div>
+<!-- <table>
 <tr>
 	<td>
 		<div class="divi">
-				<iframe width="100px" height="400px" src="sun" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box4" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box5" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box6" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box7" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box8" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box9" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="100px" height="400px" src="sun" name = "box10" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "4" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "5" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "6" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "7" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "8" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "9" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+				<iframe width="80px" height="200px" src="sun" name = "10" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
 		</div>
 	</td>
 </tr>
 </table>
-
+ -->
 
 	
 

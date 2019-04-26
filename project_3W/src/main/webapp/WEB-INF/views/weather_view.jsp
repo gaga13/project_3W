@@ -17,11 +17,12 @@
 
 	<table>
 	<tr>
-		<td rowspan="2"><iframe width="500px" height="310px" src="weather_RealTime" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
-		<td><iframe width="810px" height="155px" src="weather_5Days" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td rowspan="2">
+		<iframe width="300px" height="350px" src="weather_RealTime" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td><iframe width="1100px" height="175px" src="weather_5Days" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
 	</tr> 
 	<tr>		
-		<td ><iframe width="810px" height="155px" src="weather_Search" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td ><iframe width="1100px" height="175px" src="weather_Search" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
 	</tr>		
 	</table>
 
