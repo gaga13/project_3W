@@ -161,7 +161,6 @@ function submitTwitt(){
 			}
 			else{
 				//트위터 인증 창
-				alert(check);
 				window.open('twitterConnect', '', 'width=700,height=500');
 			}
 		},

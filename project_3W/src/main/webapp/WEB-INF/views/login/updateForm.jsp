@@ -116,9 +116,9 @@ function twitterDisconnect() {
 					<td><input type="password" id="password2"></td>
 				</tr>
 				<tr>
-					<td>SNS계정</td>
-					<td><img src="./resources/img/twitter.png" width="20px"
-						height="18px"> <c:choose>
+					<td>SNS계정${member.twitterId}</td>
+					<td><img src="./resources/img/twitter.png" width="20px" height="18px">
+					 <c:choose>
 							<c:when test="${member.twitterId eq 'N' }">
 								<input type="button" id="twitterConnectBtn" value="계정 연결">
 							</c:when>

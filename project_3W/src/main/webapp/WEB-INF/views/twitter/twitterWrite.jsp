@@ -41,7 +41,7 @@ function getScheduleList(){
 				if(item.snum == selectedSnum){
 					var slocation = item.slocation;
 					var scontent = item.scontent;
-					$('#tweet').val(slocation + '에서' + scontent);
+					$('#tweet').val(slocation + '에서 ' + scontent);
 				}
 			});
 			

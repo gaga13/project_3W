@@ -30,12 +30,7 @@ public class PageController {
 		return "news";
 	}
 	
-	//회원정보 수정 페이지로 이동
-	@RequestMapping(value="profile", method=RequestMethod.GET)
-	public String profile(){
-		return "login/updateForm";
-	}
-	
+
 	//하루일정 입력 페이지로 이동
 	@RequestMapping(value="scheduleplus", method=RequestMethod.GET)
 	public String schedule_plus(){
