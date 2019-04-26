@@ -535,7 +535,7 @@ $("#gooey-h").gooeymenu({
 		<!-- 화면 이중분할 -->
 	
 			<div class="divide">
-			<iframe width="90%" height="400px" style="position:relative; left:70px;" src="mapTest3" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
+			<iframe width="90%" height="400px" style=" position:relative; left:70px; border-width: 10px; border-style: solid; border-color:#85ccbb; " src="mapTest3" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe><br> <!-- 위에가 바뀜 -->
 			<iframe width="100%" height="350px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
 			</div>
 		

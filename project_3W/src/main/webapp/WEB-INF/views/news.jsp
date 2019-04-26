@@ -8,7 +8,7 @@
 <title>뉴스</title>
 <script src="<c:url value='resources/js/jquery-3.3.1.js'/>"></script>
 
-
+<!--하이퍼링크 색 없애기 , 뉴스 뒤에 테이블 깔기 -->
 <script>
 $(document).ready(function (){
 	list();

@@ -29,19 +29,20 @@ $(document).ready(function(){
 	    		//시간
 	    		var time = resp.list[i].dt_txt;
 	    		var timesplit = time.split(' ');
+	    		var year = timesplit[0].split('-');
 	    		var time_s = timesplit[1].split(':',1);
 	    		/* 	alert(time_s); */
 	    		
 	    		
 	    		if(time_s == '06' || time_s =='18'){
 	    		
-	    			$("#time"+ i).html(time);
-					/* alert(time); */
+	    			$("#time"+ i).html(year[1]+" / "+year[2]+"\r\n"+time_s+"시");
+					/*  alert(time);  */
 					
 			    	//기온
 			    	var temp = resp.list[i].main.temp- 273.15;
 			    	temp = Math.floor(temp*10)/10;
-			    	$("#temp" + i).html(temp);
+			    	$("#temp" + i).html(temp+"\n℃");
 			    	
 			    	//날씨 컨디션
 			    	var weather = 0;
@@ -158,8 +159,12 @@ $(document).ready(function(){
 				
 
 <style>
-#weather{position:absolute; top:0px; left:10px;}
+#weather{position:absolute; top:20px; left:80px;}
 #weathertime{position:relative; left:-80px; display:inline-block; color:white;}
+ table {
+  width: 900px;
+    border: 1px solid #fff;
+  	}
 </style>
 <title>실시간 날씨 </title>
 
@@ -171,128 +176,25 @@ iframe에 반복문을 씌우면 테이블로 이미지를 띄우는거같은 �
 
 		<div id="weather">
 	<table>
-
+		
 
 
 	<tr>
 			<c:forEach var="i" begin="0" end="38">
-			<td>
-					<div id="weathertime">
-						<div id="time${i}"></div>
-						<div id="temp${i}"></div>
-						 <div id="weather${i}"></div><br>
-					</div>
+				<td>
+						<div id="weathertime">
+							<div id="time${i}"></div>
+							<div id="temp${i}"></div>
+							 <div id="weather${i}"></div><br>
+						</div>
+					
 				
-			
-				
-						<!-- <div id="weathericon">
-								<div id="sun">
-								 <div class="sun">
-								    <div class="rays"></div>
-								  </div>  
-								</div>
-								
-								비
-								<div id="rain">
-								  	<div class="icon_rain">
-								  	<div class="cloud"></div>
-								  	<div class="rain"></div>
-									</div>  
-								</div>
-								
-								구름 
-								<div id="cloudy">
-								<div class="icon cloudy">
-								  <div class="cloud"></div>
-								  <div class="cloud"></div>
-								</div> 
-								 </div>
-								 
-								황사 
-								<div id="sand">
-								   <div class="icon sand">
-								  <div class="sand"></div>
-								  <div class="sand"></div>
-								</div> 
-								</div>
-								
-								폭우
-								<div id="storm">
-								<  <div class="icon thunder-storm">
-								  <div class="cloud"></div>
-								  <div class="lightning">
-								    <div class="bolt"></div>
-								    <div class="bolt"></div>
-								  </div>
-								</div> 
-								</div>
-								
-								천둥번개
-								<div id="thunder">
-								  <div class="icon thunder">
-									 <div class="lightning">
-								    <div class="bolt"></div>
-								    <div class="bolt"></div>
-								  </div>
-								</div>  
-								</div>
-								
-								폭설
-								<div id="flurries">
-								  <div class="icon flurries">
-								  <div class="cloud"></div>
-								  <div class="snow">
-								    <div class="flake"></div>
-								    <div class="flake"></div>
-								  </div>
-								</div>  
-								</div>
-								
-								눈
-								<div id="snow">
-								  <div class="icon snow">
-								    <div class="flake"></div>
-								    <div class="flake"></div>
-								  </div>  
-								</div>
-					</div>
-	
-	 -->	
-	 
-	 </td>
-	 </c:forEach>
+		 		</td>
+			 </c:forEach>
 
 	</tr>
 </table>
 </div>
-<!-- <table>
-<tr>
-	<td>
-		<div class="divi">
-				<iframe width="80px" height="200px" src="sun" name = "1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "4" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "5" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "6" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "7" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "8" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "9" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-				<iframe width="80px" height="200px" src="sun" name = "10" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
-		</div>
-	</td>
-</tr>
-</table>
- -->
-
-	
-
-	 
-	
-	
-	
-	
-	
 
 </body>
 </html>
