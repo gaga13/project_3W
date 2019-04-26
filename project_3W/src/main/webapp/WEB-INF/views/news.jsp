@@ -27,7 +27,7 @@ function list(){
 }
 
 function outnews(json){
-	var str = '<table>';
+	var str = '<table border="1">';
 		str +='<tr><th>제목</th>';
 		str +='<th>날짜</th></tr>';
 	$.each(json, function(key,item){		

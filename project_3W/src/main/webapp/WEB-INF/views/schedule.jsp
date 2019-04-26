@@ -28,6 +28,7 @@ $(document).ready(function(){
 		$('#insertModal input[name=startdate]', parent.document).val("");
 		$('#insertModal input[name=enddate]', parent.document).val("");
 		$('#insertModal #inlocation', parent.document).hide();
+		parent.subMapClose();
 		$('body', parent.document).removeClass('modal-open');
 		//$(parent.frames["slocationMap"].document).get(0).location.reload(); //traffic용
      	//$(parent.frames["slocationMap"].contentDocument).get(0).location.reload(); //search 용

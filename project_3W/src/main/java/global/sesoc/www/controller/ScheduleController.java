@@ -2,12 +2,10 @@ package global.sesoc.www.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +35,11 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping(value="getDaily", method = RequestMethod.POST)
 	public void getDaily(HttpSession session, Date daily){
-		logger.debug("daily:{}", daily);
-		session.setAttribute("sysdate", daily);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		String newdate = format.format(daily);
+		session.setAttribute("sysdate", newdate);
+		
 	}
 	//하루 스케쥴 목록 가져오기
 	@ResponseBody
@@ -48,18 +49,16 @@ public class ScheduleController {
 		ArrayList<ScheduleVO> sList = null;
 		
 		//날짜 지정하지 않을 경우 현재날짜, 날짜 지정시 지정한 날짜로 세션값 바뀜
-		Date sysdate = (Date) ses.getAttribute("sysdate");
-		
+		String sysdate = (String) ses.getAttribute("sysdate");	
 		String email = (String) ses.getAttribute("loginId");
+		
 		//session에 담긴 email값 읽기
-		
-		String formattedDate = (String) ses.getAttribute("formattedDate");
-		
+		logger.debug("{}",sysdate);
 		HashMap<String, String> hmap = new HashMap<String, String>();
-		hmap.put("email", email);
-		hmap.put("startdate", formattedDate);
-		logger.debug("formattedDate:{}",formattedDate);
 		
+		hmap.put("email", email);
+		hmap.put("startdate", sysdate);
+
 		sList = dao.getScheduleList(hmap);
 		
 		ses.setAttribute("sListSize", (sList.size()+1));
@@ -77,6 +76,7 @@ public class ScheduleController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		String formattedDate = format.format(sysdate);
 		HashMap<String, String> hmap = new HashMap<String, String>();
+		
 		hmap.put("email", email);
 		hmap.put("startdate", formattedDate);
 		
