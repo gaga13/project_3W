@@ -628,7 +628,6 @@ $("#gooey-h").gooeymenu({
         </form>
       </div>
       <div class="modal-footer">
-        
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ClickClose()">닫기</button>
       </div>
     </div>

@@ -269,7 +269,7 @@ $(document).ready(function(){
 	</div>  
 	</div>
 </tr>
- <tr><img src="resources/img/table_space.png" height="200px"></tr>  
+<!--  <tr><img src="resources/img/table_space.png" height="200px"></tr>   -->
 
 	<tr height="200px"></tr>
 	<tr>
