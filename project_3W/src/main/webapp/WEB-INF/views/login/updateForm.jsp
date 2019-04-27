@@ -76,61 +76,62 @@ function twitterDisconnect() {
 }
 </script>
 
+
+
 </head>
 <body>
 
-	<table>
-		<img class="img-fluid img-profile rounded-circle mx-auto mb-2"
-			src="resources/img/head.png" width="150px;" height="150;" alt="">
-		<h1 class="profile-name">회원 정보</h1>
-		<form method="post" action="update" id="update"
-			enctype="multipart/form-data" onsubmit="return updateCheck()">
-			<input type="hidden" value="${member.email}" name="email" id="email">
-			<table>
-				<tr>
-					<td></td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td><input type="text" name="username" id="username"
-						value="${member.username}" /></td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td>${member.userbirthdate}<input type="date"
-						name="userbirthdate" id="userbirthdate"
-						value="${member.userbirthdate}" />
-					</td>
-				</tr>
-				<tr>
-					<td>이메일 주소</td>
-					<td>${sessionScope.loginId}</td>
-				</tr>
-				<tr>
-					<td>새 비밀번호</td>
-					<td><input type="password" id="password" name="password">
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 확인</td>
-					<td><input type="password" id="password2"></td>
-				</tr>
-				<tr>
-					<td>SNS계정${member.twitterId}</td>
-					<td><img src="./resources/img/twitter.png" width="20px" height="18px">
-					 <c:choose>
-							<c:when test="${member.twitterId eq 'N' }">
-								<input type="button" id="twitterConnectBtn" value="계정 연결">
-							</c:when>
-							<c:otherwise>
-								<input type="button" id="twitterDisconnectBtn" value="연결 해제">
-							</c:otherwise>
-						</c:choose></td>
-				</tr>
-			</table>
-				<a href="home"><input type="button" value="돌아가기"></a> <input type="submit" value="수정하기">
-		</form>
-	</table>
-
+	<div class="profileoutline" style="height: auto; width: 100%; border:3px solid black;">
+			<img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+				src="resources/img/head.png" width="150px;" height="150;" alt="">
+			<h1 class="profile-name">회원 정보</h1>
+			<form method="post" action="update" id="update"
+				enctype="multipart/form-data" onsubmit="return updateCheck()">
+				<input type="hidden" value="${member.email}" name="email" id="email">
+					<table >
+						<tr>
+							<td></td>
+						</tr>
+						<tr>
+							<td>이름</td>
+							<td><input type="text" name="username" id="username"
+								value="${member.username}" /></td>
+						</tr>
+						<tr>
+							<td>생년월일</td>
+							<td>${member.userbirthdate}<input type="date"
+								name="userbirthdate" id="userbirthdate"
+								value="${member.userbirthdate}" />
+							</td>
+						</tr>
+						<tr>
+							<td>이메일 주소</td>
+							<td>${sessionScope.loginId}</td>
+						</tr>
+						<tr>
+							<td>새 비밀번호</td>
+							<td><input type="password" id="password" name="password">
+							</td>
+						</tr>
+						<tr>
+							<td>비밀번호 확인</td>
+							<td><input type="password" id="password2"></td>
+						</tr>
+						<tr>
+							<td>SNS계정${member.twitterId}</td>
+							<td><img src="./resources/img/twitter.png" width="20px" height="18px">
+							 <c:choose>
+									<c:when test="${member.twitterId eq 'N' }">
+										<input type="button" id="twitterConnectBtn" value="계정 연결">
+									</c:when>
+									<c:otherwise>
+										<input type="button" id="twitterDisconnectBtn" value="연결 해제">
+									</c:otherwise>
+								</c:choose></td>
+						</tr>
+					</table>
+					<a href="home"><input type="button" value="돌아가기"></a> <input type="submit" value="수정하기">
+				</form>
+	</div>
 </body>
 </html>

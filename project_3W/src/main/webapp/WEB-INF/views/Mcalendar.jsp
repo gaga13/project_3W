@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 
 <style>
-.scrollblind{position:relative; left:100px; width: 1200px; height:400px; overflow-y:scroll; }
 .view{  width:1200px; height:400px; overflow:hidden; }
 </style>
 
@@ -22,7 +21,10 @@
 <script src="<c:url value='resources/jquery/bootstrap.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery.timepicker.min.js'/>"></script>
 <style>
-<!--iframe 스크롤바 투명-->
+
+#calendar {
+	width : 1200px;
+}
 
 </style>
 <script>
@@ -42,6 +44,7 @@ function calendar() {
 							center : 'title',
 							right : ''
 						},
+						height : 550,
 						eventClick : function(info) {},
 						defaultView : 'month',
 						locale : initialLocaleCode,							
@@ -137,7 +140,8 @@ function calendar() {
 </script>
 </head>
 <body>
-	<div class="S_unvisible" >
+	<br>
+	<div class="S_unvisible" align="center">
 		<div class="scrollblind">
 			<div id="calendar"></div>
 	</div>

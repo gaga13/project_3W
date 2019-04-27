@@ -78,9 +78,12 @@ function joinCheck(){
 		success: function(emailCheck){
 			//email이 중복되지 않아회원가입 가능
 			if(emailCheck == 'no'){
-			
 				//회원가입 성공 후  '본인인증' 창 띄우기
-				alert('해당 이메일로 메일을 전송하였습니다. 본인 인증해주세요');
+				document.getElementById("joinImage").style.visibility='visible';
+				setTimeout(function (){document.getElementById("joinImage").style.visibility='hidden'},3000);
+				$('#email').val('');
+				$('#password').val('');
+				$('#email').focus();
 			}
 			//입력한 email이 이미 존재함
 			else{
@@ -122,7 +125,7 @@ $(document).ready(function(){
         }
     });
 });
- 
+
 function setCookie(cookieName, value, exdays){
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
@@ -225,6 +228,10 @@ function XMLParsing(xml){
 </head>
 
 <body>
+	
+	<!-- 회원가입 완료 했을 때 완료했다는 알림 뜨는 곳 -->
+	<a id="joinImage" style="visibility: hidden;"><img src="resources/img/joinImage.png"/></a>
+	
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">

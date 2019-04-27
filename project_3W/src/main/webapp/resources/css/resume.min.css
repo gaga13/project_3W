@@ -144,57 +144,11 @@
  
  a:active,a:focus,a:hover{color:#824027}
 
-/* 맵전환버튼 */
+.mapchagebtn{
+	position:relative;
+	left:75px;
+	top:390px;
+	z-index:5;
+}
 
-.mapChangeBtn
-  display: inline-block
-  font-weight: bold
-  letter-spacing: 2px
-  padding: 15px 30px
-  text-decoration: none
-  text-transform: uppercase
-  transition: background 300ms
-  &.outline
-    color: #85ccbb
-    overflow: hidden
-    position: relative
-    &:before, &:after, .lines:before, .lines:after
-      background-color: #85ccbb
-      content: ''
-      height: 2px
-      left: 0
-      position: absolute
-      top: 0
-      transition: transform 300ms
-      width: 100%
-    &:before
-      bottom: 0
-      top: auto
-    .lines
-      display: block
-      height: 100%
-      left: 0
-      position: absolute
-      top: 0
-      width: 100%
-      z-index: 0
-      &:before, &:after
-        height: 100%
-        width: 2px
-      &:after
-        left: auto
-        right: 0
-  &:hover
-    &:before
-      transform: translateX(-100%)
-    &:after
-      transform: translateX(100%)
-    .lines:before
-      transform: translateY(-100%)
-    .lines:after
-      transform: translateY(100%)
-      
-.button-holder
-  padding-top: 150px
-  text-align: center
 
