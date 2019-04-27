@@ -59,4 +59,10 @@ public class MapController {
 	public String mapTest3(){
 		return "map/mapTest3";
 	}
+	
+	//연습용
+	@RequestMapping(value="/mapTest4", method=RequestMethod.GET)
+	public String mapTest4(){
+		return "map/mapTest4";
+	}
 }
