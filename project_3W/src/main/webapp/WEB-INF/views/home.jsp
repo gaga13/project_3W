@@ -551,7 +551,10 @@ $("#gooey-h").gooeymenu({
 			<!-- 맵전환버튼  -->
 			
 			<div class="mapchagebtn">
-				<input type="button" value="CHANGE MAP" id="mapChangeBtn" style="width:75; height:30px; font-family:inherit; font-weight: 700; background-color:#85ccbb; border:0 solid #a9d7cc" >
+			<!-- style="width:75; height:30px; font-family:inherit; font-weight: 700; background-color:#85ccbb; border:0 solid #a9d7cc"  -->
+				<button type="button" id="mapChangeBtn" style="background-color:#85ccbb; border:0px">
+				<img src="resources/img/map.png" width="40" height="40">
+				</button>
 			</div>
 			
 			<div class="divide">
@@ -586,7 +589,7 @@ $("#gooey-h").gooeymenu({
             <input type="text" name = "enddate" id="inenddate" style="width:100px; float:left;">
             <input type="text" name = "enddate" id="inendtime" style="width:100px;">
             <br>
-            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToMapSearch()">검색</button> <button type="button" id="inmapClose" onclick="MapSearchClose()">닫기</button></label><br>
+            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToMapSearch()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="inmapClose" onclick="MapSearchClose()" style="background-color:white; border:0px"><img src="resources/img/checked.png" width="20" height="20"></button></label><br>
             <input type="text" class="form-control" name = "slocation" id="inslocation">
            	<input type="hidden" id="slat" name="slatitude">
            	<input type="hidden" id="slon" name="slongitude">
@@ -595,7 +598,7 @@ $("#gooey-h").gooeymenu({
             	<div id="result_loc"></div>
             </div>
            
-            <label for="subroute" class="col-form-label">길찾기 경로 &nbsp; <button type="button" id="submap" onclick="Search_sub()">검색</button> <button type="button" id="submapClose" onclick="subMapClose()">닫기</button></label><br>
+            <label for="subroute" class="col-form-label">길찾기 경로 &nbsp; <button type="button" id="submap" onclick="Search_sub()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="submapClose" onclick="subMapClose()" style="background-color:white; border:0px"><img src="resources/img/checked.png" width="20" height="20"></button></label><br>
             <input type="text" class="form-control"  readonly="readonly" id="subroute" name="subroute"> 
             <input type="hidden" name="subpath" id="input_sub">
             <div id="subMapControl" style="display:none">

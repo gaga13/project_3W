@@ -146,8 +146,9 @@
 
 .mapchagebtn{
 	position:relative;
-	left:70px;
-	top:430px;
+	left:75px;
+	top:390px;
+	z-index:5;
 }
 
 
