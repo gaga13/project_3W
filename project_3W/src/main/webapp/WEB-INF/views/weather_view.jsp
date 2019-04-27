@@ -7,23 +7,92 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title> 날씨 </title>
 <link href="resources/css/scroll.css" rel="stylesheet">
+<script src="resources/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+function locationSearch(){
+	var location = document.getElementById("Search1");
+	var lat;
+	var lon;
+	
+	$.ajax({
+		url: 'translate',
+		type: "GET",
+		data: {country : location.value},
+		dataType: "text",
+		success: Conversion,
+		error: function(e){
+			alert(json.stringify(e));
+		}
+	});
+	
+	function Conversion(country){
+		var latlng = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + 
+				country + "&language=ko&sensor=false&key=AIzaSyDBLJ3URwB6HcAHqAJiwwOOqgqwUe2Hu0M"
+		$.ajax({
+			url: latlng,
+			dataType: "xml",
+			type: "GET",
+			async: "false",
+			success: latlngSave,
+			error: function(e){
+				alert(json.stringify(e));
+			}
+		});
+	}
+	
+	function latlngSave(con){
+		var loc = $(con).find("location").text();
+		$.ajax({
+			url: 'searchLocationSave',
+			type: 'POST',
+			data: {loc: loc},
+			success: function(){
+				alert('저장성공');
+				history.go(0);
+			},
+			error: function (e) {
+				alert(JSON.stringify(e));
+			}
+		});
+}
+}
+</script>
 </head>
 <body>
 
 <!-- 화면 이중분할 -->
 <a class="w2" href="weather_RealTime" target="box1"></a>
 <a class="w1" href="weather_5Days" target="box2"></a>
-
-	<table>
+	
+	<table align="center">
 	<tr>
-		<td rowspan="2">
-		<iframe width="300px" height="350px" src="weather_RealTime" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
-			<td><iframe width="1100px" height="80px" src="weather_Search" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td></td>
+		<td align="right">
+			날씨 장소 :
+			<c:choose>
+				<c:when test="${sessionScope.searchLocation == null}">
+					${sessionScope.location}
+				</c:when>
+				<c:otherwise>
+					${sessionScope.searchLocation}
+				</c:otherwise>
+			</c:choose>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td align="right">위치 검색 : <input type="text" id="Search1" placeholder="Enter your location" width= 100%; height=2000; >
+		<button type="button" id="bt1" style="background-color: #fff; border: 0px" onclick="locationSearch()">
+		<img src="resources/img/search_icon.png" width="20" height="20"></button></td>
+	</tr>
+	<tr>
+		<td rowspan="2"><iframe width="220px" height="500px" src="weather_RealTime" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td><iframe width="1000px" height="500px" src="weather_5Days" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
 	</tr> 
-	<tr>
+<!-- 	<tr>
 
 	<td><iframe width="1100px" height="270px" src="weather_5Days" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
-	</tr>
+	</tr> -->
 	</table>
 
 </body>

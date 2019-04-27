@@ -22,12 +22,23 @@ $(document).ready(function(){
 	 $("#snow").hide();
 	 $("#storm").hide();
 	 $("#thunder").hide();
-		
-
 	 
-	var lat = "<%=session.getAttribute("lat")%>";
-
-	var lon = "<%=session.getAttribute("lon")%>";
+	var lat;
+	var lon;
+	
+	if(<%=session.getAttribute("searchLocationLat")%> == null){
+		lat = "<%=session.getAttribute("lat")%>";
+	}
+	else{
+		lat = "<%=session.getAttribute("searchLocationLat")%>";
+	}
+	
+	if(<%=session.getAttribute("searchLocationLon")%> == null){
+		lon = "<%=session.getAttribute("lon")%>";
+	}
+	else{
+		lon = "<%=session.getAttribute("searchLocationLon")%>";
+	}
 	
 	var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid="+"c1ae780151cf0ef8cdce02451a0dcc70";
 	
@@ -277,14 +288,6 @@ $(document).ready(function(){
 	현재 기온  <div id="outputDiv1"></div>
 	</div>
 	</tr>
-
 </table>
-<%-- [5일간의 날씨 정보]<br>
-<c:forEach var="i" begin="0" end="38">
-	시간 : <div id="time${i}"></div>
-	평균 기온 : <div id="temp${i}"></div>
-	날씨 : <div id="weather${i}"></div><br>
-</c:forEach>
- --%>
 </body>
 </html>
