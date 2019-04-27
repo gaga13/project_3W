@@ -587,7 +587,7 @@ $("#gooey-h").gooeymenu({
 			</a>
 			<div class="divide">
 			<iframe width="90%" height="400px" style="position:relative; left:70px; display:block; border-width: 10px; border-style: solid; border-color:#85ccbb;" src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
-			<iframe width="100%" class="myFrame" height="350px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
+			<iframe width="100%" class="myFrame" height="700px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
 			<!-- height 앞에 onload="autoResize(this)"  -->
 			</div>
 		
