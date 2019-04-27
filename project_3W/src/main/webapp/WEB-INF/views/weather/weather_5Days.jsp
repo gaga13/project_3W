@@ -159,22 +159,16 @@ $(document).ready(function(){
 				
 
 <style>
-#weather{position:absolute; top:20px; left:80px;}
+#weather{position:absolute; top:60px; left:80px;}
 #weathertime{position:relative; left:-80px; display:inline-block; color:white;}
- table {
-  width: 900px;
-    border: 1px solid #fff;
-  	}
+ 
 </style>
 <title>실시간 날씨 </title>
 
 </head>
 <body>
 
-<!-- 생각 할 수 있는 방법  IFRAME을 DIV로 감싸고 IFRAME안에 JSP를 띄워야하니까 IF문으로 돌린다 ??
-iframe에 반복문을 씌우면 테이블로 이미지를 띄우는거같은 효과가 나지 않을까...?-->
-
-		<div id="weather">
+		<div id="weather" style="height: auto; width: 900px; height:170px; border:2px solid white; padding-left:110px; padding-right:-70px; padding-top:20px;">
 	<table>
 		
 

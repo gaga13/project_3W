@@ -14,17 +14,6 @@ $(document).ready(function(){
  	
 });
 
-//¾Ö´Ï¸ÞÀÌ¼Ç ¼û±è
-$("#sun").hide();
-$("#rain").hide();
-$("#cloudy").hide();
-$("#sand").hide();
-$("#flurries").hide();
-$("#snow").hide();
-$("#storm").hide();
-$("#thunder").hide(); 
-
-
 function locationSearch(){
 	var location = document.getElementById("Search1");
 	var lat;
@@ -197,7 +186,15 @@ function locationSearch(){
 				    	for(var i = 0; i < resp.list.length; i++){
 				    		//½Ã°£
 				    		var time = resp.list[i].dt_txt;
-				    		$("#time"+ i).html(time);
+				    		var timesplit = time.split(' ');
+				    		var year = timesplit[0].split('-');
+				    		var time_s = timesplit[1].split(':',1);
+				    		/* 	alert(time_s); */
+				    		
+				    		if(time_s == '06' || time_s =='18'){
+	    		
+			    			$("#time"+ i).html(year[1]+" / "+year[2]+"\r\n"+time_s+"½Ã");
+							/*  alert(time);  */
 				    		
 					    	//±â¿Â
 					    	var temp = resp.list[i].main.temp- 273.15;
@@ -302,7 +299,8 @@ function locationSearch(){
 					    		$("#weather" + i).html(weather3);
 					    	}
 				    	}
-				    },
+				    }
+				  },
 					error: function (e) {
 						alert(JSON.stringify(e));
 					}
@@ -314,15 +312,23 @@ function locationSearch(){
 }
 
 </script>
-<title>½Ç½Ã°£ ³¯¾¾</title>
-<script>
+<style>
+.searchbar{ width: 300px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;}
 
-</script>
+</style>
+
+<title>½Ç½Ã°£ ³¯¾¾</title>
+
 </head>
 <body>
 
-À§Ä¡ °Ë»ö¶õ : <input type="text" id="Search1"><input type="button" id="bt1" value="°Ë»ö"><br>
-
+<div class = "searchbar">
+<input type="text" id="Search1" placeholder="Enter your location">
+ <button type="button" id="bt1" style="background-color:#85ccbb; border:0px"><img src="resources/img/search_icon.png" width="30" height="30"></button>
+</div>
 	
 <table style="border-spacing: 500px;">
 	<tr>
@@ -339,80 +345,6 @@ function locationSearch(){
 							</td>
 						</tr>
 					
-						<!-- <tr>
-							<td>
-								<div id="sun">
-								 <div class="sun">
-								    <div class="rays"></div>
-								  </div>  
-								</div>
-								
-								ºñ
-								<div id="rain">
-								  	<div class="icon_rain">
-								  	<div class="cloud"></div>
-								  	<div class="rain"></div>
-									</div>  
-								</div>
-								
-								±¸¸§ 
-								<div id="cloudy">
-								<div class="icon cloudy">
-								  <div class="cloud"></div>
-								  <div class="cloud"></div>
-								</div> 
-								 </div>
-								 
-								È²»ç 
-								<div id="sand">
-								   <div class="icon sand">
-								  <div class="sand"></div>
-								  <div class="sand"></div>
-								</div> 
-								</div>
-								
-								Æø¿ì
-								<div id="storm">
-								<  <div class="icon thunder-storm">
-								  <div class="cloud"></div>
-								  <div class="lightning">
-								    <div class="bolt"></div>
-								    <div class="bolt"></div>
-								  </div>
-								</div> 
-								</div>
-								
-								ÃµµÕ¹ø°³
-								<div id="thunder">
-								  <div class="icon thunder">
-									 <div class="lightning">
-								    <div class="bolt"></div>
-								    <div class="bolt"></div>
-								  </div>
-								</div>  
-								</div>
-								
-								Æø¼³
-								<div id="flurries">
-								  <div class="icon flurries">
-								  <div class="cloud"></div>
-								  <div class="snow">
-								    <div class="flake"></div>
-								    <div class="flake"></div>
-								  </div>
-								</div>  
-								</div>
-								
-								´«
-								<div id="snow">
-								  <div class="icon snow">
-								    <div class="flake"></div>
-								    <div class="flake"></div>
-								</div>  
-								</div>
-							</td>
-						</tr> -->
-						
 						<tr>
 							<td>
 								<div id="tem_1" class="tem_1" style="color:white">
@@ -426,15 +358,6 @@ function locationSearch(){
 		</c:forEach>
 	</tr>		
 </table>
-
-<%-- [5ÀÏ°£ÀÇ ³¯¾¾ Á¤º¸]<br>
-<c:forEach var="i" begin="0" end="38">
-	½Ã°£ : <div id="time${i}"></div>
-	Æò±Õ ±â¿Â : <div id="temp${i}"></div>
-	³¯¾¾ : <div id="weather${i}"></div><br>
-</c:forEach>
- --%>
-	
 
 
 <input type="hidden" id="lng" value="${sessionScope.loginLon}"/>
