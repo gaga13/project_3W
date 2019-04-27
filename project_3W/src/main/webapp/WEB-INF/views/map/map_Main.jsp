@@ -233,6 +233,7 @@ function reverseGeoCording(olonlat){
 	         alert("현재위치에 따른 주소명 session 저장 실패");
 	      }
 	   }); 
+	   top.frames["box2"].location.reload();
 } 
 
 

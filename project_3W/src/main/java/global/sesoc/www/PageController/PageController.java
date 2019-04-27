@@ -1,8 +1,11 @@
 package global.sesoc.www.PageController;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,7 +47,13 @@ public class PageController {
 	}
 
 	@RequestMapping(value="home", method=RequestMethod.GET)
-	public String home(){
+	public String home(HttpSession session, Model model){
+		String day =(String) session.getAttribute("sysdate");
+		logger.debug("home:{}", day);
+		String days[] = day.split("/");
+		
+		model.addAttribute("oneyear", days[0]);
+		model.addAttribute("onedays", days[1]+"/"+days[2]);
 		return "home";
 	}
 

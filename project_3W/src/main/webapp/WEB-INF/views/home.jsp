@@ -535,8 +535,9 @@ $("#gooey-h").gooeymenu({
 			          <div id="iconimg"> <img src="resources/img/cal.png" width=80 height=80 >
 			          </div>
 			          <!-- 세션에 저장된 날짜의 값 -->
-			         <div id="day">
-			        	 <%=session.getAttribute("sysdate")%>
+			         <div id="day" style="line-height:0.5cm; padding-left: 25px;">
+			        	 ${oneyear}<br>
+			        	 ${onedays}
 			         </div>
 			          </a>
 			        </li>

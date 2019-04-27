@@ -45,7 +45,7 @@ public class NewsController {
 		String keywr[] ={"사망","사고","사건","주의","피해","살인","아동","인명","자연재해","화재","홍수","안전","소방","경찰"}; 
 		String res = null;
 		SimpleDateFormat oldFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-		SimpleDateFormat newFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm");
+		SimpleDateFormat newFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 
 		String clientId = "SXuDuY9peRkbfT9sVQeo";//애플리케이션 클라이언트 아이디값";
 		String clientSecret = "12Y2ZWzXru";//애플리케이션 클라이언트 시크릿값";
