@@ -64,8 +64,6 @@
 <script>
 $(document).ready(function(){
 	
-
-	
 	pickTime();
 	
 	//시작시간에 따른 종료시간 제한
@@ -87,10 +85,22 @@ $(document).ready(function(){
 	$('#insertModal #inlocation').hide();
 	$('#insertModal #inmap').on('click', function(){$('#insertModal #inlocation').show();});
 	
+	//캘린더 클릭시 맵 hide
+	$('a').click(function(){
+		var check = $(this).attr("id");
+			if(check == 'calendar'){
+				document.getElementById("mapIframe").style.display = "none";
+			}
+			else{
+				document.getElementById("mapIframe").style.display = "block";
+			}
+	});
+	
 	//맵 전환 버튼 이벤트연결
 	$('#mapChangeBtn').on('click', changeMapIframe);
 
 });
+
 //날짜 및 시간
 function pickTime(){
 
@@ -425,8 +435,14 @@ function changeMapIframe(){
 	else{
 		$('#mapIframe').attr("src", "map_Main");
 	}
-	
+}
+</script>
 
+<script>
+//iframe resize
+function autoResize(i){
+	var iframeHeight = (i).contentWindow.document.body.scrollHeight;
+	(i).height = iframeHeight + 20;
 }
 </script>
 
@@ -498,7 +514,7 @@ $("#gooey-h").gooeymenu({
 				   <!-- 프로필 이미지 들어가는 공간 -->
 				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/head.png" alt="">
 				  </label>
-				  <a href="#" class="gooey-menu-item">로그아웃</a>
+				  <a href="logout" class="gooey-menu-item">로그아웃</a>
 				  <a href="update" class="gooey-menu-item">회원정보수정<li></li></a>
 				  <a href="home" class="gooey-menu-item">홈으로 </a>
 		    </nav>   
@@ -509,13 +525,13 @@ $("#gooey-h").gooeymenu({
 		        <div class="social-icons">
 			        <!-- 날씨 -->
 			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="weather" target="box2">
+			          <a class="nav-link js-scroll-trigger" href="weather" target="box2" id="weather">
 			        <div id="iconimg"><img src="resources/img/sun.png" width=80 height=80></div> </a>
 			        </li>
 			      
 			        <!-- 달력 -->
 			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="calendar" target="box2">
+			          <a class="nav-link js-scroll-trigger" href="calendar" target="box2" id="calendar">
 			          <div id="iconimg"> <img src="resources/img/cal.png" width=80 height=80 >
 			          </div>
 			          <!-- 세션에 저장된 날짜의 값 -->
@@ -527,7 +543,7 @@ $("#gooey-h").gooeymenu({
 			      
 			        <!-- 뉴스 -->
 			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="news" target="box2">
+			          <a class="nav-link js-scroll-trigger" href="news" target="box2" id="news">
 			          <div id="iconimg"> <img src="resources/img/newsp.png" width=80 height=80></div></a>
 			        </li>
 	
@@ -558,8 +574,8 @@ $("#gooey-h").gooeymenu({
 			</div>
 			
 			<div class="divide">
-			<iframe width="90%" height="400px" style=" position:relative; left:70px; border-width: 10px; border-style: solid; border-color:#85ccbb; " src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
-			<iframe width="100%" height="350px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
+			<iframe width="90%" height="400px" style="position:relative; left:70px; display:block; border-width: 10px; border-style: solid; border-color:#85ccbb;" src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
+			<iframe width="100%" height="350px"  src="scheduleplus" onload="autoResize(this)" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
 			</div>
 		
 	
