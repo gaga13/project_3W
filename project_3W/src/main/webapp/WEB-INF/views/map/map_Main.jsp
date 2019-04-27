@@ -74,7 +74,7 @@ function initTmap(sList){
    						}); 
     
     function setCenter(lng,lat){   
-       map.setCenter(new Tmap.LonLat(lng, lat).transform("EPSG:4326", "EPSG:3857"), 15);
+       map.setCenter(new Tmap.LonLat(lng, lat).transform("EPSG:4326", "EPSG:3857"), 13);
     }
     
     tData = new Tmap.TData();
@@ -100,7 +100,7 @@ function initTmap(sList){
 		locations.push({lonlat:new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857"),
 			slocation: loca, 
 			stitle: "<div style=' position: relative; padding: 0 2px 2px 0;'>"+
-	    "<div style='font-size: 16px; text-align:center '>"+
+	    "<div style='font-size: 16px; text-align:center; font-family:나눔고딕;'>"+
 	         title 	 +   "</div>"+ "</div>"});
 		
 		var a = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");
@@ -115,7 +115,8 @@ function initTmap(sList){
 		//팝업 생성
 		
 		popup = new Tmap.Popup("p1", locations[i].lonlat, new Tmap.Size(120, 50), locations[i].stitle);
-		
+		popup.setBorder("1px solid #8d8d8d");//popup border 조절
+		popup.autoSize = true;//popup 사이즈 자동 조절
 		map.addPopup(popup); // 지도에 팝업 추가
 		
 		
