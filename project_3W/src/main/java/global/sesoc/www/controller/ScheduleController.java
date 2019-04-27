@@ -71,14 +71,13 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping(value = "clickList", method = RequestMethod.POST)
 	public ScheduleVO clickList(int i, HttpSession session){
-		Date sysdate = (Date) session.getAttribute("sysdate");
+		String sysdate = (String) session.getAttribute("sysdate");
 		String email = (String) session.getAttribute("loginId");
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		String formattedDate = format.format(sysdate);
+
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		
 		hmap.put("email", email);
-		hmap.put("startdate", formattedDate);
+		hmap.put("startdate", sysdate);
 		
 		ArrayList<ScheduleVO> sList = dao.getScheduleListClick(hmap);
 		
