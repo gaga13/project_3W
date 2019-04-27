@@ -440,13 +440,14 @@ function changeMapIframe(){
 }
 </script>
 
-<script>
+<!-- iframe오토 리사이즈 -->
+<!-- <script>
 //iframe resize
 function autoResize(i){
 	var iframeHeight = (i).contentWindow.document.body.scrollHeight;
 	(i).height = iframeHeight + 20;
 }
-</script>
+</script> -->
 
 <!-- 메뉴 드롭다운 스크립트 -->
 <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
@@ -481,7 +482,15 @@ $("#gooey-h").gooeymenu({
         });
     </script>
 
-
+<!-- 브라우저 크기에 맞춰 iframe사이즈 변경 -->
+<script type="text/javascript">
+	$(document).ready(function(){
+ 	 $(window).resize(function(){
+  	  $("iframe.myFrame").height($(window).height()-20);
+  	  $("iframe.myFrame").width($(window).width()-20);
+ 	 });
+	});
+</script>
 
 <style>
 #iconimg{position:relative; top:12px;}
@@ -578,7 +587,8 @@ $("#gooey-h").gooeymenu({
 			</a>
 			<div class="divide">
 			<iframe width="90%" height="400px" style="position:relative; left:70px; display:block; border-width: 10px; border-style: solid; border-color:#85ccbb;" src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
-			<iframe width="100%" height="350px"  src="scheduleplus" onload="autoResize(this)" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
+			<iframe width="100%" class="myFrame" height="350px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
+			<!-- height 앞에 onload="autoResize(this)"  -->
 			</div>
 		
 	
