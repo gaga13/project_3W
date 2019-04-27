@@ -90,9 +90,11 @@ $(document).ready(function(){
 		var check = $(this).attr("id");
 			if(check == 'calendar'){
 				document.getElementById("mapIframe").style.display = "none";
+				document.getElementById("mapChangeButton").style.visibility = "hidden";
 			}
 			else{
 				document.getElementById("mapIframe").style.display = "block";
+				document.getElementById("mapChangeButton").style.visibility = "visible";
 			}
 	});
 	
@@ -535,8 +537,9 @@ $("#gooey-h").gooeymenu({
 			          <div id="iconimg"> <img src="resources/img/cal.png" width=80 height=80 >
 			          </div>
 			          <!-- 세션에 저장된 날짜의 값 -->
-			         <div id="day">
-			        	 <%=session.getAttribute("sysdate")%>
+			         <div id="day" style="line-height:0.5cm; padding-left: 25px;">
+			        	 ${oneyear}<br>
+			        	 ${onedays}
 			         </div>
 			          </a>
 			        </li>
@@ -565,14 +568,14 @@ $("#gooey-h").gooeymenu({
 		
 		<!-- 화면 이중분할 -->
 			<!-- 맵전환버튼  -->
-			
-			<div class="mapchagebtn">
-			<!-- style="width:75; height:30px; font-family:inherit; font-weight: 700; background-color:#85ccbb; border:0 solid #a9d7cc"  -->
-				<button type="button" id="mapChangeBtn" style="background-color:#85ccbb; border:0px">
-				<img src="resources/img/map.png" width="40" height="40">
-				</button>
-			</div>
-			
+			<a id="mapChangeButton" style="visibility: visible;">
+				<div class="mapchagebtn">
+				<!-- style="width:75; height:30px; font-family:inherit; font-weight: 700; background-color:#85ccbb; border:0 solid #a9d7cc"  -->
+					<button type="button" id="mapChangeBtn" style="background-color:#85ccbb; border:0px">
+					<img src="resources/img/map.png" width="40" height="40">
+					</button>
+				</div>
+			</a>
 			<div class="divide">
 			<iframe width="90%" height="400px" style="position:relative; left:70px; display:block; border-width: 10px; border-style: solid; border-color:#85ccbb;" src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
 			<iframe width="100%" height="350px"  src="scheduleplus" onload="autoResize(this)" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
