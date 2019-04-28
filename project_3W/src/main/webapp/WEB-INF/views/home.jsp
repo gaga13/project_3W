@@ -416,6 +416,9 @@ function Search_sub(){
 //위치의 닫기 눌렀을 때 map_Search창 닫기
 function subMapClose(){
 	document.getElementById("subMapControl").style.display = "none";
+	document.getElementById("subpathMap").contentDocument.location.reload(true);
+	$('#result_sub').html("");
+	$('#result_taxi').html("");
 }
 
 
@@ -618,7 +621,7 @@ $("#gooey-h").gooeymenu({
             <input type="text" name = "enddate" id="inenddate" style="width:100px; float:left;">
             <input type="text" name = "enddate" id="inendtime" style="width:100px;">
             <br>
-            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToMapSearch()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="inmapClose" onclick="MapSearchClose()" style="background-color:white; border:0px"><img src="resources/img/checked.png" width="20" height="20"></button></label><br>
+            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToMapSearch()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="inmapClose" onclick="MapSearchClose()" style="background-color:white; border:0px"><img src="resources/img/closed.png" width="20" height="20"></button></label><br>
             <input type="text" class="form-control" name = "slocation" id="inslocation">
            	<input type="hidden" id="slat" name="slatitude">
            	<input type="hidden" id="slon" name="slongitude">
@@ -627,12 +630,14 @@ $("#gooey-h").gooeymenu({
             	<div id="result_loc"></div>
             </div>
            
-            <label for="subroute" class="col-form-label">길찾기 경로 &nbsp; <button type="button" id="submap" onclick="Search_sub()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="submapClose" onclick="subMapClose()" style="background-color:white; border:0px"><img src="resources/img/checked.png" width="20" height="20"></button></label><br>
+            <label for="subroute" class="col-form-label">길찾기 경로 &nbsp; <button type="button" id="submap" onclick="Search_sub()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="submapClose" onclick="subMapClose()" style="background-color:white; border:0px"><img src="resources/img/closed.png" width="20" height="20"></button></label><br>
             <input type="text" class="form-control"  readonly="readonly" id="subroute" name="subroute"> 
             <input type="hidden" name="subpath" id="input_sub">
             <div id="subMapControl" style="display:none">
             	<iframe width="100%" height="400px" src="map_Traffic" name = "subpathMap" id = "subpathMap"></iframe><br>
-            	<div id="result_sub"></div>
+            	<div id="result_taxi"></div><br>
+            	<div id="result_sub"></div>	           	
+
             </div>            
 			
         </form>
@@ -672,7 +677,7 @@ $("#gooey-h").gooeymenu({
             <label for="local">위치</label>
             <input type="text" class="form-control" name = "slocation" id="setslocation">
             <label for="local">길찾기 경로</label>
-            <input type="text" class="form-control" name = "subroute" id="setsubroute">
+            <input type="text" class="form-control" name = "subroute" id="setsubroute" readonly="readonly">
         </form>
       </div>
       <div class="modal-footer">

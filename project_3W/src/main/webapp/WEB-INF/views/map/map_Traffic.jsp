@@ -24,6 +24,7 @@ var tDistance;
 var start_name;
 var end_name;
 var count = 0;
+var taxi = "";
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
 $(document).ready(function (){
 	initTmap();
@@ -166,11 +167,19 @@ function total(lon1, lat1, lon2, lat2){
 		     xmlDoc = $.parseXML( prtclString ),
 		     $xml = $( xmlDoc ),
 		     $intRate = $xml.find("Document");
-		
 		     tDistance = ($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1);
-		     var tTime = " 총 시간 : "+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+"분,";
+ 		     
+/*		     var taxi = '<b>택시</b><br><table border="1"><tr><td>거리</td><td>시간(분)</td><td>요금</td></tr>';
+		     taxi+='<tr><td>'+tDistance+'</td>';
+		     taxi+='<td text-align="center">'+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+'</td>';
 		     var tFare = " 총 요금 : "+$intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue+"원,";
-		     var taxiFare = " 예상 택시 요금 : "+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+"원";
+		     taxi+='<td>'+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+'</td></tr>';
+			taxi+='</table>'; */
+			
+			 taxi += '<b>택시</b><br>';
+		     taxi+='<span>거리 : '+tDistance+"km, ";
+		     taxi+='시간 : '+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+'분, ';
+		     taxi+='요금 : '+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+'원</span>';
 			
 		     // 출발 - 도착지점 거리 700m 이하시 다시 찍도록 하기
 		     if(tDistance <= 2){
@@ -179,7 +188,7 @@ function total(lon1, lat1, lon2, lat2){
 		    	return;
 		     }
 		     else{
-			     $("#result2").text(tDistance+tTime+tFare+taxiFare);
+			     
 			
 			     // 실시간 교통정보 추가
 			     var trafficColors = {
@@ -215,7 +224,7 @@ function total(lon1, lat1, lon2, lat2){
 
 //ODsay api 호출
 function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
-	var str = '<table border=1><tr><td width="40px" align="center" >추천</td><td align="center" width="345px">경로</td><td width="35px" align="center" >시간(분)</td><td>요금</td><td>경로등록</td></tr>';
+	var str = '<b>대중교통</b><br><table border=1><tr><td width="40px" align="center" >추천</td><td align="center" width="345px">경로</td><td width="35px" align="center" >시간(분)</td><td>요금</td><td>경로등록</td></tr>';
 	var xhr = new XMLHttpRequest();
 	var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+lon1+"&SY="+lat1+"&EX="+lon2+"&EY="+lat2+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
 	xhr.open("GET", url, true);
@@ -266,7 +275,7 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 							}else{
 							str+='<td align="center">'+ph[i].info.payment+'</td>';
 							}
-							str+='<td><button type="button" class="setsub" datanum='+i+'>등록</button></td></tr>';
+							str+='<td><button type="button" style="background-color:white; border:0px;" class="setsub" datanum='+i+'><img src="resources/img/checked.png" width="20" height="20"></button></td></tr>';
 						}
 					}else {
 			
@@ -276,17 +285,19 @@ function searchPubTransPathAJAX(lon1, lat1, lon2, lat2) {
 							str+='<td align="center">'+e[i].time+'</td>';
 							if(e[i].payment == 0){
 								str+='<td align="center">가격 미정</td>';	
-								str+='<td><button>등록</button></td></tr>';
+								str+='<td><button type="button" style="background-color:white; border:0px;"><img src="resources/img/checked.png" width="20" height="20"></button></td></tr>';
 							}else{
 							str+='<td align="center">'+e[i].payment+'</td>';
-							str+='<td><button>등록</button></td></tr>';
+							str+='<td><button type="button" style="background-color:white; border:0px;"><img src="resources/img/checked.png" width="20" height="20"></button></td></tr>';
 							}
 						}
 						
 					}
 					
 						str+='</table>';
+					$("#result_taxi", parent.document).html(taxi);
 					$('#result_sub', parent.document).html(str);
+
 					$('.setsub', parent.document).on('click',{sub:e},set_subPath);
 				},
 				//요청 실패시 어떻게 할 것인가. 방법 2: 안에 함수 넣어버리기(추가할 내용이 짧을 때 유용).
@@ -416,6 +427,7 @@ function reverseGeoCording(location){
 		parent.subMapClose();
 		location.reload();
 		$('#result_sub', parent.document).html("");
+		$('#result_taxi', parent.document).html("");
 	}
 
 </script>
