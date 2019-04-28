@@ -74,9 +74,9 @@ function initTmap(sList){
    						}); 
     
     function setCenter(lng,lat){   
-       map.setCenter(new Tmap.LonLat(lng, lat).transform("EPSG:4326", "EPSG:3857"), 13);
+       map.setCenter(new Tmap.LonLat(lng, lat).transform("EPSG:4326", "EPSG:3857"), 10);
     }
-    
+    //map.ctrl_nav.enableZoomWheel(); 		//지도 확대 축소 기능 활성화 - 효과 없음
     tData = new Tmap.TData();
    
     markerLayer = new Tmap.Layer.Markers();//마커 레이어 생성
@@ -93,7 +93,9 @@ function initTmap(sList){
 		var slon = sList[i].slongitude;
 	
 		var loca = sList[i].slocation;
-		var title = sList[i].startdate + '<br>' + sList[i].scontent;
+		var content = sList[i].scontent;
+		var start = sList[i].startdate;
+		var title = sList[i].startdate + '<br>' + sList[i].slocation;
 		var sslonlat = slat + ',' + slon;
 		
 		//팝업을 위한 배열(위치값 , 팝업에 띄울 값)
@@ -106,14 +108,15 @@ function initTmap(sList){
 		var a = new Tmap.LonLat(slon, slat).transform("EPSG:4326", "EPSG:3857");
 		var b = a.lon + ',' + a.lat;
 		
-		checkLonlat.push({originLonlat:sslonlat, transLonlat:b});
+		//확인용 배열
+		checkLonlat.push({originLonlat:sslonlat, transLonlat:b, scontent: content, startdate: start, slocation: loca });
 		
 		var lonlat = locations[i].lonlat; // 마커 위치
 		var title = locations[i].stitle; // 마커 타이틀
 		marker = new Tmap.Marker(lonlat, icon);//마커 생성
 		markerLayer.addMarker(marker); //마커 레이어에 마커 추가
-		//팝업 생성
 		
+		//팝업 생성
 		popup = new Tmap.Popup("p1", locations[i].lonlat, new Tmap.Size(120, 50), locations[i].stitle);
 		popup.setBorder("1px solid #8d8d8d");//popup border 조절
 		popup.autoSize = true;//popup 사이즈 자동 조절
@@ -126,8 +129,7 @@ function initTmap(sList){
 		marker.events.register("click", new MarkerPopup(marker, popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
 		marker.events.register("mouseover", new MarkerPopup(marker, popup), onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
 		marker.events.register("mouseout", new MarkerPopup(marker, popup), onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
-		
-		
+
 	} 
 // 마커에 마우스가 오버되었을 때 발생하는 이벤트 함수입니다.
 function onOverMarker(evt) {
@@ -179,25 +181,39 @@ function onClickMarker(evt) {
 	icon = new Tmap.Icon('resources/img/marker/marker_red.png' ,size, offset); // 마커 아이콘 생성
 	
 	marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
-	selectMarker=marker; // 선택된 마커 저장
-	selectPopup=this.popup; // 선택된 팝업 저장 
+	selectMarker = marker; // 선택된 마커 저장
+	selectPopup = this.popup; // 선택된 팝업 저장 
 	markerLayer.addMarker(marker); // 마커레이어에 마커 추가
 	
-	
+	var olonlat;
 	for(var i = 0; i < checkLonlat.length; i++){
 		
 		if(checkLonlat[i].transLonlat == tlonlat){
-			var olonlat = checkLonlat[i].originLonlat;
+			 olonlat = checkLonlat[i].originLonlat;
 		}
 	} 
 	console.log(olonlat);
 
 	//session에 값 저장
 	reverseGeoCording(olonlat);
-	//marker.events.register("click", new MarkerPopup(marker, this.popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
 	
 	
+	//시간, 제목 띄우기
+	for( var i = 0; i < checkLonlat.length; i++ ){
+		if(checkLonlat[i].transLonlat == tlonlat){
+			var notice = '[ ' + checkLonlat[i].startdate + ' ' + checkLonlat[i].scontent + ' ] 스케쥴이 선택되었습니다.';
+			var slocation = checkLonlat[i].slocation;
+		}
 	}
+	
+	//session에  searchLocation, searchLocationLat, searchLocationLon	저장
+	setSession(olonlat, slocation);
+	
+	alert(notice);
+	}
+	
+	
+	
 		
 }
 
@@ -236,7 +252,29 @@ function reverseGeoCording(olonlat){
 	   }); 
 	   top.frames["box2"].location.reload();
 } 
+	
+//session에  searchLocation, searchLocationLat, searchLocationLon	저장
+function setSession(olonlat, slocation){
+	
+	var seslonlatList = olonlat.split(',');
+	var lat = seslonlatList[0];
+	var lon = seslonlatList[1];
+	
+   $.ajax({
+	      url: 'setSession',
+	      type: 'post',
+	      data: {searchLocationLat: lat, searchLocationLon:lon, searchLocation: slocation},
+	      dataType: 'text',
+	      success: function(){
+	      },
+	      error: function (e) {
+	         alert(JSON.stringify(e));
+	         
+	      }
+	   }); 
 
+
+} 
 
 </script>
 <title>Insert title here</title>

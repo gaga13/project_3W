@@ -60,9 +60,14 @@ public class MapController {
 		return "map/mapTest3";
 	}
 	
-	//연습용
-	@RequestMapping(value="/mapTest4", method=RequestMethod.GET)
-	public String mapTest4(){
-		return "map/mapTest4";
+	@ResponseBody
+	@RequestMapping(value="/setSession", method=RequestMethod.POST)
+	public void setSession(String searchLocation, String searchLocationLat
+			, String searchLocationLon, HttpSession ses){
+		
+		ses.setAttribute("searchLocation", searchLocation);
+		ses.setAttribute("searchLocationLat", searchLocationLat);
+		ses.setAttribute("searchLocationLon", searchLocationLon);
+		
 	}
 }
