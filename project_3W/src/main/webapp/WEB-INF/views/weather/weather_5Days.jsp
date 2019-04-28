@@ -306,14 +306,41 @@ $(document).ready(function(){
 #weather {
 	position: absolute;
 	top: 60px;
-	left: 80px;
+	left: 50px;
 }
 
 #weathertime {
 	position: relative;
 	left: -80px;
+	top: 40px;
 	display: inline-block;
 	color: white;
+}
+#weather_icon{
+	display:inline-blick;
+}
+.weather_out{
+		width :100%;
+		text-align:center;
+		position: relative;
+		top: 100px;}
+#weather_icon_table{
+	position:absolute;
+	top:50px;
+}
+#weatehrImg{ 
+position:relative;
+top:50px;
+color: #85ccbb;}
+
+#a{
+position:absolute;;
+top:80px;
+left:40px;
+}
+#5Daysweather{
+border-spacing: 10px;
+ border-collapse: separate;
 }
 </style>
 <title>실시간 날씨</title>
@@ -321,16 +348,20 @@ $(document).ready(function(){
 </head>
 <body>
 	<div id="weather"
-		style="height: 400px; width: 900px; border: 2px solid white; padding-left: 110px; padding-right: -70px; padding-top: 20px;">
-		<table>		
+		style="height: 400px; width: 1550px; border: 2px solid white; padding-left: 110px; padding-right: -70px; padding-top: 10px;">
+		<table id="5Daysweather">		
 			<tr>	
 				<c:forEach var="i" begin="0" end="39">		
-					<td>
-						<div id="weathertime">
+					<td >
+						<div id="weathertime" style="height:40px">
 							<div id="time${i}"></div>
 							<div id="temp${i}"></div>
 							<div id="weather${i}"></div>
+							<div id="a">
+							<div id="weatehrImg">
 							<div id="weatherImage${i}"></div>
+							</div>
+							</div>
 						</div>
 					</td>
 				</c:forEach>
@@ -340,75 +371,81 @@ $(document).ready(function(){
 			</tr>
 		</table>
 	</div>
-	<div id="sun" style="visibility: hidden;">
-		<div class="sun">
-			<div class="rays"></div>
-		</div>
-	</div>
-	<!-- 비 -->
-	<div id="rain" style="visibility: hidden;">
-		<div class="icon_rain">
-			<div class="cloud"></div>
-			<div class="rain"></div>
-		</div>
-	</div>
-
-	<!--구름  -->
-	<div id="cloudy" style="visibility: hidden;">
-		<div class="icon cloudy">
-			<div class="cloud"></div>
-			<div class="cloud"></div>
-		</div>
-	</div>
-
-	<!--황사  -->
-	<div id="sand" style="visibility: hidden;">
-		<div class="icon sand">
-			<div class="sand"></div>
-			<div class="sand"></div>
-		</div>
-	</div>
-
-	<!-- 폭우 -->
-	<div id="storm" style="visibility: hidden;">
-		<div class="icon thunder-storm">
-			<div class="cloud"></div>
-			<div class="lightning">
-				<div class="bolt"></div>
-				<div class="bolt"></div>
+	
+	<table id="weather_icon_table">
+	
+	<div class="weatehr_out">
+		<div id="weather_icon">
+			<div id="sun" style="visibility: hidden;">
+				<div class="sun">
+					<div class="rays"></div>
+				</div>
+			</div>
+			<!-- 비 -->
+			<div id="rain" style="visibility: hidden;">
+				<div class="icon_rain">
+					<div class="cloud"></div>
+					<div class="rain"></div>
+				</div>
+			</div>
+		
+			<!--구름  -->
+			<div id="cloudy" style="visibility: hidden;">
+				<div class="icon cloudy">
+					<div class="cloud"></div>
+					<div class="cloud"></div>
+				</div>
+			</div>
+		
+			<!--황사  -->
+			<div id="sand" style="visibility: hidden;">
+				<div class="icon sand">
+					<div class="sand"></div>
+					<div class="sand"></div>
+				</div>
+			</div>
+		
+			<!-- 폭우 -->
+			<div id="storm" style="visibility: hidden;">
+				<div class="icon thunder-storm">
+					<div class="cloud"></div>
+					<div class="lightning">
+						<div class="bolt"></div>
+						<div class="bolt"></div>
+					</div>
+				</div>
+			</div>
+		
+			<!-- 천둥번개 -->
+			<div id="thunder" style="visibility: hidden;">
+				<div class="icon thunder">
+					<div class="lightning">
+						<div class="bolt"></div>
+						<div class="bolt"></div>
+					</div>
+				</div>
+			</div>
+		
+			<!-- 폭설 -->
+			<div id="flurries" style="visibility: hidden;">
+				<div class="icon flurries">
+					<div class="cloud"></div>
+					<div class="snow">
+						<div class="flake"></div>
+						<div class="flake"></div>
+					</div>
+				</div>
+			</div>
+		
+			<!-- 눈 -->
+			<div id="snow" style="visibility: hidden;">
+				<div class="icon snow">
+					<div class="flake"></div>
+					<div class="flake"></div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- 천둥번개 -->
-	<div id="thunder" style="visibility: hidden;">
-		<div class="icon thunder">
-			<div class="lightning">
-				<div class="bolt"></div>
-				<div class="bolt"></div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 폭설 -->
-	<div id="flurries" style="visibility: hidden;">
-		<div class="icon flurries">
-			<div class="cloud"></div>
-			<div class="snow">
-				<div class="flake"></div>
-				<div class="flake"></div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 눈 -->
-	<div id="snow" style="visibility: hidden;">
-		<div class="icon snow">
-			<div class="flake"></div>
-			<div class="flake"></div>
-		</div>
-	</div>
-
-
+</table>
 </body>
 </html>
