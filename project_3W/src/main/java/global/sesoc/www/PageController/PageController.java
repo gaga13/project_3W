@@ -17,7 +17,10 @@ public class PageController {
 	
 	//한달 캘린더 페이지로 이동
 	@RequestMapping(value="calendar", method=RequestMethod.GET)
-	public String calendar(){
+	public String calendar(HttpSession session){
+		session.removeAttribute("searchLocation");
+		session.removeAttribute("searchLocationLat");
+		session.removeAttribute("searchLocationLon");
 		return "Mcalendar";
 	}
 	
@@ -29,14 +32,20 @@ public class PageController {
 
 	//뉴스 페이지로 이동
 	@RequestMapping(value="news", method=RequestMethod.GET)
-	public String news(){
+	public String news(HttpSession session){
+		session.removeAttribute("searchLocation");
+		session.removeAttribute("searchLocationLat");
+		session.removeAttribute("searchLocationLon");
 		return "news";
 	}
 	
 
 	//하루일정 입력 페이지로 이동
 	@RequestMapping(value="scheduleplus", method=RequestMethod.GET)
-	public String schedule_plus(){
+	public String schedule_plus(HttpSession session){
+		session.removeAttribute("searchLocation");
+		session.removeAttribute("searchLocationLat");
+		session.removeAttribute("searchLocationLon");
 		return "schedule";
 	}
 

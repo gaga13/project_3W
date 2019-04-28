@@ -36,10 +36,10 @@ function list(){
 
 function outnews(json){
 	var str = '<table>';
-		str +='<tr><td width="600px">제목</td>';
-		str +='<td width="115px" text-align="center">날짜</td>';
-		str +='<td width="600px">제목</td>';
-		str +='<td width="115px" text-align="center">날짜</td></tr>';
+		str +='<tr><td width="550px">제목</td>';
+		str +='<td width="110px" text-align="center">날짜</td>';
+		str +='<td width="550px">제목</td>';
+		str +='<td width="110px" text-align="center">날짜</td></tr>';
 		str += '<tr>';
 	$.each(json, function(key,item){	
 		str += '<td><a href='+item.link+' target="_blank">'+item.title+'</a></td>';

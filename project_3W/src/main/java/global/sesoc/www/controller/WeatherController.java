@@ -45,6 +45,7 @@ public class WeatherController {
 	@ResponseBody
 	@RequestMapping(value = "/translate", method=RequestMethod.GET)
 	public String translate(String country, HttpSession session){
+		session.setAttribute("searchLocation", country);
 		String save = null;
 		String clientId = "ibvum1Y0Dx5JXH1pXGDp";
         String clientSecret = "4Bwp4Jf6Cg";
@@ -114,5 +115,18 @@ public class WeatherController {
 		map.put("lng", lng);
 		
 		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="searchLocationSave", method=RequestMethod.POST)
+	public void searchLocationSave(String loc, HttpSession session){
+		String ar[] = loc.split("\n");
+		String lat = ar[1].substring(4);
+		String lon = ar[2].substring(4);
+		
+		session.setAttribute("searchLocationLat", lat);
+		session.setAttribute("searchLocationLon", lon);
+		
+		return;
 	}
 }
