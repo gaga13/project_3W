@@ -537,13 +537,8 @@ $("#gooey-h").gooeymenu({
 <!-- 끝 -->
 	      <table>
 		        <div class="social-icons">
-			        <!-- 날씨 -->
-			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="weather" target="box2" id="weather">
-			        <div id="iconimg"><img src="resources/img/sun.png" width=80 height=80></div> </a>
-			        </li>
-			      
-			        <!-- 달력 -->
+		        
+		        <!-- 달력 -->
 			        <li class="nav-item">
 			          <a class="nav-link js-scroll-trigger" href="calendar" target="box2" id="calendar">
 			          <div id="iconimg"> <img src="resources/img/cal.png" width=80 height=80 >
@@ -554,6 +549,12 @@ $("#gooey-h").gooeymenu({
 			        	 ${onedays}
 			         </div>
 			          </a>
+			        </li>
+		        
+			        <!-- 날씨 -->
+			        <li class="nav-item">
+			          <a class="nav-link js-scroll-trigger" href="weather" target="box2" id="weather">
+			        <div id="iconimg"><img src="resources/img/sun.png" width=80 height=80></div> </a>
 			        </li>
 			      
 			        <!-- 뉴스 -->
