@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="resources/js/jquery-3.3.1.js"></script>
 <script
-   src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=99ed5523-2eb1-46fb-8cf0-60d0377b2345"></script>
+	src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=99ed5523-2eb1-46fb-8cf0-60d0377b2345"></script>
 <script>
 var map, marker, popup, markerLayer;
 var lonlat, size, offset, icon, index, img;
@@ -131,90 +131,98 @@ function initTmap(sList){
 		marker.events.register("mouseout", new MarkerPopup(marker, popup), onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
 
 	} 
-// 마커에 마우스가 오버되었을 때 발생하는 이벤트 함수입니다.
-function onOverMarker(evt) {
-	this.popup.show(); // 마커에 마우스가 오버되었을 때 팝업이 보입니다. 
-	
-	markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
-	size = new Tmap.Size(28, 34); // 마커 사이즈 지정
-	icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 지정
-	marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
-	markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-	marker.events.register("mouseout", new MarkerPopup(marker, this.popup), onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
-	marker.events.register("click", new MarkerPopup(marker, this.popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
-}
-//마커에 마우스가 아웃되었을 때 발생하는 이벤트 함수입니다.
-function onOutMarker(evt) {
-	this.popup.hide(); // 마커에 마우스가 없을땐 팝업이 숨겨집니다.
-	
-	markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
-	size = new Tmap.Size(28, 34); // 마커 사이즈 지정
-	icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 지정
-	marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
-	markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-	marker.events.register("mouseover", new MarkerPopup(marker, this.popup), onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
-	
-}	  	
-// 마커가 클릭되었을 때 발생하는 이벤트 함수입니다.
-function onClickMarker(evt) {	
+	// 마커에 마우스가 오버되었을 때 발생하는 이벤트 함수입니다.
+	function onOverMarker(evt) {
+		this.popup.show(); // 마커에 마우스가 오버되었을 때 팝업이 보입니다. 
 		
-	this.popup.hide(); // 클릭했을때 팝업이 숨겨집니다.
-	var tlonlat = this.popup.lonlat.lon + ',' + this.popup.lonlat.lat;
-	
-	if( selectMarker ) {
-		// 기존 빨간 마커 지우기
-		markerLayer.removeMarker(selectMarker);
-		// 기존 빨간 마커 파란 마커로 다시 그리기
+		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
+		size = new Tmap.Size(28, 34); // 마커 사이즈 지정
+		icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 지정
+		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
+		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+		marker.events.register("mouseout", new MarkerPopup(marker, this.popup), onOutMarker); // 마커위에 있던 마우스 포인터가 밖으로 나갔을 때 이벤트 설정
+		marker.events.register("click", new MarkerPopup(marker, this.popup), onClickMarker); // 마커를 클릭했을 때 이벤트 설정
+	}
+	//마커에 마우스가 아웃되었을 때 발생하는 이벤트 함수입니다.
+	function onOutMarker(evt) {
+		this.popup.hide(); // 마커에 마우스가 없을땐 팝업이 숨겨집니다.
 		
+		markerLayer.removeMarker(this.marker); // 기존의 마커를 지웁니다.
+		size = new Tmap.Size(28, 34); // 마커 사이즈 지정
+		icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 지정
+		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
+		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+		marker.events.register("mouseover", new MarkerPopup(marker, this.popup), onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+		
+	}	  	
+	// 마커가 클릭되었을 때 발생하는 이벤트 함수입니다.
+	function onClickMarker(evt) {	
+		
+		this.popup.hide(); // 클릭했을때 팝업이 숨겨집니다.
+		var tlonlat = this.popup.lonlat.lon + ',' + this.popup.lonlat.lat;
+		
+		if( selectMarker ) {
+			// 기존 빨간 마커 지우기
+			markerLayer.removeMarker(selectMarker);
+			// 기존 빨간 마커 파란 마커로 다시 그리기
+			
+			size = new Tmap.Size(28, 34); // 마커 아이콘 사이즈 지정
+			
+			icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 생성
+			marker = new Tmap.Marker(selectMarker.lonlat, icon); // 마커 생성
+			markerLayer.addMarker(marker); // 마커레이어에 마커 추가
+			marker.events.register("mouseover", new MarkerPopup(marker, selectPopup), onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+		}
+		
+		// 빨간 마커 그리기
+		markerLayer.removeMarker(this.marker); // 마커 삭제
 		size = new Tmap.Size(28, 34); // 마커 아이콘 사이즈 지정
 		
-		icon = new Tmap.Icon('resources/img/marker/maps-and-flags (2).png',size, offset); // 마커 아이콘 생성
-		marker = new Tmap.Marker(selectMarker.lonlat, icon); // 마커 생성
+		icon = new Tmap.Icon('resources/img/marker/marker_red.png' ,size, offset); // 마커 아이콘 생성
+		
+		marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
+		selectMarker = marker; // 선택된 마커 저장
+		selectPopup = this.popup; // 선택된 팝업 저장 
 		markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-		marker.events.register("mouseover", new MarkerPopup(marker, selectPopup), onOverMarker); // 마커위로 마우스 포인터가 들어왔을 때 이벤트 설정
+		
+		var olonlat;
+		for(var i = 0; i < checkLonlat.length; i++){
+			
+			if(checkLonlat[i].transLonlat == tlonlat){
+				 olonlat = checkLonlat[i].originLonlat;
+			}
+		} 
+		console.log(olonlat);
+	
+		//session에 값 저장
+		reverseGeoCording(olonlat);
+		
+		
+		//시간, 제목 띄우기
+		for( var i = 0; i < checkLonlat.length; i++ ){
+			if(checkLonlat[i].transLonlat == tlonlat){
+				var notice = '[ ' + checkLonlat[i].startdate + ' ' + checkLonlat[i].scontent + ' ] 스케쥴이 선택되었습니다.';
+				var slocation = checkLonlat[i].slocation;
+			}
+		}
+		
+		//session에  searchLocation, searchLocationLat, searchLocationLon	저장
+		setSession(olonlat, slocation);
+		
+		alert(notice);
 	}
 	
-	// 빨간 마커 그리기
-	markerLayer.removeMarker(this.marker); // 마커 삭제
-	size = new Tmap.Size(28, 34); // 마커 아이콘 사이즈 지정
-	
-	icon = new Tmap.Icon('resources/img/marker/marker_red.png' ,size, offset); // 마커 아이콘 생성
-	
-	marker = new Tmap.Marker(this.marker.lonlat, icon); // 마커 생성
-	selectMarker = marker; // 선택된 마커 저장
-	selectPopup = this.popup; // 선택된 팝업 저장 
-	markerLayer.addMarker(marker); // 마커레이어에 마커 추가
-	
-	var olonlat;
-	for(var i = 0; i < checkLonlat.length; i++){
-		
-		if(checkLonlat[i].transLonlat == tlonlat){
-			 olonlat = checkLonlat[i].originLonlat;
-		}
-	} 
-	console.log(olonlat);
+	//맵 확대축소 제어 컨트롤러 삭제
+	map.removeZoomControl();
+}
 
-	//session에 값 저장
-	reverseGeoCording(olonlat);
-	
-	
-	//시간, 제목 띄우기
-	for( var i = 0; i < checkLonlat.length; i++ ){
-		if(checkLonlat[i].transLonlat == tlonlat){
-			var notice = '[ ' + checkLonlat[i].startdate + ' ' + checkLonlat[i].scontent + ' ] 스케쥴이 선택되었습니다.';
-			var slocation = checkLonlat[i].slocation;
-		}
-	}
-	
-	//session에  searchLocation, searchLocationLat, searchLocationLon	저장
-	setSession(olonlat, slocation);
-	
-	alert(notice);
-	}
-	
-	
-	
-		
+// 지도의 줌레벨을 한단계 올리는 함수입니다.
+function zoomIn(){
+	map.zoomIn(); //지도를 1레벨 올립니다.
+}
+// 지도의 줌레벨을 한단계 내리는 함수입니다.
+function zoomOut(){
+	map.zoomOut(); //지도를 1레벨 내립니다.
 }
 
 function reverseGeoCording(olonlat){
@@ -272,14 +280,19 @@ function setSession(olonlat, slocation){
 	         
 	      }
 	   }); 
-
-
 } 
-
 </script>
+
 <title>Insert title here</title>
 </head>
 <body>
-<div id="map_div"></div>
+	
+	<div id="map_div">
+	<button onClick="zoomIn()" >
+	<img src="resources/img/plus.png" width="20" height="20">
+	</button>
+	<button onClick="zoomOut()">
+	<img src="resources/img/minus.png" width="20" height="20">
+	</button></div>
 </body>
 </html>
