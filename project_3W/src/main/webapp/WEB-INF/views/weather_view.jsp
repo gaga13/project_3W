@@ -67,7 +67,7 @@ function locationSearch(){
 	<table align="center">
 	<tr>
 		<td></td>
-		<td align="right">
+		<td style="position:relative;">
 			날씨 장소 :
 			<c:choose>
 				<c:when test="${sessionScope.searchLocation == null}">
@@ -81,13 +81,13 @@ function locationSearch(){
 	</tr>
 	<tr>
 		<td></td>
-		<td align="right">위치 검색 : <input type="text" id="Search1" placeholder="Enter your location" width= 100%; height=2000; >
+		<td style="position:relative;">위치 검색 : <input type="text" id="Search1" placeholder="Enter your location" width= 100%; height=2000; >
 		<button type="button" id="bt1" style="background-color: #fff; border: 0px" onclick="locationSearch()">
-		<img src="resources/img/search_icon.png" width="20" height="20"></button></td>
+		<img src="resources/img/search_icon.png" width="18" height="18"></button></td>
 	</tr>
 	<tr>
-		<td rowspan="2"><iframe width="220px" height="500px" src="weather_RealTime" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
-		<td><iframe width="1000px" height="500px" src="weather_5Days" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td rowspan="2"><iframe width="220px" height="400px" src="weather_RealTime" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
+		<td><iframe width="1400px" height="400px" src="weather_5Days" name = "box3" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe></td>
 	</tr> 
 <!-- 	<tr>
 

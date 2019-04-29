@@ -306,7 +306,7 @@ $(document).ready(function(){
 #weather {
 	position: absolute;
 	top: 60px;
-	left: 50px;
+	left: 10px;
 }
 
 #weathertime {
@@ -327,6 +327,7 @@ $(document).ready(function(){
 #weather_icon_table{
 	position:absolute;
 	top:50px;
+	left:20px;
 }
 #weatehrImg{ 
 position:relative;
@@ -336,19 +337,42 @@ color: #85ccbb;}
 #a{
 position:absolute;;
 top:80px;
-left:40px;
+left:30px;
 }
 #5Daysweather{
 border-spacing: 10px;
  border-collapse: separate;
 }
+ 
+.box:before {
+    content: "";
+    display: block;
+    padding-top: 100%; /* 1:1 비율 */
+}
+ 
+.content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+/* 화면 비율 조정 */
+.box {
+    height:100%;
+    width:100%;
+}
+
+
 </style>
 <title>실시간 날씨</title>
 
 </head>
 <body>
+<div class="box">
 	<div id="weather"
-		style="height: 400px; width: 1550px; border: 2px solid white; padding-left: 110px; padding-right: -70px; padding-top: 10px;">
+		style="height: 300px; width: 1300px;  border: 2px solid white; padding-left: 110px; padding-right: -70px; padding-top: 10px;">
 		<table id="5Daysweather">		
 			<tr>	
 				<c:forEach var="i" begin="0" end="39">		
@@ -447,5 +471,6 @@ border-spacing: 10px;
 		</div>
 	</div>
 </table>
+</div>
 </body>
 </html>

@@ -188,10 +188,17 @@ $(document).ready(function(){
 })
 
 </script>
+<style>
+#cloudy{position:relative;
+	top:30px;
+	left:30px;
+}
+.tem{display:inline-block;}
+.weatherinfo{text-align:center;}
+
+</style>
+
 <title>실시간 날씨 - 현재위치 자동으로 받아와서</title>
-<script>
-	
-</script>
 </head>
 <body>
 <!-- 
@@ -201,93 +208,95 @@ $(document).ready(function(){
 <!-- <h3 color="white">오늘의 날씨 정보</h3> -->
 <!-- 날씨별 css -->
 
-<table style="border-spacing: 500px;">
-<tr>
+<table  style="border-spacing: 400px;">
 
-	<div class="tem" style="color:white" >
-	날씨  <div id="outputDiv2"> </div><br>
-	</div>
-</tr>
-
-<tr>
-	<div id="sun">
-	 <div class="sun">
-	    <div class="rays"></div>
-	  </div>  
-	</div>
-	
-	<!-- 비 -->
-	<div id="rain">
-	  	<div class="icon_rain">
-	  	<div class="cloud"></div>
-	  	<div class="rain"></div>
-		</div>  
-	</div>
-	
-	<!--구름  -->
-	<div id="cloudy">
-	<div class="icon cloudy">
-	  <div class="cloud"></div>
-	  <div class="cloud"></div>
-	</div> 
-	 </div>
-	 
-	<!--황사  -->
-	<div id="sand">
-	   <div class="icon sand">
-	  <div class="sand"></div>
-	  <div class="sand"></div>
-	</div> 
-	</div>
-	
-	<!-- 폭우 -->
-	<div id="storm">
-	<  <div class="icon thunder-storm">
-	  <div class="cloud"></div>
-	  <div class="lightning">
-	    <div class="bolt"></div>
-	    <div class="bolt"></div>
-	  </div>
-	</div> 
-	</div>
-	
-	<!-- 천둥번개 -->
-	<div id="thunder">
-	  <div class="icon thunder">
-		 <div class="lightning">
-	    <div class="bolt"></div>
-	    <div class="bolt"></div>
-	  </div>
-	</div>  
-	</div>
-	
-	<!-- 폭설 -->
-	<div id="flurries">
-	  <div class="icon flurries">
-	  <div class="cloud"></div>
-	  <div class="snow">
-	    <div class="flake"></div>
-	    <div class="flake"></div>
-	  </div>
-	</div>  
-	</div>
-	
-	<!-- 눈 -->
-	<div id="snow">
-	  <div class="icon snow">
-	    <div class="flake"></div>
-	    <div class="flake"></div>
-	</div>  
-	</div>
-</tr>
-<!--  <tr><img src="resources/img/table_space.png" height="200px"></tr>   -->
-
-	<tr height="200px"></tr>
 	<tr>
-	<div class="tem" style="color:white">
-	현재 기온  <div id="outputDiv1"></div>
-	</div>
+	<div class="weatherinfo">
+	  <div class="tem" style="color:white" >
+	  <div id="outputDiv2"> </div><br>
+		</div>
+		</div>
 	</tr>
+	
+	<tr>
+		<div id="sun">
+		 <div class="sun">
+		    <div class="rays"></div>
+		  </div>  
+		</div>
+		
+		<!-- 비 -->
+		<div id="rain">
+		  	<div class="icon_rain">
+		  	<div class="cloud"></div>
+		  	<div class="rain"></div>
+			</div>  
+		</div>
+		
+		<!--구름  -->
+		<div id="cloudy">
+		<div class="icon cloudy">
+		  <div class="cloud"></div>
+		  <div class="cloud"></div>
+		</div> 
+		 </div>
+		 
+		<!--황사  -->
+		<div id="sand">
+		   <div class="icon sand">
+		  <div class="sand"></div>
+		  <div class="sand"></div>
+		</div> 
+		</div>
+		
+		<!-- 폭우 -->
+		<div id="storm">
+		<  <div class="icon thunder-storm">
+		  <div class="cloud"></div>
+		  <div class="lightning">
+		    <div class="bolt"></div>
+		    <div class="bolt"></div>
+		  </div>
+		</div> 
+		</div>
+		
+		<!-- 천둥번개 -->
+		<div id="thunder">
+		  <div class="icon thunder">
+			 <div class="lightning">
+		    <div class="bolt"></div>
+		    <div class="bolt"></div>
+		  </div>
+		</div>  
+		</div>
+		
+		<!-- 폭설 -->
+		<div id="flurries">
+		  <div class="icon flurries">
+		  <div class="cloud"></div>
+		  <div class="snow">
+		    <div class="flake"></div>
+		    <div class="flake"></div>
+		  </div>
+		</div>  
+		</div>
+		
+		<!-- 눈 -->
+		<div id="snow">
+		  <div class="icon snow">
+		    <div class="flake"></div>
+		    <div class="flake"></div>
+		</div>  
+		</div>
+	</tr>
+	 <tr><img src="resources/img/weatherbg.png" height="150px"></tr>   
+	
+		<tr>
+		<div class="tem" style="color:white">
+		현재 기온  <div id="outputDiv1"></div>
+		</div>
+		</tr>
+	
 </table>
 </body>
 </html>

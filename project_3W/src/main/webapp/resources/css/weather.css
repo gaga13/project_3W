@@ -6,7 +6,7 @@ html *:after { box-sizing: inherit; }
 
 body {
   max-width: 42em;
-  padding: 5em;
+  padding: 4.5em;
   margin: 0 auto;
   color: #85ccbb;
   font-family: 'Roboto', sans-serif;
