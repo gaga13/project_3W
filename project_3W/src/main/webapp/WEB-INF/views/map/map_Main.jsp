@@ -212,9 +212,7 @@ function onClickMarker(evt) {
 	alert(notice);
 	}
 	
-	
-	
-		
+			
 }
 
 function reverseGeoCording(olonlat){
@@ -272,7 +270,9 @@ function setSession(olonlat, slocation){
 	         
 	      }
 	   }); 
+  
 
+    
 
 } 
 
