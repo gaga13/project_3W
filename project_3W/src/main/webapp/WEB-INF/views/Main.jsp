@@ -230,7 +230,7 @@ function XMLParsing(xml){
 <body>
 	
 	<!-- 회원가입 완료 했을 때 완료했다는 알림 뜨는 곳 -->
-	<a id="joinImage" style="visibility: hidden;"><img src="resources/img/joinImage.png"/></a>
+	<a id="joinImage" style="visibility: hidden; position:absolute; top:180px; left:1000px;" ><img src="resources/img/joinImage.png"/></a>
 	
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
