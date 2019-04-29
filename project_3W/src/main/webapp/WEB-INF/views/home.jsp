@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 
 <html>
 <head>
-	<title>Home</title>
-	
-<link href="<c:url value='resources/css/jquery-ui.css'/>" rel="stylesheet" type="text/css">
-<link href="<c:url value='resources/css/jquery.timepicker.min.css'/>" rel="stylesheet" type="text/css">
+<title>Home</title>
+
+<link href="<c:url value='resources/css/jquery-ui.css'/>"
+	rel="stylesheet" type="text/css">
+<link href="<c:url value='resources/css/jquery.timepicker.min.css'/>"
+	rel="stylesheet" type="text/css">
 <script src="<c:url value='resources/jquery/jquery-3.3.1.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery-ui.min.js'/>"></script>
 <script src="<c:url value='resources/jquery/jquery.timepicker.min.js'/>"></script>
@@ -16,51 +18,60 @@
 <script src="<c:url value='resources/jquery/datepicker-ko-KR.js'/>"></script>
 
 <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!-- menu meta -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- menu meta -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>WWW에 오신것을 환영합니다</title>
+<title>WWW에 오신것을 환영합니다</title>
 
 
-  <!-- Bootstrap core JavaScript -->
-  <!-- <script src="resources/vendor/jquery/jquery.min.js"></script> -->
-  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<!-- <script src="resources/vendor/jquery/jquery.min.js"></script> -->
+<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for this template -->
-  <script src="resources/js/resume.min.js"></script>
-   
-  <!-- Bootstrap core CSS -->
-  <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom scripts for this template -->
+<script src="resources/js/resume.min.js"></script>
 
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
-  <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="resources/css/resume.min.css" rel="stylesheet">
-	
-  <!-- 메뉴 css-->
-  	<link rel="stylesheet" href="resources/css/menu.bootstrap.min.css">
-    	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
-    	<link rel="stylesheet" type="resources/text/css" href="css/htmleaf-demo.css">
-    	<link rel="stylesheet" href="resources/css/gooey.min.css">
-    	<link rel="stylesheet" href="resources/css/livedemo.css">
- <style>
-        .prettyprint ol.linenums > li {
-            list-style-type: decimal;
-        }
-    </style> 
-  
-  
-<link href="<c:url value='resources/css/bootstrap.min.css'/>" rel="stylesheet" type="text/css">
+<!-- Custom fonts for this template -->
+<link
+	href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
+	rel="stylesheet">
+<link href="resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="resources/css/resume.min.css" rel="stylesheet">
+
+<!-- 메뉴 css-->
+<link rel="stylesheet" href="resources/css/menu.bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+<link rel="stylesheet" type="resources/text/css"
+	href="css/htmleaf-demo.css">
+<link rel="stylesheet" href="resources/css/gooey.min.css">
+<link rel="stylesheet" href="resources/css/livedemo.css">
+<style>
+.prettyprint ol.linenums>li {
+	list-style-type: decimal;
+}
+</style>
+
+
+<link href="<c:url value='resources/css/bootstrap.min.css'/>"
+	rel="stylesheet" type="text/css">
 <script>
 $(document).ready(function(){
 	
@@ -150,10 +161,8 @@ function pickTime(){
 		  $('#updateModal #setenddate').datepicker({
 			  dateFormat: "yy-mm-dd",
 		    	firstDay: 0
-		    });
-	  
+		    });	  
 }
-
 
 //시간 제한
 function sted(info){
@@ -421,6 +430,15 @@ function subMapClose(){
 	$('#result_taxi').html("");
 }
 
+//main맵 확대하기
+function mapMainIn(){
+	box1.zoomIn();
+}
+
+//main맵 축소하기
+function mapMainOut(){
+	box1.zoomOut();
+}
 
 //menu드롭 사이드
 $(function() {
@@ -431,7 +449,8 @@ $(function() {
                     menuItemPosition: "glue"
                 }
          });
-         });
+});
+         
 //맵 전환 이벤트 함수
 function changeMapIframe(){
 	if($('#mapIframe').attr('src') == 'map_Main'){
@@ -453,13 +472,13 @@ function autoResize(i){
 </script> -->
 
 <!-- 메뉴 드롭다운 스크립트 -->
-<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"
+	type="text/javascript"></script>
 <script>window.jQuery || document.write('<script src="resources/jquery/jquery-2.1.1.min.js"><\/script>')</script>
 <script src="resources/jquery/gooey.min.js"></script>
-	<script>
-        $(function($) {
-            
-$("#gooey-h").gooeymenu({
+<script>
+$(function($) {            
+	$("#gooey-h").gooeymenu({
                 bgColor: "#85ccbb",
                 contentColor: "#000",
                 style: "horizontal",
@@ -479,11 +498,9 @@ $("#gooey-h").gooeymenu({
                 bounceLength: "small",
                 transitionStep: 100,
                 hover: "#eba190"
-            });
-
-
-        });
-    </script>
+	});
+});
+</script>
 
 <!-- 브라우저 크기에 맞춰 iframe사이즈 변경 -->
 <script type="text/javascript">
@@ -496,8 +513,17 @@ $("#gooey-h").gooeymenu({
 </script>
 
 <style>
-#iconimg{position:relative; top:12px;}
-#day{position:absolute; left:17px; top: 50px; color:black;}
+#iconimg {
+	position: relative;
+	top: 12px;
+}
+
+#day {
+	position: absolute;
+	left: 17px;
+	top: 50px;
+	color: black;
+}
 </style>
 
 
@@ -505,196 +531,252 @@ $("#gooey-h").gooeymenu({
 
 <body id="page-top">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-      <span class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span>
-      <span class="d-none d-lg-block"></span>
-   
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-   
-     <ul class="navbar-nav">
-        <li class="nav-item">
-           <!-- 홈으로 돌아가기 -->
-      <a href="hom"></a>
-      <!-- 메뉴 드롭다운바 -->
-    <div class="row" id="row1">
-        <div class="col-xs-12 col-sm-6 col-md-5">
-            <nav id="gooey-h">
-                <input type="checkbox" class="menu-open" name="menu-open2" id="menu-open2">
-				  <label class="open-button" for="menu-open2">
-				   <!-- 프로필 이미지 들어가는 공간 -->
-				  <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="resources/img/head.png" alt="">
-				  </label>
-				  <a href="logout" class="gooey-menu-item">로그아웃</a>
-				  <a href="update" class="gooey-menu-item">회원정보수정<li></li></a>
-				  <a href="home" class="gooey-menu-item">홈으로 </a>
-		    </nav>   
-        </div>
-    </div>
-<!-- 끝 -->
-	      <table>
-		        <div class="social-icons">
-		        
-		        <!-- 달력 -->
-			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="calendar" target="box2" id="calendar">
-			          <div id="iconimg"> <img src="resources/img/cal.png" width=80 height=80 >
-			          </div>
-			          <!-- 세션에 저장된 날짜의 값 -->
-			         <div id="day" style="line-height:0.5cm; padding-left: 25px;">
-			        	 ${oneyear}<br>
-			        	 ${onedays}
-			         </div>
-			          </a>
-			        </li>
-		        
-			        <!-- 날씨 -->
-			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="weather" target="box2" id="weather">
-			        <div id="iconimg"><img src="resources/img/sun.png" width=80 height=80></div> </a>
-			        </li>
-			      
-			        <!-- 뉴스 -->
-			        <li class="nav-item">
-			          <a class="nav-link js-scroll-trigger" href="news" target="box2" id="news">
-			          <div id="iconimg"> <img src="resources/img/newsp.png" width=80 height=80></div></a>
-			        </li>
-	
-				</div>
-		  
-		  </table>
-		        
-				
-     	   </li>
-    	</ul>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
+		id="sideNav">
+		<a class="navbar-brand js-scroll-trigger" href="#page-top"> <span
+			class="d-block d-lg-none">3W에 오신 것을 환영합니다 </span> <span
+			class="d-none d-lg-block"></span>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<!-- 홈으로 돌아가기 --> <a href="hom"></a> <!-- 메뉴 드롭다운바 -->
+						<div class="row" id="row1">
+							<div class="col-xs-12 col-sm-6 col-md-5">
+								<nav id="gooey-h">
+									<input type="checkbox" class="menu-open" name="menu-open2"
+										id="menu-open2"> <label class="open-button"
+										for="menu-open2"> <!-- 프로필 이미지 들어가는 공간 --> <img
+										class="img-fluid img-profile rounded-circle mx-auto mb-2"
+										src="resources/img/head.png" alt="">
+									</label> <a href="logout" class="gooey-menu-item">로그아웃</a> <a
+										href="update" class="gooey-menu-item">회원정보수정
+										<li></li>
+									</a> <a href="home" class="gooey-menu-item">홈으로 </a>
+								</nav>
+							</div>
+						</div> <!-- 끝 -->
+						<table>
+							<div class="social-icons">
+
+								<!-- 달력 -->
+								<li class="nav-item"><a class="nav-link js-scroll-trigger"
+									href="calendar" target="box2" id="calendar">
+										<div id="iconimg">
+											<img src="resources/img/cal.png" width=80 height=80>
+										</div> <!-- 세션에 저장된 날짜의 값 -->
+										<div id="day" style="line-height: 0.5cm; padding-left: 25px;">
+											${oneyear}<br> ${onedays}
+										</div>
+								</a></li>
+
+								<!-- 날씨 -->
+								<li class="nav-item"><a class="nav-link js-scroll-trigger"
+									href="weather" target="box2" id="weather">
+										<div id="iconimg">
+											<img src="resources/img/sun.png" width=80 height=80>
+										</div>
+								</a></li>
+
+								<!-- 뉴스 -->
+								<li class="nav-item"><a class="nav-link js-scroll-trigger"
+									href="news" target="box2" id="news">
+										<div id="iconimg">
+											<img src="resources/img/newsp.png" width=80 height=80>
+										</div>
+								</a></li>
+
+							</div>
+
+						</table>
+
+
+					</li>
+				</ul>
+			</div>
+	</nav>
+
+	</section>
+
+	</table>
+
+	<!-- 화면 이중분할 -->
+	<!-- 맵전환버튼  -->
+	<a id="mapChangeButton" style="visibility: visible;">
+		<div class="mapchagebtn">
+			<!-- style="width:75; height:30px; font-family:inherit; font-weight: 700; background-color:#85ccbb; border:0 solid #a9d7cc"  -->
+			<button type="button" id="mapChangeBtn"
+				style="background-color: #85ccbb; border: 0px">
+				<img src="resources/img/map.png" width="40" height="40">
+			</button>
+		</div>
+	</a>
+	<div class="divide">
+		<iframe width="90%" height="400px"
+			style="position: relative; left: 70px; display: block; border-width: 10px; border-style: solid; border-color: #85ccbb;"
+			src="map_Main" name="box1" frameborder=0 framespacing=0
+			marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe>
+		<br>
+		<!-- 위에가 바뀜 -->
+		<iframe width="100%" class="myFrame" height="700px" src="scheduleplus"
+			name="box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0
+			scrolling=no vspace=0 allowTransparency="true"></iframe>
+		<!-- 아래가 바뀜 -->
+		<!-- height 앞에 onload="autoResize(this)"  -->
 	</div>
-        
 
-  </nav>
 
-    </section>
-		
-		</table>
-		
-		<!-- 화면 이중분할 -->
-			<!-- 맵전환버튼  -->
-			<a id="mapChangeButton" style="visibility: visible;">
-				<div class="mapchagebtn">
-				<!-- style="width:75; height:30px; font-family:inherit; font-weight: 700; background-color:#85ccbb; border:0 solid #a9d7cc"  -->
-					<button type="button" id="mapChangeBtn" style="background-color:#85ccbb; border:0px">
-					<img src="resources/img/map.png" width="40" height="40">
+	<!-- 입력용 모달-->
+	<div class="modal fade" id="insertModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">일정 입력</h5>
+					<button type="button" class="btn btn-primary" id="btin">일정
+						등록</button>
+				</div>
+
+				<div class="modal-body">
+					<form id="insert">
+						<input type="hidden" name="email" value="${sessionScope.loginId}">
+						<label for="schedulecontent" class="col-form-label">제목</label> <input
+							type="text" class="form-control" name="scontent" id="inscontent">
+						<br> <label for="startdate" class="col-form-label">시작일</label>
+						<br> <input type="text" name="startdate" id="instartdate"
+							style="width: 100px; float: left;"> <input type="text"
+							name="startdate" id="instarttime" style="width: 100px;">
+						<h4>~</h4>
+						<label for="enddate" class="col-form-label">종료일</label> <br>
+						<input type="text" name="enddate" id="inenddate"
+							style="width: 100px; float: left;"> <input type="text"
+							name="enddate" id="inendtime" style="width: 100px;"> <br>
+						<label for="slocation" class="col-form-label">위치 &nbsp;
+							<button type="button" id="inmap" onclick="submitToMapSearch()"
+								style="background-color: white; border: 0px">
+								<img src="resources/img/search.png" width="20" height="20">
+							</button>
+							<button type="button" id="inmapClose" onclick="MapSearchClose()"
+								style="background-color: white; border: 0px">
+								<img src="resources/img/closed.png" width="20" height="20">
+							</button>
+						</label><br> <input type="text" class="form-control" name="slocation"
+							id="inslocation"> <input type="hidden" id="slat"
+							name="slatitude"> <input type="hidden" id="slon"
+							name="slongitude">
+											
+						<div id="searchMapControl" style="display: none">
+							<iframe width="100%" height="400px" src="map_Search"
+								name="slocationMap" id="slocationMap"></iframe>
+							<br>
+							<div id="result_loc"></div>
+						</div>
+
+						<label for="subroute" class="col-form-label">길찾기 경로 &nbsp;
+							<button type="button" id="submap" onclick="Search_sub()"
+								style="background-color: white; border: 0px">
+								<img src="resources/img/search.png" width="20" height="20">
+							</button>
+							<button type="button" id="submapClose" onclick="subMapClose()"
+								style="background-color: white; border: 0px">
+								<img src="resources/img/closed.png" width="20" height="20">
+							</button>
+						</label><br> <input type="text" class="form-control"
+							readonly="readonly" id="subroute" name="subroute"> <input
+							type="hidden" name="subpath" id="input_sub">
+						<div id="subMapControl" style="display: none">
+							<iframe width="100%" height="400px" src="map_Traffic"
+								name="subpathMap" id="subpathMap"></iframe>
+							<br>
+							<div id="result_taxi"></div>
+							<br>
+							<div id="result_sub"></div>
+
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onclick="ClickClose()">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 수정용 모달 -->
+	<div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">일정 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-			</a>
-			<div class="divide">
-			<iframe width="90%" height="400px" style="position:relative; left:70px; display:block; border-width: 10px; border-style: solid; border-color:#85ccbb;" src="map_Main" name = "box1" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 id="mapIframe"></iframe><br> <!-- 위에가 바뀜 -->
-			<iframe width="100%" class="myFrame" height="700px"  src="scheduleplus" name = "box2" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 allowTransparency="true"></iframe> <!-- 아래가 바뀜 -->
-			<!-- height 앞에 onload="autoResize(this)"  -->
+
+				<div class="modal-body">
+					<form id="update">
+						<input type="hidden" name="email" id="setemail"
+							value="${sessionScope.loginId}"> <input type="hidden"
+							name="snum" id="setnum"> <label for="schedulecontent"
+							class="col-form-label">제목</label> <input type="text"
+							class="form-control" name="scontent" id="setscontent"><br>
+
+						<label for="starttime">시작일</label><br> <input type="text"
+							name="startdate" id="setstartdate" style="width: 100px;">
+						<input type="text" name="startdate" id="setstarttime"
+							style="width: 100px;">
+						<h4>~</h4>
+						<label for="enddate">종료일</label><br> <input type="text"
+							name="enddate" id="setenddate" style="width: 100px;"> <input
+							type="text" name="enddate" id="setendtime" style="width: 100px;"><br>
+						<label for="local">위치</label> <input type="text"
+							class="form-control" name="slocation" id="setslocation">
+						<label for="local">길찾기 경로</label> <input type="text"
+							class="form-control" name="subroute" id="setsubroute"
+							readonly="readonly">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btde">삭제하기</button>
+					<button type="button" class="btn btn-primary" id="btup">수정하기</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">닫기</button>
+				</div>
 			</div>
-		
-	
-	<!-- 입력용 모달-->
-	<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">일정 입력</h5>
-        <button type="button" class="btn btn-primary" id="btin">일정 등록</button>
-      </div>
-     
-      <div class="modal-body">
-        <form id="insert">
-        <input type="hidden" name="email" value="${sessionScope.loginId}">
-        <label for="schedulecontent" class="col-form-label">제목</label>
-        <input type="text" class="form-control" name = "scontent" id="inscontent">
-        <br>
-        
-            <label for="startdate" class="col-form-label">시작일</label>
-            <br>
-            <input type="text" name = "startdate" id="instartdate" style="width:100px; float:left;">
-            <input type="text" name = "startdate" id="instarttime" style="width:100px;">
-           <h4>~</h4>
-            <label for="enddate" class="col-form-label">종료일</label>
-            <br>
-            <input type="text" name = "enddate" id="inenddate" style="width:100px; float:left;">
-            <input type="text" name = "enddate" id="inendtime" style="width:100px;">
-            <br>
-            <label for="slocation" class="col-form-label">위치 &nbsp; <button type="button" id="inmap" onclick="submitToMapSearch()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="inmapClose" onclick="MapSearchClose()" style="background-color:white; border:0px"><img src="resources/img/closed.png" width="20" height="20"></button></label><br>
-            <input type="text" class="form-control" name = "slocation" id="inslocation">
-           	<input type="hidden" id="slat" name="slatitude">
-           	<input type="hidden" id="slon" name="slongitude">
-            <div id="searchMapControl" style="display:none">
-            	<iframe width="100%" height="400px" src="map_Search" name = "slocationMap" id = "slocationMap"></iframe><br>
-            	<div id="result_loc"></div>
-            </div>
-           
-            <label for="subroute" class="col-form-label">길찾기 경로 &nbsp; <button type="button" id="submap" onclick="Search_sub()" style="background-color:white; border:0px"><img src="resources/img/search.png" width="20" height="20"></button> <button type="button" id="submapClose" onclick="subMapClose()" style="background-color:white; border:0px"><img src="resources/img/closed.png" width="20" height="20"></button></label><br>
-            <input type="text" class="form-control"  readonly="readonly" id="subroute" name="subroute"> 
-            <input type="hidden" name="subpath" id="input_sub">
-            <div id="subMapControl" style="display:none">
-            	<iframe width="100%" height="400px" src="map_Traffic" name = "subpathMap" id = "subpathMap"></iframe><br>
-            	<div id="result_taxi"></div><br>
-            	<div id="result_sub"></div>	           	
+		</div>
+	</div>
 
-            </div>            
-			
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ClickClose()">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
 
- <!-- 수정용 모달 -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">일정 수정</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+	<!-- 하단 이미지 -->
+	<!-- 맵 확대 축소 -->
 
-      <div class="modal-body">
-        <form id="update">
-        <input type="hidden" name="email" id="setemail" value="${sessionScope.loginId}">
-        <input type="hidden" name="snum" id="setnum">
-        <label for="schedulecontent" class="col-form-label">제목</label>
-        <input type="text" class="form-control" name = "scontent" id="setscontent"><br>
-        
-            <label for="starttime">시작일</label><br>
-            <input type="text" name = "startdate" id="setstartdate" style="width:100px;">
-            <input type="text" name = "startdate" id="setstarttime" style="width:100px;">
-           <h4>~</h4>
-            <label for="enddate">종료일</label><br>
-            <input type="text" name = "enddate" id="setenddate" style="width:100px;">
-            <input type="text" name = "enddate" id="setendtime" style="width:100px;"><br>
-            <label for="local">위치</label>
-            <input type="text" class="form-control" name = "slocation" id="setslocation">
-            <label for="local">길찾기 경로</label>
-            <input type="text" class="form-control" name = "subroute" id="setsubroute" readonly="readonly">
-        </form>
-      </div>
-      <div class="modal-footer">
-   	    <button type="button" class="btn btn-primary" id="btde">삭제하기</button>
-        <button type="button" class="btn btn-primary" id="btup">수정하기</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
-			
+	<div id="mapplusbtn"
+		style="position: absolute; top: 65px; left: 260px;">
+		<button onClick="mapMainIn()"
+			style="background-color: transparent !important; border: none;">
+			<img src="resources/img/plus.png" width="30" height="30">
+		</button>
+		<button onClick="mapMainOut()"
+			style="background-color: transparent !important; border: none;">
+			<img src="resources/img/minus.png" width="30" height="30">
+		</button>
+	</div>
 
-  <!-- 하단 이미지 -->
-   <div class="footer">
-    <p class="copyright"><img src="resources/img/underbanner2.png" width="100%" height="20%"></p>
-  	</div>
+	<div class="footer">
+		<p class="copyright">
+			<img src="resources/img/underbanner2.png" width="100%" height="20%">
+		</p>
+	</div>
 </body>
 </html>
-		

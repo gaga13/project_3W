@@ -47,7 +47,6 @@ function locationSearch(){
 			type: 'POST',
 			data: {loc: loc},
 			success: function(){
-				alert('저장성공');
 				history.go(0);
 			},
 			error: function (e) {

@@ -286,13 +286,6 @@ function setSession(olonlat, slocation){
 <title>Insert title here</title>
 </head>
 <body>
-	
 	<div id="map_div">
-	<button onClick="zoomIn()" >
-	<img src="resources/img/plus.png" width="20" height="20">
-	</button>
-	<button onClick="zoomOut()">
-	<img src="resources/img/minus.png" width="20" height="20">
-	</button></div>
 </body>
 </html>
