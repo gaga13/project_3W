@@ -22,9 +22,11 @@
 	update
 		user_info
 	set
-		  password = #{password}
-		, username = #{username}
+		username = #{username}
 		, userbirthdate = #{userbirthdate}
+		<if test='password != null and password != ""'>
+		, password = #{password}
+		</if>
 	where
 		email = #{email}
 	</update>

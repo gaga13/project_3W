@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -45,6 +45,46 @@ function twitterDisconnect() {
 		}
 	});
 }
+
+	function updateCheck() {
+	    var pw = $('#password');
+	    var pw2 = $('#password2');
+	    var username = $('#username');
+	    var userbirthdate = $('#userbirthdate');
+	    
+	    if (username.val() == '') {
+	        alert('이름을 입력해 주세요.');
+	        username.select();
+	        username.focus();
+	        return false;
+	    }
+	    
+	    if (userbirthdate.val() == '') {
+	        alert('생일을 입력해 주세요.');
+	        userbirthdate.focus();
+	        return false;
+	    }
+	    
+	    if(pw.val() != ''){
+	  	  if(pw2.val() == ''){
+	        alert('확인용 비밀번호를 입력해 주세요.');
+	        pw2.select();
+	        pw2.focus();
+	        return false;
+	    	}
+	  		
+	  	  	if (pw.val() != pw2.val()) {
+	        	alert('비밀번호를 확인해 주세요.');
+	        	pw.select();
+	        	pw2.focus();
+	        	return false;
+	    	}
+	    
+	   	 }
+	    
+	    
+	    return true;
+}
 </script>
 <style>
 .button_1{position:relative; left:-280px; bottom:-150px;}
@@ -74,7 +114,7 @@ function twitterDisconnect() {
 						</tr>
 						<tr>
 							<td>생년월일</td>
-							<td>${member.userbirthdate}<input type="date"
+							<td><input type="date"
 								name="userbirthdate" id="userbirthdate"
 								value="${member.userbirthdate}" />
 							</td>
@@ -113,7 +153,7 @@ function twitterDisconnect() {
 					</div>
 					
 					<div class="button_2">
-						<button type="button" id="update" style="background-color:#F2F2F2; border:0px">
+						<button type="submit" id="update" style="background-color:#F2F2F2; border:0px">
 						<img src="resources/img/arrows.png" width="50" height="50">
 						</button>
 					</div>
