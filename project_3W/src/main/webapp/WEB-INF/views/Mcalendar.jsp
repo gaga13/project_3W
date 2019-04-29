@@ -28,6 +28,7 @@
 
 </style>
 <script>
+var information;
 $(function (){
 	calendar();
     $('#updateModal', parent.document).on('hide.bs.modal', function(e){;
@@ -50,6 +51,13 @@ function calendar() {
 						locale : initialLocaleCode,							
 						eventClick : function(info) {
 							
+							var clickDay;
+							for(var n =0; n<information.length;n++ ){
+								if(information[n].snum == info.id){
+								clickDay=information[n];
+								}
+							}
+							console.log(clickDay);
 							var std = info.start._i.split(" ");
 							var edd = info.end._i.split(" ");
 
@@ -77,6 +85,8 @@ function calendar() {
 							$('#updateModal #setstarttime',parent.document).val(startTimeSet);
 							$('#updateModal #setenddate',parent.document).val(edd[0]);
 							$('#updateModal #setendtime',parent.document).val(EndTimeSet);
+							$('#updateModal #setslocation', parent.document).val(clickDay.slocation);
+							$('#updateModal #setsubroute', parent.document).val(clickDay.subroute);
  
 							$('#updateModal',parent.document).modal('show');
 						    $('#updateModal',parent.document).on('shown.bs.modal', function(e){						    	
@@ -118,6 +128,7 @@ function calendar() {
 										dataType : 'json',
 										success : function(list) {
 											var events = [];
+											information = list;
 											console.log(list);
 											$.each(list,function(key,item) {
 											
