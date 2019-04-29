@@ -116,8 +116,10 @@ public class LoginController {
 		String email = (String) session.getAttribute("loginId");
 		MemberVO member = dao.getMember(email);
 		String birthdate = member.getUserbirthdate();
+		if(birthdate != null){
 		member.setUserbirthdate(birthdate.split(" ")[0]);
 		logger.debug("생일:{}", member.getUserbirthdate());
+		}
 		model.addAttribute("member", member);
 		logger.debug("member:{}", member);
 		return "login/updateForm";
