@@ -115,8 +115,10 @@ public class LoginController {
 		logger.info("수정폼 지나감");
 		String email = (String) session.getAttribute("loginId");
 		MemberVO member = dao.getMember(email);
+		String birthdate = member.getUserbirthdate();
+		member.setUserbirthdate(birthdate.split(" ")[0]);
+		logger.debug("생일:{}", member.getUserbirthdate());
 		model.addAttribute("member", member);
-		logger.debug("update");
 		logger.debug("member:{}", member);
 		return "login/updateForm";
 	}
@@ -128,7 +130,7 @@ public class LoginController {
 		String email = (String) session.getAttribute("loginId");
 		
 		String img = member.getsavedImage();
-		
+		MemberVO UpdateMember = dao.getMember(email);
 		String birth = member.getUserbirthdate();
 		logger.info("birth: {}",birth);
 		String birth2 = birth.substring(0, 4) + "/" + birth.substring(5,7) + "/" + birth.substring(8, 10);
@@ -157,9 +159,11 @@ public class LoginController {
         catch(Exception e){
         	e.printStackTrace();
         }			*/
-		
-		member.setEmail(email);
-		int result2 = dao.update(member);
+		UpdateMember.setUsername(member.getUsername());
+		UpdateMember.setUserbirthdate(member.getUserbirthdate());
+		UpdateMember.setPassword(member.getPassword());
+		logger.debug("수정용:{}",UpdateMember);
+		int result2 = dao.update(UpdateMember);
 		return "home";
 	}
 	
