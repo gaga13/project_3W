@@ -388,31 +388,10 @@ function searchRoute(){
 						alert(JSON.stringify(e));
 						alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 					}
-				});				
-				//callMapObjApiAJAX((JSON.parse(xhr.responseText))["result"]["path"][0].info.mapObj, lon1, lat1, lon2, lat2);
+				});
 			}
 		}
 	}
-
-/* 	//폴리라인 부분
- 	function callMapObjApiAJAX(mabObj){
-		var xhr = new XMLHttpRequest();
-		//ODsay apiKey 입력
-		var url = "https://api.odsay.com/v1/api/loadLane?mapObject=0:0@"+mabObj+"&apiKey=gDSRLToiMkQzCkBbo6vic9U4gHOXXEJVmikqh6HOVn4";
-		xhr.open("GET", url, true);
-		xhr.send();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				//var resultJsonData = JSON.parse(xhr.responseText);
-				var kmlForm = new Tmap.Format.KML({extractStyles:true}).read(xhr.responseText);
-				var vectorLayer = new Tmap.Layer.Vector("vectorLayerID");
-				vectorLayer.addFeatures(kmlForm);
-				map.addLayer(vectorLayer);
-				//경로 그리기 후 해당영역으로 줌  
-				map.zoomToExtent(vectorLayer.getDataExtent());
-			}
-		}
-	} */
 }
 
 </script>

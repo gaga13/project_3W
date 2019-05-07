@@ -201,12 +201,6 @@ $(document).ready(function(){
 <title>실시간 날씨 - 현재위치 자동으로 받아와서</title>
 </head>
 <body>
-<!-- 
-현재 기온 : <div id="outputDiv1"></div><br>
-날씨 : <div id="outputDiv2"> </div><br> -->
-
-<!-- <h3 color="white">오늘의 날씨 정보</h3> -->
-<!-- 날씨별 css -->
 
 <table  style="border-spacing: 400px;">
 

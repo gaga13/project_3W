@@ -130,12 +130,6 @@ function twitter_selectedSchedule(s){
 	$('#hiddenSelectedSnum').val(s);
 }
 function submitTwitt(){
-	/* var twitt = $('#selectedSchedule').val();	
-	//라디오 버튼 선택 안했을 때 예외처리
-	if(!$('input:radio[name=twittChk]').is(':checked')){
-		$('#notSelected').html('트윗할 일정을 선택해주세요');
-		return;
-	} */
 	//트위터 계정 연결 여부 확인
 	$.ajax({
 		url:'twitterTokenCheck',

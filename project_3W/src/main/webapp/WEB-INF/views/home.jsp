@@ -464,15 +464,6 @@ function changeMapIframe(){
 }
 </script>
 
-<!-- iframe오토 리사이즈 -->
-<!-- <script>
-//iframe resize
-function autoResize(i){
-   var iframeHeight = (i).contentWindow.document.body.scrollHeight;
-   (i).height = iframeHeight + 20;
-}
-</script> -->
-
 <!-- 메뉴 드롭다운 스크립트 -->
 <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"
    type="text/javascript"></script>

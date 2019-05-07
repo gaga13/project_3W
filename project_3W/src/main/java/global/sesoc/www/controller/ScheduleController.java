@@ -41,6 +41,7 @@ public class ScheduleController {
 		session.setAttribute("sysdate", newdate);
 		
 	}
+	
 	//하루 스케쥴 목록 가져오기
 	@ResponseBody
 	@RequestMapping(value = "getScheduleList", method = RequestMethod.POST)

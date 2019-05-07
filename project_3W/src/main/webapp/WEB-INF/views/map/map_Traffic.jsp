@@ -168,14 +168,7 @@ function total(lon1, lat1, lon2, lat2){
 		     $xml = $( xmlDoc ),
 		     $intRate = $xml.find("Document");
 		     tDistance = ($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1);
- 		     
-/*		     var taxi = '<b>택시</b><br><table border="1"><tr><td>거리</td><td>시간(분)</td><td>요금</td></tr>';
-		     taxi+='<tr><td>'+tDistance+'</td>';
-		     taxi+='<td text-align="center">'+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+'</td>';
-		     var tFare = " 총 요금 : "+$intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue+"원,";
-		     taxi+='<td>'+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+'</td></tr>';
-			taxi+='</table>'; */
-			
+ 		   
 			 taxi += '<b>택시</b><br>';
 		     taxi+='<span>거리 : '+tDistance+"km, ";
 		     taxi+='시간 : '+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+'분, ';

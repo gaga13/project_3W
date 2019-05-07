@@ -80,7 +80,7 @@ function joinCheck(){
 			if(emailCheck == 'no'){
 				//회원가입 성공 후  '본인인증' 창 띄우기
 				document.getElementById("joinImage").style.visibility='visible';
-				setTimeout(function (){document.getElementById("joinImage").style.visibility='hidden'},3000);
+				setTimeout(function (){document.getElementById("joinImage").style.visibility='hidden'},2000);
 				$('#email').val('');
 				$('#password').val('');
 				$('#email').focus();
